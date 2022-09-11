@@ -19,6 +19,9 @@
       "net.spelldamage.fabric.SpellDamageFabric"
     ]
   },
+  "mixins": [
+    "spelldamage.mixins.json"
+  ],
   "depends": {
     "minecraft": "1.19.X",
     "fabricloader": ">=0.14.0"
