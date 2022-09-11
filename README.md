@@ -27,21 +27,13 @@ dependencies {
 }
 ```
 
-(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-damage-attribute/versions), for example: `1.0.8+1.19`)
+(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-damage-attribute/versions), for example: `1.0.0+1.19`)
 
 In `fabric.mod.json` add a dependency to the mod:
 ```json
   "depends": {
-    "projectiledamage": ">=VERSION"
+    "spelldamage": ">=VERSION"
   },
 ```
 
-(Substitute `VERSION` with the latest release version of this mod, for example: `1.0.8+1.19`)
-
-Make sure the inheritance chain of your custom ranged weapon includes `RangedWeaponItem` or provide a custom implementation of `net.projectiledamage.api.IProjectileWeapon` interface (default implementaion can be found [here](./src/main/java/net/projectiledamage/api/IProjectileWeapon.java)).
-
-Set the spell damage for your weapon instance, preferably before registering it:
-```java
-var myFancyBow = MyFancyBow();
-((IProjectileWeapon)myFancyBow).setProjectileDamage(7);
-```
+(Substitute `VERSION` with the latest release version of this mod, for example: `1.0.0+1.19`)
