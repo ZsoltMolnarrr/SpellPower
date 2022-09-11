@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "spelldamage",
+  "version": "${version}",
+  "name": "Spelldamage",
+  "description": "Spell Damage Attribute mod to scale and synergize with damage output of spells/artifacts.",
+  "authors": [
+    "Daedelus"
+  ],
+  "contact": {
+    "repo": "https://github.com/ZsoltMolnarrr/SpellDamage",
+    "issues": "https://github.com/ZsoltMolnarrr/SpellDamage/issues"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.spelldamage.fabric.SpellDamageFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "minecraft": ">=1.19.2"
+  }
+}
