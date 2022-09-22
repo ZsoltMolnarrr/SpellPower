@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.spelldamage.fabric.SpellDamageFabric"
+      "net.spelldamage.fabric.FabricMod"
     ]
   },
   "mixins": [
