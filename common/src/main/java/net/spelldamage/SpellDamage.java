@@ -3,6 +3,7 @@ package net.spelldamage;
 import net.minecraft.util.registry.Registry;
 import net.spelldamage.api.Enchantments_SpellDamage;
 import net.spelldamage.api.EntityAttributes_SpellDamage;
+import net.spelldamage.config.AttributesConfig;
 import net.spelldamage.config.EnchantmentConfig;
 import net.tinyconfig.ConfigManager;
 
@@ -16,9 +17,16 @@ public class SpellDamage {
             .sanitize(true)
             .build();
 
+    public static ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
+            ("attributes", new AttributesConfig())
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .build();
 
     public static void init() {
         enchantmentConfig.refresh();
+        attributesConfig.refresh();
     }
 
     public static void registerAttributes() {

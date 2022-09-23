@@ -9,7 +9,7 @@
 # 🔮️ Features
 
 Adds new entity attributes:
-- Multiple kind of Spell Damage
+- Multiple kind of Spell damage
 - Spell critical chance
 - Spell critical damage
 - Spell haste

@@ -11,11 +11,13 @@ public class EntityAttributes_SpellDamage {
     private static final String translationPrefix = "attribute.name.spell_damage.";
     public static final String criticalChanceName = "critical_chance";
     public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, criticalChanceName);
-    public static final EntityAttribute CRITICAL_CHANCE = new ClampedEntityAttribute(translationPrefix + criticalChanceName, 0, 0.0, 2048.0);
+    public static final double criticalChanceBaseline = 100;
+    public static final EntityAttribute CRITICAL_CHANCE = new ClampedEntityAttribute(translationPrefix + criticalChanceName, criticalChanceBaseline, criticalChanceBaseline, criticalChanceBaseline * 2);
 
     public static final String criticalDamageName = "critical_damage";
     public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, criticalDamageName);
-    public static final EntityAttribute CRITICAL_DAMAGE = new ClampedEntityAttribute(translationPrefix + criticalDamageName, 0, 0.0, 2048.0);
+    public static final double criticalDamageBaseline = 100;
+    public static final EntityAttribute CRITICAL_DAMAGE = new ClampedEntityAttribute(translationPrefix + criticalDamageName, criticalDamageBaseline, criticalDamageBaseline, criticalDamageBaseline * 10);
 
     public static final String hasteName = "haste";
     public static final Identifier hasteId = new Identifier(SpellDamage.MOD_ID, hasteName);
