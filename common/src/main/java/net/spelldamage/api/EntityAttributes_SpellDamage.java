@@ -8,39 +8,40 @@ import net.spelldamage.SpellDamage;
 import java.util.*;
 
 public class EntityAttributes_SpellDamage {
+    private static final String translationPrefix = "attribute.name.spell_damage.";
+    public static final String criticalChanceName = "critical_chance";
+    public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, criticalChanceName);
+    public static final EntityAttribute CRITICAL_CHANCE = new ClampedEntityAttribute(translationPrefix + criticalChanceName, 0, 0.0, 2048.0);
+
+    public static final String criticalDamageName = "critical_damage";
+    public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, criticalDamageName);
+    public static final EntityAttribute CRITICAL_DAMAGE = new ClampedEntityAttribute(translationPrefix + criticalDamageName, 0, 0.0, 2048.0);
+
+    public static final String hasteName = "haste";
+    public static final Identifier hasteId = new Identifier(SpellDamage.MOD_ID, hasteName);
+    public static final EntityAttribute HASTE = new ClampedEntityAttribute(translationPrefix + hasteName, 0, 0.0, 2048.0);
+
 
     // spell crit
     // spell haste
 
     public static List<EntityAttribute> all;
-    public static Map<Type, EntityAttribute> types;
+    public static Map<MagicSchool, EntityAttribute> types;
 
-    private static EntityAttribute createAttribute(Type type) {
-        return new ClampedEntityAttribute("attribute.name.spell_damage." + type.spellName(), 0, 0.0, 2048.0);
+    private static EntityAttribute createAttribute(MagicSchool MagicSchool) {
+        return new ClampedEntityAttribute(translationPrefix + MagicSchool.spellName(), 0, 0.0, 2048.0);
     }
 
     static {
         all = new ArrayList<>();
         types = new HashMap<>();
-        for(var type: Type.values()) {
-            var attribute= createAttribute(type);
-            types.put(type, attribute);
+        for(var MagicSchool: MagicSchool.values()) {
+            var attribute= createAttribute(MagicSchool);
+            types.put(MagicSchool, attribute);
             all.add(attribute);
         }
-
-
-//        all = Arrays.stream(Type.values()).map(EntityAttributes_SpellDamage::createAttribute).toList();
-    }
-
-    public enum Type {
-        FIRE, FROST, SHADOW;
-
-        public String spellName() {
-            return this.toString().toLowerCase();
-        }
-
-        public Identifier attributeId() {
-            return new Identifier(SpellDamage.MOD_ID + ":" + spellName());
-        }
+        all.add(CRITICAL_CHANCE);
+        all.add(CRITICAL_DAMAGE);
+        all.add(HASTE);
     }
 }

@@ -14,6 +14,7 @@ public class ForgeMod {
         // Submit our event bus to let architectury register our content on the right time
         // EventBuses.registerModEventBus(SpellDamage.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         SpellDamage.init();
+        SpellDamage.configureEnchantments();
     }
 
     @SubscribeEvent
