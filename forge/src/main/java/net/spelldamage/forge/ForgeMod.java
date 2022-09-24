@@ -22,7 +22,7 @@ public class ForgeMod {
         // These don't seem to do anything :D
         event.register(ForgeRegistries.Keys.ATTRIBUTES,
                 helper -> {
-                    for(var entry: EntityAttributes_SpellDamage.types.entrySet()) {
+                    for(var entry: EntityAttributes_SpellDamage.schools.entrySet()) {
                         helper.register(entry.getKey().attributeId(), entry.getValue());
                     }
                 }

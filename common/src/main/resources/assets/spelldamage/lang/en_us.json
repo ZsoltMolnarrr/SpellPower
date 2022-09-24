@@ -10,5 +10,11 @@
   "enchantment.spelldamage.spell_power" : "Spell Power",
   "enchantment.spelldamage.spell_power.desc" : "Increases the all kind of spell damage you deal",
   "enchantment.spelldamage.soulfrost" : "Soulfrost",
-  "enchantment.spelldamage.soulfrost.desc" : "Increases the all kind of spell damage you deal"
+  "enchantment.spelldamage.soulfrost.desc" : "Increases the all kind of spell damage you deal",
+
+  "enchantment.spelldamage.critical_chance" : "Blasting",
+  "enchantment.spelldamage.critical_chance.desc" : "Increases chance of critical strikes done with spells",
+  "enchantment.spelldamage.critical_damage" : "Destruction",
+  "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells"
+
 }

@@ -42,10 +42,6 @@ public class SpellDamage {
     }
 
     public static void configureEnchantments() {
-        for(var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
-            var configKey = entry.getKey().getPath();
-            var properties = enchantmentConfig.currentConfig.damage_enchantments.get(configKey);
-            entry.getValue().properties = properties;
-        }
+        enchantmentConfig.currentConfig.apply();
     }
 }
