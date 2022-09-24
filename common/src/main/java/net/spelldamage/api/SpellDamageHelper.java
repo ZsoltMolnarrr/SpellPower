@@ -16,7 +16,13 @@ public class SpellDamageHelper {
     public static double getSpellDamage(PlayerEntity player, MagicSchool school, boolean allowCriticalStrike) {
         var attribute = EntityAttributes_SpellDamage.types.get(school);
         var value = player.getAttributeValue(attribute);
-        value = Enchantments_SpellDamage.SPELL_POWER.apply(value, EnchantmentHelper.getEquipmentLevel(Enchantments_SpellDamage.SPELL_POWER, player));
+        for (var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
+            var enchantment = entry.getValue();
+            if (enchantment.canBeAppliedFor(school)) {
+                var level = EnchantmentHelper.getEquipmentLevel(enchantment, player);
+                value = enchantment.amplify(value, level);
+            }
+        }
 
         if (allowCriticalStrike) {
             boolean isCritical = false;

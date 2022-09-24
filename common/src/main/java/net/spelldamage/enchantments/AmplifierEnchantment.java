@@ -27,7 +27,7 @@ public class AmplifierEnchantment extends Enchantment {
         }
     }
 
-    public double apply(double value, int level) {
+    public double amplify(double value, int level) {
         switch (operation) {
             case ADD -> {
                 return value += ((float)level) * properties.bonus_per_level;

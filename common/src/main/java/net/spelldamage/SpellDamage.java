@@ -36,9 +36,16 @@ public class SpellDamage {
     }
 
     public static void registerEnchantments() {
-        Registry.register(Registry.ENCHANTMENT, Enchantments_SpellDamage.spellPowerId, Enchantments_SpellDamage.SPELL_POWER);
+        for(var entry: Enchantments_SpellDamage.all.entrySet()) {
+            Registry.register(Registry.ENCHANTMENT, entry.getKey(), entry.getValue());
+        }
     }
 
     public static void configureEnchantments() {
+        for(var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
+            var configKey = entry.getKey().getPath();
+            var properties = enchantmentConfig.currentConfig.damage_enchantments.get(configKey);
+            entry.getValue().properties = properties;
+        }
     }
 }
