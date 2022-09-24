@@ -21,7 +21,8 @@ abstract class LivingEntityMixin extends Entity {
             method = "createLivingAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;",
             require = 1, allow = 1, at = @At("RETURN"))
     private static void addAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
-        for (var attribute: EntityAttributes_SpellDamage.all) {
+        for (var entry: EntityAttributes_SpellDamage.all.entrySet()) {
+            var attribute = entry.getValue();
             info.getReturnValue().add(attribute);
         }
     }

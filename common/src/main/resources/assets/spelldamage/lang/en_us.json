@@ -3,6 +3,10 @@
   "attribute.name.spell_damage.frost" : "Frost Spell Damage",
   "attribute.name.spell_damage.shadow" : "Shadow Spell Damage",
 
+  "attribute.name.spell.critical_chance" : "Spell Critical Chance",
+  "attribute.name.spell.critical_damage" : "Spell Critical Damage",
+  "attribute.name.spell.haste" : "Spell Haste",
+
   "enchantment.spelldamage.spell_power" : "Spell Power",
   "enchantment.spelldamage.spell_power.desc" : "Increases the all kind of spell damage you deal",
   "enchantment.spelldamage.soulfrost" : "Soulfrost",

@@ -30,8 +30,8 @@ public class SpellDamage {
     }
 
     public static void registerAttributes() {
-        for(var entry: EntityAttributes_SpellDamage.types.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, entry.getKey().attributeId(), entry.getValue());
+        for(var entry: EntityAttributes_SpellDamage.all.entrySet()) {
+            Registry.register(Registry.ATTRIBUTE, entry.getKey(), entry.getValue());
         }
     }
 

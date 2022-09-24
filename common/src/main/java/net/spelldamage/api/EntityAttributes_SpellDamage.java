@@ -8,42 +8,40 @@ import net.spelldamage.SpellDamage;
 import java.util.*;
 
 public class EntityAttributes_SpellDamage {
-    private static final String translationPrefix = "attribute.name.spell_damage.";
+    private static final String spellTranslationPrefix = "attribute.name.spell.";
+
     public static final String criticalChanceName = "critical_chance";
     public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, criticalChanceName);
     public static final double criticalChanceBaseline = 100;
-    public static final EntityAttribute CRITICAL_CHANCE = new ClampedEntityAttribute(translationPrefix + criticalChanceName, criticalChanceBaseline, criticalChanceBaseline, criticalChanceBaseline * 2);
+    public static final EntityAttribute CRITICAL_CHANCE = new ClampedEntityAttribute(spellTranslationPrefix + criticalChanceName, criticalChanceBaseline, criticalChanceBaseline, criticalChanceBaseline * 2);
 
     public static final String criticalDamageName = "critical_damage";
     public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, criticalDamageName);
     public static final double criticalDamageBaseline = 100;
-    public static final EntityAttribute CRITICAL_DAMAGE = new ClampedEntityAttribute(translationPrefix + criticalDamageName, criticalDamageBaseline, criticalDamageBaseline, criticalDamageBaseline * 10);
+    public static final EntityAttribute CRITICAL_DAMAGE = new ClampedEntityAttribute(spellTranslationPrefix + criticalDamageName, criticalDamageBaseline, criticalDamageBaseline, criticalDamageBaseline * 10);
 
     public static final String hasteName = "haste";
     public static final Identifier hasteId = new Identifier(SpellDamage.MOD_ID, hasteName);
-    public static final EntityAttribute HASTE = new ClampedEntityAttribute(translationPrefix + hasteName, 0, 0.0, 2048.0);
+    public static final EntityAttribute HASTE = new ClampedEntityAttribute(spellTranslationPrefix + hasteName, 0, 0.0, 2048.0);
 
-
-    // spell crit
-    // spell haste
-
-    public static List<EntityAttribute> all;
-    public static Map<MagicSchool, EntityAttribute> types;
-
+    private static final String spellDamageTranslationPrefix = "attribute.name.spell_damage.";
     private static EntityAttribute createAttribute(MagicSchool MagicSchool) {
-        return new ClampedEntityAttribute(translationPrefix + MagicSchool.spellName(), 0, 0.0, 2048.0);
+        return new ClampedEntityAttribute(spellDamageTranslationPrefix + MagicSchool.spellName(), 0, 0.0, 2048.0);
     }
 
+    public static final Map<Identifier, EntityAttribute> all;
+    public static final Map<MagicSchool, EntityAttribute> types;
+
     static {
-        all = new ArrayList<>();
+        all = new HashMap<>();
         types = new HashMap<>();
-        for(var MagicSchool: MagicSchool.values()) {
-            var attribute= createAttribute(MagicSchool);
-            types.put(MagicSchool, attribute);
-            all.add(attribute);
+        for(var school: MagicSchool.values()) {
+            var attribute= createAttribute(school);
+            types.put(school, attribute);
+            all.put(school.attributeId(), attribute);
         }
-        all.add(CRITICAL_CHANCE);
-        all.add(CRITICAL_DAMAGE);
-        all.add(HASTE);
+        all.put(criticalChanceId, CRITICAL_CHANCE);
+        all.put(criticalDamageId, CRITICAL_DAMAGE);
+        all.put(hasteId, HASTE);
     }
 }
