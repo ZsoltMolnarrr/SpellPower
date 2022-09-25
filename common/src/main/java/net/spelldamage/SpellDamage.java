@@ -2,11 +2,10 @@ package net.spelldamage;
 
 import net.minecraft.util.registry.Registry;
 import net.spelldamage.api.Enchantments_SpellDamage;
-import net.spelldamage.api.EntityAttributes_SpellDamage;
-import net.spelldamage.api.StatusEffects_SpellDamage;
 import net.spelldamage.config.AttributesConfig;
 import net.spelldamage.config.EnchantmentConfig;
 import net.spelldamage.config.StatusEffectConfig;
+import net.spelldamage.internals.Attributes;
 import net.tinyconfig.ConfigManager;
 
 public class SpellDamage {
@@ -40,8 +39,8 @@ public class SpellDamage {
     }
 
     public static void registerAttributes() {
-        for(var entry: EntityAttributes_SpellDamage.all.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, entry.getKey(), entry.getValue());
+        for(var entry: Attributes.all.entrySet()) {
+            Registry.register(Registry.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
         }
     }
 
@@ -56,8 +55,8 @@ public class SpellDamage {
     }
 
     public static void registerStatusEffects() {
-        for(var entry: StatusEffects_SpellDamage.all.entrySet()) {
-            Registry.register(Registry.STATUS_EFFECT, entry.getKey(), entry.getValue());
+        for(var entry: Attributes.all.entrySet()) {
+            Registry.register(Registry.STATUS_EFFECT, entry.getValue().id, entry.getValue().statusEffect);
         }
     }
 }

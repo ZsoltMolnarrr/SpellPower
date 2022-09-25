@@ -17,6 +17,7 @@ public class EnchantmentConfig {
     );
     public AmplifierEnchantment.Properties critical_chance = new AmplifierEnchantment.Properties(5, 10, 9, 0.1F);
     public AmplifierEnchantment.Properties critical_damage = new AmplifierEnchantment.Properties(5, 10, 9, 0.1F);
+    public AmplifierEnchantment.Properties haste = new AmplifierEnchantment.Properties(5, 15, 17, 0.05F);
 
     // Helper
 
@@ -28,5 +29,6 @@ public class EnchantmentConfig {
         }
         Enchantments_SpellDamage.CRITICAL_CHANCE.properties = critical_chance;
         Enchantments_SpellDamage.CRITICAL_DAMAGE.properties = critical_damage;
+        Enchantments_SpellDamage.HASTE.properties = haste;
     }
 }

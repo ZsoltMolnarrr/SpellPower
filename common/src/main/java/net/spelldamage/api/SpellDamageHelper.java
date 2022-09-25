@@ -6,6 +6,8 @@ import net.spelldamage.SpellDamage;
 
 import java.util.Random;
 
+import static net.spelldamage.internals.Attributes.PERCENT_ATTRIBUTE_BASELINE;
+
 public class SpellDamageHelper {
     private static Random rng = new Random();
 
@@ -40,13 +42,13 @@ public class SpellDamageHelper {
     public static double getCriticalChance(PlayerEntity player) {
         var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_chance_percentage;
         return (base + player.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_CHANCE)  // 100 + 5% -> 105
-                - EntityAttributes_SpellDamage.criticalChanceBaseline)                         // -100
-                / EntityAttributes_SpellDamage.criticalChanceBaseline;                         // /100 -> 0.05
+                - PERCENT_ATTRIBUTE_BASELINE)                         // -100
+                / PERCENT_ATTRIBUTE_BASELINE;                         // /100 -> 0.05
     }
 
     public static double getCriticalDamage(PlayerEntity player) {
         var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_damage_percentage;
         var percent = base + player.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_DAMAGE);
-        return percent /  EntityAttributes_SpellDamage.criticalChanceBaseline;
+        return percent / PERCENT_ATTRIBUTE_BASELINE;
     }
 }

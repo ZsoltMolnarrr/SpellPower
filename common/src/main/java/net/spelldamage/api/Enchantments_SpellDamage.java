@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.spelldamage.SpellDamage;
 import net.spelldamage.config.EnchantmentConfig;
 import net.spelldamage.internals.AmplifierEnchantment;
+import net.spelldamage.internals.Attributes;
 import net.spelldamage.internals.SchoolFilteredEnchantment;
 
 import java.util.EnumSet;
@@ -41,10 +42,9 @@ public class Enchantments_SpellDamage {
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
 
-    // Secondary enchants
+    // Rating enchants
 
-    public static final String criticalChanceName = "critical_chance";
-    public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, criticalChanceName);
+    public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, Attributes.CRITICAL_CHANCE);
     public static final AmplifierEnchantment CRITICAL_CHANCE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
@@ -52,14 +52,22 @@ public class Enchantments_SpellDamage {
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
 
-    public static final String criticalDamageName = "critical_damage";
-    public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, criticalDamageName);
+    public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, Attributes.CRITICAL_DAMAGE);
     public static final AmplifierEnchantment CRITICAL_DAMAGE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
             config().critical_damage,
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
+
+    public static final Identifier hasteId = new Identifier(SpellDamage.MOD_ID, Attributes.HASTE);
+    public static final AmplifierEnchantment HASTE = new AmplifierEnchantment(
+            Enchantment.Rarity.RARE,
+            MULTIPLY,
+            config().haste,
+            WEAPON,
+            new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
+
 
     // Helpers
 
@@ -73,6 +81,7 @@ public class Enchantments_SpellDamage {
         Map<Identifier, AmplifierEnchantment> secondaries = new HashMap<>();
         secondaries.put(criticalChanceId, CRITICAL_CHANCE);
         secondaries.put(criticalDamageId, CRITICAL_DAMAGE);
+        secondaries.put(hasteId, HASTE);
 
         all = new HashMap<>();
         all.putAll(damageEnchants);

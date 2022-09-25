@@ -1,23 +1,29 @@
 {
-  "attribute.name.spell_damage.fire" : "Fire Spell Damage",
-  "attribute.name.spell_damage.frost" : "Frost Spell Damage",
-  "attribute.name.spell_damage.shadow" : "Shadow Spell Damage",
+  "attribute.name.spell.damage.fire" : "Fire Spell Damage",
+  "attribute.name.spell.damage.frost" : "Frost Spell Damage",
+  "attribute.name.spell.damage.shadow" : "Shadow Spell Damage",
 
-  "attribute.name.spell.critical_chance" : "Spell Critical Chance",
-  "attribute.name.spell.critical_damage" : "Spell Critical Damage",
-  "attribute.name.spell.haste" : "Spell Haste",
+  "effect.spelldamage.fire": "Fire Power",
+  "effect.spelldamage.frost": "Frost Power",
+  "effect.spelldamage.shadow": "Shadow Power",
 
   "enchantment.spelldamage.spell_power" : "Spell Power",
   "enchantment.spelldamage.spell_power.desc" : "Increases the all kind of spell damage you deal",
   "enchantment.spelldamage.soulfrost" : "Soulfrost",
   "enchantment.spelldamage.soulfrost.desc" : "Increases the all kind of spell damage you deal",
 
+  "attribute.name.spell.critical_chance" : "Spell Critical Chance",
+  "attribute.name.spell.critical_damage" : "Spell Critical Damage",
+  "attribute.name.spell.haste" : "Spell Haste",
+
   "enchantment.spelldamage.critical_chance" : "Blasting",
   "enchantment.spelldamage.critical_chance.desc" : "Increases chance of critical strikes done with spells",
   "enchantment.spelldamage.critical_damage" : "Destruction",
   "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells",
+  "enchantment.spelldamage.haste" : "Quicken",
+  "enchantment.spelldamage.haste.desc" : "Increases casting speed of your spells",
 
-  "effect.spelldamage.fire": "Fire Power",
-  "effect.spelldamage.frost": "Frost Power",
-  "effect.spelldamage.shadow": "Shadow Power"
+  "effect.spelldamage.critical_chance": "Blast",
+  "effect.spelldamage.critical_damage": "Ruin",
+  "effect.spelldamage.haste": "Quick Cast"
 }
