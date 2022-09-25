@@ -1,5 +1,6 @@
 package net.spelldamage.forge;
 
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
@@ -7,6 +8,7 @@ import net.spelldamage.SpellDamage;
 import net.minecraftforge.fml.common.Mod;
 import net.spelldamage.api.Enchantments_SpellDamage;
 import net.spelldamage.api.EntityAttributes_SpellDamage;
+import net.spelldamage.api.StatusEffects_SpellDamage;
 
 @Mod(SpellDamage.MOD_ID)
 public class ForgeMod {
@@ -22,14 +24,23 @@ public class ForgeMod {
         // These don't seem to do anything :D
         event.register(ForgeRegistries.Keys.ATTRIBUTES,
                 helper -> {
-                    for(var entry: EntityAttributes_SpellDamage.schools.entrySet()) {
-                        helper.register(entry.getKey().attributeId(), entry.getValue());
+                    for(var entry: EntityAttributes_SpellDamage.all.entrySet()) {
+                        helper.register(entry.getKey(), entry.getValue());
                     }
                 }
         );
         event.register(ForgeRegistries.Keys.ENCHANTMENTS,
                 helper -> {
-                    helper.register(Enchantments_SpellDamage.spellPowerId, Enchantments_SpellDamage.SPELL_POWER);
+                    for(var entry: Enchantments_SpellDamage.all.entrySet()) {
+                        helper.register(entry.getKey(), entry.getValue());
+                    }
+                }
+        );
+        event.register(ForgeRegistries.Keys.MOB_EFFECTS,
+                helper -> {
+                    for(var entry: StatusEffects_SpellDamage.all.entrySet()) {
+                        helper.register(entry.getKey(), entry.getValue());
+                    }
                 }
         );
     }

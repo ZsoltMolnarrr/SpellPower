@@ -1,4 +1,4 @@
-package net.spelldamage.enchantments;
+package net.spelldamage.internals;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;

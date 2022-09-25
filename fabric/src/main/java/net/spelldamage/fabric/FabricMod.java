@@ -10,5 +10,6 @@ public class FabricMod implements ModInitializer {
         SpellDamage.registerAttributes();
         SpellDamage.registerEnchantments();
         SpellDamage.configureEnchantments();
+        SpellDamage.registerStatusEffects();
     }
 }

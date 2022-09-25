@@ -1,4 +1,4 @@
-package net.spelldamage.enchantments;
+package net.spelldamage.internals;
 
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;

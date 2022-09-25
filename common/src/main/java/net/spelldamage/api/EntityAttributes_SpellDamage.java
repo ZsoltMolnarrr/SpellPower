@@ -30,14 +30,14 @@ public class EntityAttributes_SpellDamage {
     }
 
     public static final Map<Identifier, EntityAttribute> all;
-    public static final Map<MagicSchool, EntityAttribute> schools;
+    public static final Map<MagicSchool, EntityAttribute> DAMAGE;
 
     static {
         all = new HashMap<>();
-        schools = new HashMap<>();
+        DAMAGE = new HashMap<>();
         for(var school: MagicSchool.values()) {
-            var attribute= createAttribute(school);
-            schools.put(school, attribute);
+            var attribute = createAttribute(school);
+            DAMAGE.put(school, attribute);
             all.put(school.attributeId(), attribute);
         }
         all.put(criticalChanceId, CRITICAL_CHANCE);

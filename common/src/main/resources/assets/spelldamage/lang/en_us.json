@@ -15,6 +15,9 @@
   "enchantment.spelldamage.critical_chance" : "Blasting",
   "enchantment.spelldamage.critical_chance.desc" : "Increases chance of critical strikes done with spells",
   "enchantment.spelldamage.critical_damage" : "Destruction",
-  "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells"
+  "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells",
 
+  "effect.spelldamage.fire": "Fire Power",
+  "effect.spelldamage.frost": "Frost Power",
+  "effect.spelldamage.shadow": "Shadow Power"
 }

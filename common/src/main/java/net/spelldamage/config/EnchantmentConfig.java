@@ -1,7 +1,7 @@
 package net.spelldamage.config;
 
 import net.spelldamage.api.Enchantments_SpellDamage;
-import net.spelldamage.enchantments.AmplifierEnchantment;
+import net.spelldamage.internals.AmplifierEnchantment;
 
 import java.util.Map;
 

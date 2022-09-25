@@ -14,7 +14,7 @@ public class SpellDamageHelper {
     }
 
     public static double getSpellDamage(PlayerEntity player, MagicSchool school, boolean allowCriticalStrike) {
-        var attribute = EntityAttributes_SpellDamage.schools.get(school);
+        var attribute = EntityAttributes_SpellDamage.DAMAGE.get(school);
         var value = player.getAttributeValue(attribute);
         for (var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
             var enchantment = entry.getValue();

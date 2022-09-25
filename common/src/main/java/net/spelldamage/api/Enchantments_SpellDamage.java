@@ -5,8 +5,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.spelldamage.SpellDamage;
 import net.spelldamage.config.EnchantmentConfig;
-import net.spelldamage.enchantments.AmplifierEnchantment;
-import net.spelldamage.enchantments.SchoolFilteredEnchantment;
+import net.spelldamage.internals.AmplifierEnchantment;
+import net.spelldamage.internals.SchoolFilteredEnchantment;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
 import static net.minecraft.enchantment.EnchantmentTarget.WEAPON;
 import static net.spelldamage.api.MagicSchool.FROST;
 import static net.spelldamage.api.MagicSchool.SHADOW;
-import static net.spelldamage.enchantments.AmplifierEnchantment.Operation.MULTIPLY;
+import static net.spelldamage.internals.AmplifierEnchantment.Operation.MULTIPLY;
 
 public class Enchantments_SpellDamage {
 
