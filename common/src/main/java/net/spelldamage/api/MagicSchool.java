@@ -6,6 +6,10 @@ import net.spelldamage.SpellDamage;
 public enum MagicSchool {
     FIRE, FROST, SHADOW;
 
+    public static MagicSchool fromAttributeId(Identifier id) {
+        return valueOf(id.getPath().toUpperCase());
+    }
+
     public String spellName() {
         return this.toString().toLowerCase();
     }
