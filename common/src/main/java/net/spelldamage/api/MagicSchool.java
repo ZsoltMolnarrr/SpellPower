@@ -17,4 +17,20 @@ public enum MagicSchool {
     public Identifier attributeId() {
         return new Identifier(SpellDamage.MOD_ID, spellName());
     }
+
+    public int color() {
+        switch (this) {
+            case FIRE -> {
+                return 0xff3300;
+            }
+            case FROST -> {
+                return 0xccffff;
+            }
+            case SHADOW -> {
+                return 0x660066;
+            }
+        }
+        assert true;
+        return 0xffffff;
+    }
 }
