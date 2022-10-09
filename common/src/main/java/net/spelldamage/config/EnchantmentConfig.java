@@ -15,8 +15,8 @@ public class EnchantmentConfig {
             entry(Enchantments_SpellDamage.spellPowerName, new AmplifierEnchantment.Properties(5, 10, 9, 0.1F)),
             entry(Enchantments_SpellDamage.soulfrostName, new AmplifierEnchantment.Properties(5, 10, 9, 0.1F))
     );
-    public AmplifierEnchantment.Properties critical_chance = new AmplifierEnchantment.Properties(5, 10, 9, 0.1F);
-    public AmplifierEnchantment.Properties critical_damage = new AmplifierEnchantment.Properties(5, 10, 9, 0.1F);
+    public AmplifierEnchantment.Properties critical_chance = new AmplifierEnchantment.Properties(5, 10, 12, 0.05F);
+    public AmplifierEnchantment.Properties critical_damage = new AmplifierEnchantment.Properties(5, 10, 12, 0.1F);
     public AmplifierEnchantment.Properties haste = new AmplifierEnchantment.Properties(5, 15, 17, 0.05F);
 
     // Helper

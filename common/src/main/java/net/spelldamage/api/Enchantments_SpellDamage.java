@@ -16,6 +16,7 @@ import java.util.Map;
 import static net.minecraft.enchantment.EnchantmentTarget.WEAPON;
 import static net.spelldamage.api.MagicSchool.FROST;
 import static net.spelldamage.api.MagicSchool.SHADOW;
+import static net.spelldamage.internals.AmplifierEnchantment.Operation.ADD;
 import static net.spelldamage.internals.AmplifierEnchantment.Operation.MULTIPLY;
 
 public class Enchantments_SpellDamage {
@@ -47,7 +48,7 @@ public class Enchantments_SpellDamage {
     public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, Attributes.CRITICAL_CHANCE);
     public static final AmplifierEnchantment CRITICAL_CHANCE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
-            MULTIPLY,
+            ADD,
             config().critical_chance,
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
@@ -55,7 +56,7 @@ public class Enchantments_SpellDamage {
     public static final Identifier criticalDamageId = new Identifier(SpellDamage.MOD_ID, Attributes.CRITICAL_DAMAGE);
     public static final AmplifierEnchantment CRITICAL_DAMAGE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
-            MULTIPLY,
+            ADD,
             config().critical_damage,
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
@@ -63,7 +64,7 @@ public class Enchantments_SpellDamage {
     public static final Identifier hasteId = new Identifier(SpellDamage.MOD_ID, Attributes.HASTE);
     public static final AmplifierEnchantment HASTE = new AmplifierEnchantment(
             Enchantment.Rarity.RARE,
-            MULTIPLY,
+            ADD,
             config().haste,
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });

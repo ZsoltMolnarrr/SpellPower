@@ -41,15 +41,29 @@ public class SpellDamageHelper {
     }
 
     public static double getCriticalChance(LivingEntity entity) {
-        var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_chance_percentage;
-        return (base + entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_CHANCE)  // 100 + 5% -> 105
-                - PERCENT_ATTRIBUTE_BASELINE)                         // -100
-                / PERCENT_ATTRIBUTE_BASELINE;                         // /100 -> 0.05
+        var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_chance_percentage; // 5
+        double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_CHANCE); // For example: 115
+        var enchantment = Enchantments_SpellDamage.CRITICAL_CHANCE;
+        var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: 3
+        value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE; // For example: +15
+        value += base;
+        return (value - PERCENT_ATTRIBUTE_BASELINE) / PERCENT_ATTRIBUTE_BASELINE; // For example: (135-100)/100 = 0.35
     }
 
     public static double getCriticalDamage(LivingEntity entity) {
-        var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_damage_percentage;
-        var percent = base + entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_DAMAGE);
-        return percent / PERCENT_ATTRIBUTE_BASELINE;
+        double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_DAMAGE); // For example: 150 (with +50% modifier)
+        var enchantment = Enchantments_SpellDamage.CRITICAL_DAMAGE;
+        var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: level 3
+        value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE; // For example: +30
+        value += SpellDamage.attributesConfig.currentConfig.base_spell_critical_damage_percentage; // +50
+        return value / PERCENT_ATTRIBUTE_BASELINE; // For example: 230/100 = 2.3
+    }
+
+    public static double getHaste(LivingEntity entity) {
+        double value = entity.getAttributeValue(EntityAttributes_SpellDamage.HASTE); // For example: 110 (with +10% modifier)
+        var enchantment = Enchantments_SpellDamage.HASTE;
+        var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: level 4
+        value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE;  // For example: +20
+        return value / PERCENT_ATTRIBUTE_BASELINE;  // For example: 130/100 = 1.3
     }
 }

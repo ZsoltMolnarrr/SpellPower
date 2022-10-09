@@ -18,5 +18,6 @@ public class EntityAttributes_SpellDamage {
             var attribute = Attributes.all.get(school.spellName()).attribute;
             DAMAGE.put(school, attribute);
         }
+        HASTE.setTracked(true);
     }
 }
