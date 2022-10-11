@@ -19,14 +19,14 @@ public class AttributeFamily {
         this(school.spellName(),
                 "attribute.name.spell.damage.",
                 new AttributeData(0, 0, 2048),
-                SpellDamage.effectsConfig.currentConfig.damage.get(school.spellName()));
+                SpellDamage.effectsConfig.value.damage.get(school.spellName()));
     }
 
     public AttributeFamily(String name, float defaultValue) {
         this(name,
                 "attribute.name.spell.",
                 new AttributeData(defaultValue, defaultValue, defaultValue * 10),
-                SpellDamage.effectsConfig.currentConfig.rating.get(name));
+                SpellDamage.effectsConfig.value.rating.get(name));
     }
 
     public AttributeFamily(String name, String translationPrefix, AttributeData attributeData, SpellStatusEffect.AttributeModifierProperties effectConfig) {

@@ -4,7 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.spelldamage.SpellDamage;
-import net.spelldamage.config.EnchantmentConfig;
+import net.spelldamage.config.EnchantmentsConfig;
 import net.spelldamage.internals.AmplifierEnchantment;
 import net.spelldamage.internals.Attributes;
 import net.spelldamage.internals.SchoolFilteredEnchantment;
@@ -89,7 +89,7 @@ public class Enchantments_SpellDamage {
         all.putAll(secondaries);
     }
 
-    private static EnchantmentConfig config() {
-        return SpellDamage.enchantmentConfig.currentConfig;
+    private static EnchantmentsConfig config() {
+        return SpellDamage.enchantmentConfig.value;
     }
 }

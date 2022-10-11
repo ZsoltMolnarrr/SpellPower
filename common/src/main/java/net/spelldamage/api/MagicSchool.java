@@ -24,7 +24,7 @@ public enum MagicSchool {
                 return 0xff3300;
             }
             case FROST -> {
-                return 0xccffff;
+                return 0x66c2ff;
             }
             case SHADOW -> {
                 return 0x660066;

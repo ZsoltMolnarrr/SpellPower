@@ -20,10 +20,10 @@
   "enchantment.spelldamage.critical_chance.desc" : "Increases chance of critical strikes done with spells",
   "enchantment.spelldamage.critical_damage" : "Destruction",
   "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells",
-  "enchantment.spelldamage.haste" : "Quicken",
+  "enchantment.spelldamage.haste" : "Quick Cast",
   "enchantment.spelldamage.haste.desc" : "Increases casting speed of your spells",
 
   "effect.spelldamage.critical_chance": "Blast",
   "effect.spelldamage.critical_damage": "Ruin",
-  "effect.spelldamage.haste": "Quick Cast"
+  "effect.spelldamage.haste": "Infusion"
 }

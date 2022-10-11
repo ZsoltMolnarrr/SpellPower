@@ -3,6 +3,7 @@ package net.spelldamage.internals;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.spelldamage.api.MagicSchool;
+import net.tinyconfig.models.EnchantmentConfig;
 
 import java.util.EnumSet;
 
@@ -13,8 +14,8 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
         return schools.contains(givenSchool);
     }
     
-    public SchoolFilteredEnchantment(Rarity weight, Operation operation, Properties properties, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
-        super(weight, operation, properties, type, slotTypes);
+    public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
+        super(weight, operation, config, type, slotTypes);
         this.schools = schools;
     }
 }

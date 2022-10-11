@@ -3,7 +3,7 @@ package net.spelldamage;
 import net.minecraft.util.registry.Registry;
 import net.spelldamage.api.Enchantments_SpellDamage;
 import net.spelldamage.config.AttributesConfig;
-import net.spelldamage.config.EnchantmentConfig;
+import net.spelldamage.config.EnchantmentsConfig;
 import net.spelldamage.config.StatusEffectConfig;
 import net.spelldamage.internals.Attributes;
 import net.tinyconfig.ConfigManager;
@@ -11,8 +11,8 @@ import net.tinyconfig.ConfigManager;
 public class SpellDamage {
     public static final String MOD_ID = "spelldamage";
 
-    public static ConfigManager<EnchantmentConfig> enchantmentConfig = new ConfigManager<EnchantmentConfig>
-            ("enchantments", new EnchantmentConfig())
+    public static ConfigManager<EnchantmentsConfig> enchantmentConfig = new ConfigManager<EnchantmentsConfig>
+            ("enchantments", new EnchantmentsConfig())
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
@@ -51,7 +51,7 @@ public class SpellDamage {
     }
 
     public static void configureEnchantments() {
-        enchantmentConfig.currentConfig.apply();
+        enchantmentConfig.value.apply();
     }
 
     public static void registerStatusEffects() {

@@ -41,7 +41,7 @@ public class SpellDamageHelper {
     }
 
     public static double getCriticalChance(LivingEntity entity) {
-        var base = SpellDamage.attributesConfig.currentConfig.base_spell_critical_chance_percentage; // 5
+        var base = SpellDamage.attributesConfig.value.base_spell_critical_chance_percentage; // 5
         double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_CHANCE); // For example: 115
         var enchantment = Enchantments_SpellDamage.CRITICAL_CHANCE;
         var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: 3
@@ -55,7 +55,7 @@ public class SpellDamageHelper {
         var enchantment = Enchantments_SpellDamage.CRITICAL_DAMAGE;
         var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: level 3
         value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE; // For example: +30
-        value += SpellDamage.attributesConfig.currentConfig.base_spell_critical_damage_percentage; // +50
+        value += SpellDamage.attributesConfig.value.base_spell_critical_damage_percentage; // +50
         return value / PERCENT_ATTRIBUTE_BASELINE; // For example: 230/100 = 2.3
     }
 
