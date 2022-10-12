@@ -2,7 +2,6 @@ package net.spelldamage.api;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.spelldamage.SpellDamage;
 
 import java.util.Random;
@@ -12,11 +11,13 @@ import static net.spelldamage.internals.Attributes.PERCENT_ATTRIBUTE_BASELINE;
 public class SpellDamageHelper {
     private static Random rng = new Random();
 
-    public static double getSpellDamage(MagicSchool school, LivingEntity entity) {
+    public static EffectValue getSpellDamage(MagicSchool school, LivingEntity entity) {
         return getSpellDamage(school, entity, true);
     }
 
-    public static double getSpellDamage(MagicSchool school, LivingEntity entity, boolean allowCriticalStrike) {
+    public record EffectValue(double value, double criticalMultiplier) { }
+
+    public static EffectValue getSpellDamage(MagicSchool school, LivingEntity entity, boolean allowCriticalStrike) {
         var attribute = EntityAttributes_SpellDamage.DAMAGE.get(school);
         var value = entity.getAttributeValue(attribute);
         for (var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
@@ -27,17 +28,22 @@ public class SpellDamageHelper {
             }
         }
 
+        double criticalMultiplier = 1;
         if (allowCriticalStrike) {
             boolean isCritical = false;
-            if (rng.nextFloat() < getCriticalChance(entity)) {
+            var critChance = getCriticalChance(entity);
+            var rand = rng.nextFloat();
+            if (rand < critChance) {
                 isCritical = true;
             }
             if (isCritical) {
-                value *= getCriticalDamage(entity);
+                criticalMultiplier = getCriticalMultiplier(entity);
+                value *= criticalMultiplier;
             }
+            System.out.println("Critical chance: " + critChance + " rand:" + rand + " criticalMultiplier: " + criticalMultiplier);
         }
 
-        return value;
+        return new EffectValue(value, criticalMultiplier);
     }
 
     public static double getCriticalChance(LivingEntity entity) {
@@ -50,7 +56,7 @@ public class SpellDamageHelper {
         return (value - PERCENT_ATTRIBUTE_BASELINE) / PERCENT_ATTRIBUTE_BASELINE; // For example: (135-100)/100 = 0.35
     }
 
-    public static double getCriticalDamage(LivingEntity entity) {
+    public static double getCriticalMultiplier(LivingEntity entity) {
         double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_DAMAGE); // For example: 150 (with +50% modifier)
         var enchantment = Enchantments_SpellDamage.CRITICAL_DAMAGE;
         var level = EnchantmentHelper.getEquipmentLevel(enchantment, entity); // For example: level 3
