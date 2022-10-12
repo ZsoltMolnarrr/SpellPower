@@ -10,17 +10,29 @@ import static net.spelldamage.internals.Attributes.*;
 
 public class StatusEffectConfig {
     public Map<String, SpellStatusEffect.AttributeModifierProperties> damage = Map.ofEntries(
+            entry(MagicSchool.ARCANE.spellName(), new SpellStatusEffect.AttributeModifierProperties(
+                    MagicSchool.ARCANE.color(),
+                    "e8222db4-6c3c-4bbe-bacb-6e8d07e96e8b",
+                    0.2F)),
             entry(MagicSchool.FIRE.spellName(), new SpellStatusEffect.AttributeModifierProperties(
-                    0xff3300,
+                    MagicSchool.FIRE.color(),
                     "3c06c1d4-3cce-11ed-a261-0242ac120002",
                     0.2F)),
             entry(MagicSchool.FROST.spellName(), new SpellStatusEffect.AttributeModifierProperties(
-                    0xccffff,
+                    MagicSchool.FROST.color(),
                     "41569be6-3cce-11ed-a261-0242ac120002",
                     0.2F)),
-            entry(MagicSchool.SHADOW.spellName(), new SpellStatusEffect.AttributeModifierProperties(
-                    0x660066,
-                    "44ede7a0-3cce-11ed-a261-0242ac120002",
+            entry(MagicSchool.HEALING.spellName(), new SpellStatusEffect.AttributeModifierProperties(
+                    MagicSchool.HEALING.color(),
+                    "4eccd93c-4a63-11ed-b878-0242ac120002",
+                    0.2F)),
+            entry(MagicSchool.LIGHTNING.spellName(), new SpellStatusEffect.AttributeModifierProperties(
+                    MagicSchool.LIGHTNING.color(),
+                    "48a773c8-4a63-11ed-b878-0242ac120002",
+                    0.2F)),
+            entry(MagicSchool.SOUL.spellName(), new SpellStatusEffect.AttributeModifierProperties(
+                    MagicSchool.SOUL.color(),
+                    "5515bafc-4a63-11ed-b878-0242ac120002",
                     0.2F))
             );
     public Map<String, SpellStatusEffect.AttributeModifierProperties> rating = Map.ofEntries(

@@ -1,16 +1,24 @@
 {
+  "attribute.name.spell.damage.arcane" : "Arcane Spell Damage",
   "attribute.name.spell.damage.fire" : "Fire Spell Damage",
   "attribute.name.spell.damage.frost" : "Frost Spell Damage",
-  "attribute.name.spell.damage.shadow" : "Shadow Spell Damage",
+  "attribute.name.spell.damage.healing" : "Healing",
+  "attribute.name.spell.damage.lightning" : "Lightning Spell Damage",
+  "attribute.name.spell.damage.soul" : "Soul Spell Damage",
 
+  "effect.spelldamage.arcane": "Arcane Power",
   "effect.spelldamage.fire": "Fire Power",
   "effect.spelldamage.frost": "Frost Power",
-  "effect.spelldamage.shadow": "Shadow Power",
+  "effect.spelldamage.healing": "Healing Power",
+  "effect.spelldamage.lightning": "Lightning Power",
+  "effect.spelldamage.soul": "Soul Power",
 
   "enchantment.spelldamage.spell_power" : "Spell Power",
   "enchantment.spelldamage.spell_power.desc" : "Increases the all kind of spell damage you deal",
   "enchantment.spelldamage.soulfrost" : "Soulfrost",
-  "enchantment.spelldamage.soulfrost.desc" : "Increases the all kind of spell damage you deal",
+  "enchantment.spelldamage.soulfrost.desc" : "Increases soul and frost spell damage you deal",
+  "enchantment.spelldamage.sunfire" : "Sunfire",
+  "enchantment.spelldamage.sunfire.desc" : "Increases arcane and fire spell damage you deal",
 
   "attribute.name.spell.critical_chance" : "Spell Critical Chance",
   "attribute.name.spell.critical_damage" : "Spell Critical Damage",
@@ -23,7 +31,7 @@
   "enchantment.spelldamage.haste" : "Quick Cast",
   "enchantment.spelldamage.haste.desc" : "Increases casting speed of your spells",
 
-  "effect.spelldamage.critical_chance": "Blast",
-  "effect.spelldamage.critical_damage": "Ruin",
-  "effect.spelldamage.haste": "Infusion"
+  "effect.spelldamage.critical_chance": "Critical Damage",
+  "effect.spelldamage.critical_damage": "Critical Chance",
+  "effect.spelldamage.haste": "Spell Haste"
 }

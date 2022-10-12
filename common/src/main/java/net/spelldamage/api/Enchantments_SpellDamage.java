@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static net.minecraft.enchantment.EnchantmentTarget.WEAPON;
 import static net.spelldamage.api.MagicSchool.FROST;
-import static net.spelldamage.api.MagicSchool.SHADOW;
+import static net.spelldamage.api.MagicSchool.SOUL;
 import static net.spelldamage.internals.AmplifierEnchantment.Operation.ADD;
 import static net.spelldamage.internals.AmplifierEnchantment.Operation.MULTIPLY;
 
@@ -39,7 +39,7 @@ public class Enchantments_SpellDamage {
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
             config().damage_enchantments.get(soulfrostName),
-            EnumSet.of(FROST, SHADOW),
+            EnumSet.of(SOUL, FROST),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
 
