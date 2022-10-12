@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static net.minecraft.enchantment.EnchantmentTarget.WEAPON;
-import static net.spelldamage.api.MagicSchool.FROST;
-import static net.spelldamage.api.MagicSchool.SOUL;
+import static net.spelldamage.api.MagicSchool.*;
 import static net.spelldamage.internals.AmplifierEnchantment.Operation.ADD;
 import static net.spelldamage.internals.AmplifierEnchantment.Operation.MULTIPLY;
 
@@ -40,6 +39,16 @@ public class Enchantments_SpellDamage {
             MULTIPLY,
             config().damage_enchantments.get(soulfrostName),
             EnumSet.of(SOUL, FROST),
+            WEAPON,
+            new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
+
+    public static final String sunfireName = "sunfire";
+    public static final Identifier sunfireId = new Identifier(SpellDamage.MOD_ID, sunfireName);
+    public static final SchoolFilteredEnchantment SUNFIRE = new SchoolFilteredEnchantment(
+            Enchantment.Rarity.UNCOMMON,
+            MULTIPLY,
+            config().damage_enchantments.get(soulfrostName),
+            EnumSet.of(ARCANE, FIRE),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
 
@@ -78,6 +87,7 @@ public class Enchantments_SpellDamage {
         damageEnchants = new HashMap<>();
         damageEnchants.put(spellPowerId, SPELL_POWER);
         damageEnchants.put(soulfrostId, SOULFROST);
+        damageEnchants.put(sunfireId, SUNFIRE);
 
         Map<Identifier, AmplifierEnchantment> secondaries = new HashMap<>();
         secondaries.put(criticalChanceId, CRITICAL_CHANCE);

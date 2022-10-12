@@ -13,7 +13,8 @@ public class EnchantmentsConfig {
 
     public Map<String, EnchantmentConfig> damage_enchantments = Map.ofEntries(
             entry(Enchantments_SpellDamage.spellPowerName, new EnchantmentConfig(5, 10, 9, 0.1F)),
-            entry(Enchantments_SpellDamage.soulfrostName, new EnchantmentConfig(5, 10, 9, 0.1F))
+            entry(Enchantments_SpellDamage.soulfrostName, new EnchantmentConfig(5, 10, 9, 0.1F)),
+            entry(Enchantments_SpellDamage.sunfireName, new EnchantmentConfig(5, 10, 9, 0.1F))
     );
     public EnchantmentConfig critical_chance = new EnchantmentConfig(5, 10, 12, 0.05F);
     public EnchantmentConfig critical_damage = new EnchantmentConfig(5, 10, 12, 0.1F);
