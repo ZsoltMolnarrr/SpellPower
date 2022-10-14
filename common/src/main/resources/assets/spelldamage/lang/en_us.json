@@ -19,6 +19,8 @@
   "enchantment.spelldamage.soulfrost.desc" : "Increases soul and frost spell damage you deal",
   "enchantment.spelldamage.sunfire" : "Sunfire",
   "enchantment.spelldamage.sunfire.desc" : "Increases arcane and fire spell damage you deal",
+  "enchantment.spelldamage.energize" : "Energize",
+  "enchantment.spelldamage.energize.desc" : "Increases healing and lightning spell damage you deal",
 
   "attribute.name.spell.critical_chance" : "Spell Critical Chance",
   "attribute.name.spell.critical_damage" : "Spell Critical Damage",

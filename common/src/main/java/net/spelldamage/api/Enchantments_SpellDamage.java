@@ -27,7 +27,7 @@ public class Enchantments_SpellDamage {
     public static final SchoolFilteredEnchantment SPELL_POWER = new SchoolFilteredEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
-            config().spellPower,
+            config().spell_power,
             EnumSet.allOf(MagicSchool.class),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
@@ -62,7 +62,6 @@ public class Enchantments_SpellDamage {
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
 
-
     // Rating enchants
 
     public static final Identifier criticalChanceId = new Identifier(SpellDamage.MOD_ID, Attributes.CRITICAL_CHANCE);
@@ -88,7 +87,6 @@ public class Enchantments_SpellDamage {
             config().haste,
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
-
 
     // Helpers
 

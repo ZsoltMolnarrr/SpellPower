@@ -5,6 +5,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.spelldamage.api.MagicSchool;
 import net.spelldamage.api.MagicalItemStack;
+import net.spelldamage.config.EnchantmentsConfig;
 import net.tinyconfig.models.EnchantmentConfig;
 
 import java.util.EnumSet;
@@ -16,12 +17,13 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
         return schools.contains(givenSchool);
     }
     
-    public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
+    public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentsConfig.ExtendedEnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, operation, config, type, slotTypes);
         this.schools = schools;
     }
 
-    public boolean isAcceptableItem(ItemStack stack) {
+    @Override
+    protected boolean isValidMagicalStack(ItemStack stack) {
         var object = (Object)stack;
         if (object instanceof MagicalItemStack magicalItemStack) {
             var school = magicalItemStack.getMagicSchool();
