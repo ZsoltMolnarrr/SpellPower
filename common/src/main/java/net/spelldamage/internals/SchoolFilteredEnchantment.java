@@ -1,5 +1,6 @@
 package net.spelldamage.internals;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,11 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
     public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentsConfig.ExtendedEnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, operation, config, type, slotTypes);
         this.schools = schools;
+    }
+
+    @Override
+    protected boolean canAccept(Enchantment other) {
+        return !(other instanceof SchoolFilteredEnchantment) && super.canAccept(other);
     }
 
     @Override
