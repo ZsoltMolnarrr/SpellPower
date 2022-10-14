@@ -27,7 +27,7 @@ public class Enchantments_SpellDamage {
     public static final SchoolFilteredEnchantment SPELL_POWER = new SchoolFilteredEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
-            config().damage_enchantments.get(spellPowerName),
+            config().spellPower,
             EnumSet.allOf(MagicSchool.class),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
@@ -37,7 +37,7 @@ public class Enchantments_SpellDamage {
     public static final SchoolFilteredEnchantment SOULFROST = new SchoolFilteredEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
-            config().damage_enchantments.get(soulfrostName),
+            config().soulfrost,
             EnumSet.of(SOUL, FROST),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
@@ -47,10 +47,21 @@ public class Enchantments_SpellDamage {
     public static final SchoolFilteredEnchantment SUNFIRE = new SchoolFilteredEnchantment(
             Enchantment.Rarity.UNCOMMON,
             MULTIPLY,
-            config().damage_enchantments.get(soulfrostName),
+            config().sunfire,
             EnumSet.of(ARCANE, FIRE),
             WEAPON,
             new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
+
+    public static final String energizeName = "energize";
+    public static final Identifier energizeId = new Identifier(SpellDamage.MOD_ID, energizeName);
+    public static final SchoolFilteredEnchantment ENERGIZE = new SchoolFilteredEnchantment(
+            Enchantment.Rarity.UNCOMMON,
+            MULTIPLY,
+            config().energize,
+            EnumSet.of(HEALING, LIGHTNING),
+            WEAPON,
+            new EquipmentSlot[]{ EquipmentSlot.MAINHAND });
+
 
     // Rating enchants
 
@@ -88,6 +99,7 @@ public class Enchantments_SpellDamage {
         damageEnchants.put(spellPowerId, SPELL_POWER);
         damageEnchants.put(soulfrostId, SOULFROST);
         damageEnchants.put(sunfireId, SUNFIRE);
+        damageEnchants.put(energizeId, ENERGIZE);
 
         Map<Identifier, AmplifierEnchantment> secondaries = new HashMap<>();
         secondaries.put(criticalChanceId, CRITICAL_CHANCE);
