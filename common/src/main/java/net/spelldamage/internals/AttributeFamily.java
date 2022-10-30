@@ -32,7 +32,7 @@ public class AttributeFamily {
     public AttributeFamily(String name, String translationPrefix, AttributeData attributeData, SpellStatusEffect.AttributeModifierProperties effectConfig) {
         this.name = name;
         this.id = new Identifier(SpellDamage.MOD_ID, name);
-        this.attribute = new ClampedEntityAttribute(translationPrefix + name, attributeData.defaultValue, attributeData.min, attributeData.max);
+        this.attribute = new ClampedEntityAttribute(translationPrefix + name, attributeData.defaultValue, attributeData.min, attributeData.max).setTracked(true);
         this.statusEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, effectConfig.color);
         this.statusEffect.addAttributeModifier(
                 this.attribute,

@@ -12,12 +12,16 @@ public class SpellDamageHelper {
     private static Random rng = new Random();
 
     public static EffectValue getSpellDamage(MagicSchool school, LivingEntity entity) {
-        return getSpellDamage(school, entity, true);
+        return getSpellDamage(school, entity, CriticalStrikeMode.ALLOWED);
+    }
+
+    public enum CriticalStrikeMode {
+        DISABLED, ALLOWED, FORCED
     }
 
     public record EffectValue(double value, double criticalMultiplier) { }
 
-    public static EffectValue getSpellDamage(MagicSchool school, LivingEntity entity, boolean allowCriticalStrike) {
+    public static EffectValue getSpellDamage(MagicSchool school, LivingEntity entity, CriticalStrikeMode critMode) {
         var attribute = EntityAttributes_SpellDamage.DAMAGE.get(school);
         var value = entity.getAttributeValue(attribute);
         for (var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
@@ -29,8 +33,8 @@ public class SpellDamageHelper {
         }
 
         double criticalMultiplier = 1;
-        if (allowCriticalStrike) {
-            boolean isCritical = false;
+        if (critMode != CriticalStrikeMode.DISABLED) {
+            boolean isCritical = critMode == CriticalStrikeMode.FORCED;
             var critChance = getCriticalChance(entity);
             var rand = rng.nextFloat();
             if (rand < critChance) {
@@ -40,7 +44,7 @@ public class SpellDamageHelper {
                 criticalMultiplier = getCriticalMultiplier(entity);
                 value *= criticalMultiplier;
             }
-            System.out.println("Critical chance: " + critChance + " rand:" + rand + " criticalMultiplier: " + criticalMultiplier);
+            // System.out.println("Critical chance: " + critChance + " rand:" + rand + " criticalMultiplier: " + criticalMultiplier);
         }
 
         return new EffectValue(value, criticalMultiplier);
