@@ -28,9 +28,9 @@
 
   "enchantment.spelldamage.critical_chance" : "Blasting",
   "enchantment.spelldamage.critical_chance.desc" : "Increases chance of critical strikes done with spells",
-  "enchantment.spelldamage.critical_damage" : "Destruction",
+  "enchantment.spelldamage.critical_damage" : "Amplify Magic",
   "enchantment.spelldamage.critical_damage.desc" : "Increases damage of critical strikes done with spells",
-  "enchantment.spelldamage.haste" : "Quick Cast",
+  "enchantment.spelldamage.haste" : "Spell Haste",
   "enchantment.spelldamage.haste.desc" : "Increases casting speed of your spells",
 
   "effect.spelldamage.critical_chance": "Critical Damage",
