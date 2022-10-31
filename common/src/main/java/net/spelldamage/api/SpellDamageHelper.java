@@ -34,7 +34,7 @@ public class SpellDamageHelper {
         for (var entry: Enchantments_SpellDamage.damageEnchants.entrySet()) {
             var enchantment = entry.getValue();
             if (enchantment.canBeAppliedFor(school)) {
-                var level = getEnchantmentLevel(enchantment, enchantment.config, entity, provisionedWeapon);
+                var level = getEnchantmentLevel(enchantment, entity, provisionedWeapon);
                 value = enchantment.amplify(value, level);
             }
         }
@@ -65,7 +65,7 @@ public class SpellDamageHelper {
         var base = SpellDamage.attributesConfig.value.base_spell_critical_chance_percentage; // 5
         double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_CHANCE); // For example: 115
         var enchantment = Enchantments_SpellDamage.CRITICAL_CHANCE;
-        var level = getEnchantmentLevel(enchantment, enchantment.config, entity, provisionedWeapon); // For example: 3
+        var level = getEnchantmentLevel(enchantment, entity, provisionedWeapon); // For example: 3
         value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE; // For example: +15
         value += base;
         return (value - PERCENT_ATTRIBUTE_BASELINE) / PERCENT_ATTRIBUTE_BASELINE; // For example: (135-100)/100 = 0.35
@@ -78,7 +78,7 @@ public class SpellDamageHelper {
     public static double getCriticalDamage(LivingEntity entity, ItemStack provisionedWeapon) {
         double value = entity.getAttributeValue(EntityAttributes_SpellDamage.CRITICAL_DAMAGE); // For example: 150 (with +50% modifier)
         var enchantment = Enchantments_SpellDamage.CRITICAL_DAMAGE;
-        var level = getEnchantmentLevel(enchantment, enchantment.config, entity, provisionedWeapon); // For example: level 3
+        var level = getEnchantmentLevel(enchantment, entity, provisionedWeapon); // For example: level 3
         value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE; // For example: +30
         value += SpellDamage.attributesConfig.value.base_spell_critical_damage_percentage; // +50
         return value / PERCENT_ATTRIBUTE_BASELINE; // For example: 230/100 = 2.3
@@ -91,21 +91,19 @@ public class SpellDamageHelper {
     public static double getHaste(LivingEntity entity, ItemStack provisionedWeapon) {
         double value = entity.getAttributeValue(EntityAttributes_SpellDamage.HASTE); // For example: 110 (with +10% modifier)
         var enchantment = Enchantments_SpellDamage.HASTE;
-        var level = getEnchantmentLevel(enchantment, enchantment.config, entity, provisionedWeapon); // For example: level 4
+        var level = getEnchantmentLevel(enchantment, entity, provisionedWeapon); // For example: level 4
         value += enchantment.amplify(0, level) * PERCENT_ATTRIBUTE_BASELINE;  // For example: +20
         return value / PERCENT_ATTRIBUTE_BASELINE;  // For example: 130/100 = 1.3
     }
 
-    private static int getEnchantmentLevel(Enchantment enchantment, EnchantmentsConfig.ExtendedEnchantmentConfig config,
-                                           LivingEntity entity, ItemStack provisionedWeapon) {
-        var isWeaponEnchantment = config.requires == EnchantmentsConfig.ExtendedEnchantmentConfig.Requirement.MAGICAL_WEAPON;
-        int level = 0;
-        if (provisionedWeapon == null || !isWeaponEnchantment) {
-            // Default calculation from equipment
-            level = EnchantmentHelper.getEquipmentLevel(enchantment, entity);
-        } else {
-            // Get level from provisioned item stack
-            level = EnchantmentHelper.getLevel(enchantment, provisionedWeapon);
+    private static int getEnchantmentLevel(Enchantment enchantment, LivingEntity entity, ItemStack provisionedWeapon) {
+        int level = EnchantmentHelper.getEquipmentLevel(enchantment, entity);
+        if (provisionedWeapon != null && !provisionedWeapon.isEmpty()) {
+            var mainHandStack = entity.getMainHandStack();
+            if (mainHandStack != null && !mainHandStack.isEmpty()) {
+                level -= EnchantmentHelper.getLevel(enchantment, mainHandStack);
+            }
+            level += EnchantmentHelper.getLevel(enchantment, provisionedWeapon);
         }
         return level;
     }
