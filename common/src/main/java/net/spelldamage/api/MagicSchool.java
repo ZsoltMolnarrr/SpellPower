@@ -21,7 +21,7 @@ public enum MagicSchool {
     public int color() {
         switch (this) {
             case ARCANE -> {
-                return 0xff99ff;
+                return 0xff66ff;
             }
             case FIRE -> {
                 return 0xff3300;
@@ -30,10 +30,10 @@ public enum MagicSchool {
                 return 0x66c2ff;
             }
             case HEALING -> {
-                return 0xffff99;
+                return 0x66ff66;
             }
             case LIGHTNING -> {
-                return 0xccffff;
+                return 0xffff99;
             }
             case SOUL -> {
                 return 0x9966ff;
