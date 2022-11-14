@@ -27,7 +27,7 @@ public enum MagicSchool {
                 return 0xff3300;
             }
             case FROST -> {
-                return 0x66c2ff;
+                return 0xccffff;
             }
             case HEALING -> {
                 return 0x66ff66;
@@ -36,7 +36,7 @@ public enum MagicSchool {
                 return 0xffff99;
             }
             case SOUL -> {
-                return 0x9966ff;
+                return 0x2dd4da;
             }
         }
         assert true;
