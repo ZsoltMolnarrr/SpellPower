@@ -33,7 +33,7 @@
   "enchantment.spelldamage.haste" : "Spell Haste",
   "enchantment.spelldamage.haste.desc" : "Increases casting speed of your spells",
 
-  "effect.spelldamage.critical_chance": "Critical Damage",
-  "effect.spelldamage.critical_damage": "Critical Chance",
+  "effect.spelldamage.critical_chance": "Spell Volatility",
+  "effect.spelldamage.critical_damage": "Amplify Spell",
   "effect.spelldamage.haste": "Spell Haste"
 }
