@@ -1,4 +1,4 @@
-package net.spelldamage.api;
+package net.spelldamage.api.enchantment;
 
 import net.minecraft.item.ItemStack;
 

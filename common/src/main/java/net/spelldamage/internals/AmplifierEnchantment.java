@@ -5,9 +5,9 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import net.spelldamage.api.ConditionalEnchantment;
-import net.spelldamage.api.MagicalArmor;
-import net.spelldamage.api.MagicalItemStack;
+import net.spelldamage.api.enchantment.ConditionalEnchantment;
+import net.spelldamage.api.enchantment.MagicalArmor;
+import net.spelldamage.api.enchantment.MagicalItemStack;
 import net.spelldamage.config.EnchantmentsConfig;
 
 public class AmplifierEnchantment extends Enchantment implements ConditionalEnchantment {

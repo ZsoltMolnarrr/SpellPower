@@ -1,9 +1,10 @@
-package net.spelldamage.api;
+package net.spelldamage.api.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.spelldamage.SpellDamage;
+import net.spelldamage.api.MagicSchool;
 import net.spelldamage.config.EnchantmentsConfig;
 import net.spelldamage.internals.AmplifierEnchantment;
 import net.spelldamage.internals.Attributes;

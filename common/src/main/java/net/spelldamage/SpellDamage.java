@@ -1,7 +1,7 @@
 package net.spelldamage;
 
 import net.minecraft.util.registry.Registry;
-import net.spelldamage.api.Enchantments_SpellDamage;
+import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
 import net.spelldamage.config.AttributesConfig;
 import net.spelldamage.config.EnchantmentsConfig;
 import net.spelldamage.config.StatusEffectConfig;

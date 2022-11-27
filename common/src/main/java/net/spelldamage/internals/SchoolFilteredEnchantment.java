@@ -5,9 +5,8 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.spelldamage.api.MagicSchool;
-import net.spelldamage.api.MagicalItemStack;
+import net.spelldamage.api.enchantment.MagicalItemStack;
 import net.spelldamage.config.EnchantmentsConfig;
-import net.tinyconfig.models.EnchantmentConfig;
 
 import java.util.EnumSet;
 

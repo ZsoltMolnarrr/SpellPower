@@ -1,14 +1,11 @@
 package net.spelldamage.forge;
 
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.spelldamage.SpellDamage;
 import net.minecraftforge.fml.common.Mod;
-import net.spelldamage.api.Enchantments_SpellDamage;
-import net.spelldamage.api.EntityAttributes_SpellDamage;
-import net.spelldamage.api.StatusEffects_SpellDamage;
+import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
 import net.spelldamage.internals.Attributes;
 
 @Mod(SpellDamage.MOD_ID)

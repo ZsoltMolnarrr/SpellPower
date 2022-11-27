@@ -5,7 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.spelldamage.SpellDamage;
-import net.spelldamage.config.EnchantmentsConfig;
+import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
 
 import java.util.Random;
 

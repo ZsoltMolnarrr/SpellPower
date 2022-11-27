@@ -1,6 +1,6 @@
 package net.spelldamage.config;
 
-import net.spelldamage.api.Enchantments_SpellDamage;
+import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
 import net.tinyconfig.models.EnchantmentConfig;
 import org.jetbrains.annotations.Nullable;
 
