@@ -38,6 +38,9 @@ public class AmplifierEnchantment extends Enchantment implements ConditionalEnch
     }
 
     public int getMaxLevel() {
+        if (!config.enabled) {
+            return 0;
+        }
         return config.max_level;
     }
 
