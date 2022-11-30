@@ -3,18 +3,18 @@ package net.spelldamage.forge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
-import net.spelldamage.SpellDamage;
+import net.spelldamage.SpellDamageMod;
 import net.minecraftforge.fml.common.Mod;
 import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
 import net.spelldamage.internals.Attributes;
 
-@Mod(SpellDamage.MOD_ID)
+@Mod(SpellDamageMod.MOD_ID)
 public class ForgeMod {
     public ForgeMod() {
         // Submit our event bus to let architectury register our content on the right time
         // EventBuses.registerModEventBus(SpellDamage.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        SpellDamage.init();
-        SpellDamage.configureEnchantments();
+        SpellDamageMod.init();
+        SpellDamageMod.configureEnchantments();
     }
 
     @SubscribeEvent

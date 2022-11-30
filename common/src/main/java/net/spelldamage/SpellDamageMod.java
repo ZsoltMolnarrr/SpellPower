@@ -8,7 +8,7 @@ import net.spelldamage.config.StatusEffectConfig;
 import net.spelldamage.internals.Attributes;
 import net.tinyconfig.ConfigManager;
 
-public class SpellDamage {
+public class SpellDamageMod {
     public static final String MOD_ID = "spelldamage";
 
     public static ConfigManager<EnchantmentsConfig> enchantmentConfig = new ConfigManager<EnchantmentsConfig>

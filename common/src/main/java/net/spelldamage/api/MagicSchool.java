@@ -1,7 +1,7 @@
 package net.spelldamage.api;
 
 import net.minecraft.util.Identifier;
-import net.spelldamage.SpellDamage;
+import net.spelldamage.SpellDamageMod;
 
 public enum MagicSchool {
     ARCANE, FIRE, FROST, HEALING, LIGHTNING, SOUL;
@@ -15,7 +15,7 @@ public enum MagicSchool {
     }
 
     public Identifier attributeId() {
-        return new Identifier(SpellDamage.MOD_ID, spellName());
+        return new Identifier(SpellDamageMod.MOD_ID, spellName());
     }
 
     public int color() {

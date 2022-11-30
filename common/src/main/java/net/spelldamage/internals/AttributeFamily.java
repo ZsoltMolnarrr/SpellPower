@@ -5,7 +5,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
-import net.spelldamage.SpellDamage;
+import net.spelldamage.SpellDamageMod;
 import net.spelldamage.api.MagicSchool;
 
 public class AttributeFamily {
@@ -19,19 +19,19 @@ public class AttributeFamily {
         this(school.spellName(),
                 "attribute.name.spell.damage.",
                 new AttributeData(0, 0, 2048),
-                SpellDamage.effectsConfig.value.damage.get(school.spellName()));
+                SpellDamageMod.effectsConfig.value.damage.get(school.spellName()));
     }
 
     public AttributeFamily(String name, float defaultValue) {
         this(name,
                 "attribute.name.spell.",
                 new AttributeData(defaultValue, defaultValue, defaultValue * 10),
-                SpellDamage.effectsConfig.value.rating.get(name));
+                SpellDamageMod.effectsConfig.value.rating.get(name));
     }
 
     public AttributeFamily(String name, String translationPrefix, AttributeData attributeData, SpellStatusEffect.AttributeModifierProperties effectConfig) {
         this.name = name;
-        this.id = new Identifier(SpellDamage.MOD_ID, name);
+        this.id = new Identifier(SpellDamageMod.MOD_ID, name);
         this.attribute = new ClampedEntityAttribute(translationPrefix + name, attributeData.defaultValue, attributeData.min, attributeData.max).setTracked(true);
         this.statusEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, effectConfig.color);
         this.statusEffect.addAttributeModifier(
