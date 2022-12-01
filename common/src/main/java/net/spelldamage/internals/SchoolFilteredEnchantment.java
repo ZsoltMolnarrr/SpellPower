@@ -3,6 +3,7 @@ package net.spelldamage.internals;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.spelldamage.api.MagicSchool;
 import net.spelldamage.api.enchantment.MagicalItemStack;
@@ -39,6 +40,6 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
                 return schools.contains(school);
             }
         }
-        return false;
+        return true;
     }
 }

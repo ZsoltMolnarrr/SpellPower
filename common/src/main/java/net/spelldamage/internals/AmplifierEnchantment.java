@@ -10,7 +10,6 @@ import net.spelldamage.config.EnchantmentsConfig;
 public class AmplifierEnchantment extends Enchantment implements CustomConditionalEnchantment {
     public Operation operation;
 
-
     public enum Operation {
         ADD, MULTIPLY;
     }
