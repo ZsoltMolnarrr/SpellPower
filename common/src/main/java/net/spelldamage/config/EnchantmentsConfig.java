@@ -1,11 +1,12 @@
 package net.spelldamage.config;
 
 import net.spelldamage.api.enchantment.Enchantments_SpellDamage;
+import net.spelldamage.api.enchantment.ItemType;
 import net.tinyconfig.models.EnchantmentConfig;
 import org.jetbrains.annotations.Nullable;
 
-import static net.spelldamage.config.EnchantmentsConfig.ExtendedEnchantmentConfig.Requirement.MAGICAL_ARMOR;
-import static net.spelldamage.config.EnchantmentsConfig.ExtendedEnchantmentConfig.Requirement.MAGICAL_WEAPON;
+import static net.spelldamage.api.enchantment.ItemType.MAGICAL_ARMOR;
+import static net.spelldamage.api.enchantment.ItemType.MAGICAL_WEAPON;
 
 public class EnchantmentsConfig {
 
@@ -32,11 +33,8 @@ public class EnchantmentsConfig {
     }
 
     public static class ExtendedEnchantmentConfig extends EnchantmentConfig {
-        @Nullable public Requirement requires;
-        public enum Requirement {
-            ARMOR, MAGICAL_ARMOR, MAGICAL_WEAPON
-        }
-        public ExtendedEnchantmentConfig(Requirement requires, int max_level, int min_cost, int step_cost, float bonus_per_level) {
+        @Nullable public ItemType requires;
+        public ExtendedEnchantmentConfig(ItemType requires, int max_level, int min_cost, int step_cost, float bonus_per_level) {
             super(max_level, min_cost, step_cost, bonus_per_level);
             this.requires = requires;
         }

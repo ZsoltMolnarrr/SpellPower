@@ -20,6 +20,10 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
     public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentsConfig.ExtendedEnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, operation, config, type, slotTypes);
         this.schools = schools;
+        this.setCondition(stack -> {
+            var itemTypeRequirement = this.config.requires;
+            return itemTypeRequirement == null || (itemTypeRequirement.matches(stack) && schoolsMatch(stack));
+        });
     }
 
     @Override
@@ -27,8 +31,7 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
         return !(other instanceof SchoolFilteredEnchantment) && super.canAccept(other);
     }
 
-    @Override
-    protected boolean isValidMagicalStack(ItemStack stack) {
+    protected boolean schoolsMatch(ItemStack stack) {
         var object = (Object)stack;
         if (object instanceof MagicalItemStack magicalItemStack) {
             var school = magicalItemStack.getMagicSchool();

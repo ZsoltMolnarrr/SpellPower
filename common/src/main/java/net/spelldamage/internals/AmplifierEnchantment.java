@@ -3,15 +3,14 @@ package net.spelldamage.internals;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import net.spelldamage.api.enchantment.ConditionalEnchantment;
-import net.spelldamage.api.enchantment.MagicalArmor;
-import net.spelldamage.api.enchantment.MagicalItemStack;
+import net.spelldamage.api.enchantment.CustomConditionalEnchantment;
 import net.spelldamage.config.EnchantmentsConfig;
 
-public class AmplifierEnchantment extends Enchantment implements ConditionalEnchantment {
+public class AmplifierEnchantment extends Enchantment implements CustomConditionalEnchantment {
     public Operation operation;
+
+
     public enum Operation {
         ADD, MULTIPLY;
     }
@@ -35,6 +34,10 @@ public class AmplifierEnchantment extends Enchantment implements ConditionalEnch
         super(weight, type, slotTypes);
         this.operation = operation;
         this.config = config;
+        this.setCondition(stack -> {
+            var itemTypeRequirement = this.config.requires;
+            return itemTypeRequirement == null || itemTypeRequirement.matches(stack);
+        });
     }
 
     public int getMaxLevel() {
@@ -52,31 +55,20 @@ public class AmplifierEnchantment extends Enchantment implements ConditionalEnch
         return super.getMinPower(level) + 50;
     }
 
-    public boolean isAcceptableItem(ItemStack stack) {
-        var requirement = config.requires;
-        if (requirement == null) {
-            return true;
-        }
-        switch (requirement) {
-            case ARMOR -> {
-                return stack.getItem() instanceof ArmorItem;
-            }
-            case MAGICAL_ARMOR -> {
-                return (stack.getItem() instanceof ArmorItem) && (stack.getItem() instanceof MagicalArmor);
-            }
-            case MAGICAL_WEAPON -> {
-                return isValidMagicalStack(stack);
-            }
-        }
-        return true;
+    // MARK: CustomConditionalEnchantment
+
+    private Condition condition;
+
+    @Override
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 
-    protected boolean isValidMagicalStack(ItemStack stack) {
-        var object = (Object)stack;
-        if (object instanceof MagicalItemStack magicalItemStack) {
-            var school = magicalItemStack.getMagicSchool();
-            return school != null;
+    @Override
+    public boolean isAcceptableItem(ItemStack stack) {
+        if (condition != null) {
+            return condition.isAcceptableItem(stack);
         }
-        return false;
+        return super.isAcceptableItem(stack);
     }
 }

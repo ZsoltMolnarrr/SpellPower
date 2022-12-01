@@ -4,6 +4,7 @@
   "package": "net.spelldamage.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EnchantmentHelperMixin",
     "LivingEntityMixin",
     "RegistryMixin"
   ],
