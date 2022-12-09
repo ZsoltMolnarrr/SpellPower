@@ -66,7 +66,7 @@ dependencies {
 ```
 In `mods.toml` add a dependency to the mod:
 ```
-modId="spelldamage"
+modId="spell_damage"
 mandatory=true
 versionRange="[VERSION,)"
 ordering="AFTER"

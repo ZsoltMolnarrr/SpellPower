@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "spelldamage",
+  "id": "spell_damage",
   "version": "${version}",
   "name": "Spell Damage Attribute",
   "description": "Library that adds spell damage attributes with related status effects and enchantments.",
