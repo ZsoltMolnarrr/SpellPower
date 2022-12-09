@@ -3,7 +3,7 @@
   "id": "spelldamage",
   "version": "${version}",
   "name": "Spell Damage Attribute",
-  "description": "Scale and synergize with the damage output of spells/artifacts.",
+  "description": "Library that adds spell damage attributes with related status effects and enchantments.",
   "authors": [
     "Daedelus"
   ],
@@ -16,14 +16,14 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.spelldamage.fabric.FabricMod"
+      "net.spell_damage.fabric.FabricMod"
     ]
   },
   "mixins": [
-    "spelldamage.mixins.json"
+    "spell_damage.mixins.json"
   ],
   "depends": {
-    "minecraft": "1.19.X",
+    "minecraft": ">=1.19.0 <1.19.3",
     "fabricloader": ">=0.14.0"
   },
   "custom": {

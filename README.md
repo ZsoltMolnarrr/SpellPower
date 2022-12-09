@@ -52,7 +52,7 @@ dependencies {
 In `fabric.mod.json` add a dependency to the mod:
 ```json
   "depends": {
-    "spelldamage": ">=VERSION"
+    "spell_damage": ">=VERSION"
   },
 ```
 
