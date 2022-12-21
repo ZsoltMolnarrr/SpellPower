@@ -9,7 +9,7 @@ import static java.util.Map.entry;
 import static net.spell_power.internals.Attributes.*;
 
 public class StatusEffectConfig {
-    public Map<String, SpellStatusEffect.AttributeModifierProperties> damage = Map.ofEntries(
+    public Map<String, SpellStatusEffect.AttributeModifierProperties> power = Map.ofEntries(
             entry(MagicSchool.ARCANE.spellName(), new SpellStatusEffect.AttributeModifierProperties(
                     MagicSchool.ARCANE.color(),
                     "e8222db4-6c3c-4bbe-bacb-6e8d07e96e8b",

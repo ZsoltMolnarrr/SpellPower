@@ -18,7 +18,7 @@ public class AttributeFamily {
     public AttributeFamily(MagicSchool school) {
         this(school.spellName(),
                 new AttributeData(0, 0, 2048),
-                SpellPowerMod.effectsConfig.value.damage.get(school.spellName()));
+                SpellPowerMod.effectsConfig.value.power.get(school.spellName()));
     }
 
     public AttributeFamily(String name, float defaultValue) {

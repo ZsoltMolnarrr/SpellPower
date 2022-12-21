@@ -47,7 +47,7 @@ public class SpellPower {
     }
 
     public static Result getSpellDamage(MagicSchool school, LivingEntity entity, ItemStack provisionedWeapon) {
-        var attribute = EntityAttributes_SpellPower.DAMAGE.get(school);
+        var attribute = EntityAttributes_SpellPower.POWER.get(school);
         var value = entity.getAttributeValue(attribute);
         for (var entry: Enchantments_SpellPower.damageEnchants.entrySet()) {
             var enchantment = entry.getValue();
