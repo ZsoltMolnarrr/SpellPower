@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "spell_damage",
+  "id": "spell_power",
   "version": "${version}",
-  "name": "Spell Damage Attribute",
-  "description": "Library that adds spell damage attributes with related status effects and enchantments.",
+  "name": "Spell Power Attribute",
+  "description": "Adds spell power entity attributes with related status effects and enchantments.",
   "authors": [
     "Daedelus"
   ],
   "contact": {
-    "repo": "https://github.com/ZsoltMolnarrr/SpellDamage",
-    "issues": "https://github.com/ZsoltMolnarrr/SpellDamage/issues"
+    "repo": "https://github.com/ZsoltMolnarrr/SpellPower",
+    "issues": "https://github.com/ZsoltMolnarrr/SpellPower/issues"
   },
   "license": "GPL-3.0",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.spell_damage.fabric.FabricMod"
+      "net.spell_power.fabric.FabricMod"
     ]
   },
   "mixins": [
-    "spell_damage.mixins.json"
+    "spell_power.mixins.json"
   ],
   "depends": {
     "minecraft": ">=1.19.0 <1.19.3",

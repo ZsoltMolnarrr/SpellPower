@@ -4,7 +4,7 @@ plugins {
 
 loom {
     forge {
-        mixinConfig "spell_damage.mixins.json"
+        mixinConfig "spell_power.mixins.json"
     }
 }
 
@@ -49,7 +49,7 @@ shadowJar {
 
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
-    relocate 'net.tinyconfig', 'net.spell_damage.tinyconfig'
+    relocate 'net.tinyconfig', 'net.spell_power.tinyconfig'
 }
 
 remapJar {

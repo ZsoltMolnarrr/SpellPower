@@ -52,7 +52,7 @@ dependencies {
 In `fabric.mod.json` add a dependency to the mod:
 ```json
   "depends": {
-    "spell_damage": ">=VERSION"
+    "spell_power": ">=VERSION"
   },
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 ```
 In `mods.toml` add a dependency to the mod:
 ```
-modId="spell_damage"
+modId="spell_power"
 mandatory=true
 versionRange="[VERSION,)"
 ordering="AFTER"
