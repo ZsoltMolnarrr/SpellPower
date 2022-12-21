@@ -46,7 +46,7 @@ repositories {
 ### Fabric workspace
 ```groovy
 dependencies {
-    modImplementation "maven.modrinth:spell-damage-attribute:VERSION-fabric"
+    modImplementation "maven.modrinth:spell-power-attribute:VERSION-fabric"
 }
 ```
 In `fabric.mod.json` add a dependency to the mod:
@@ -61,7 +61,7 @@ In `fabric.mod.json` add a dependency to the mod:
 ### Forge workspace
 ```groovy
 dependencies {
-    implementation "maven.modrinth:spell-damage-attribute:VERSION-forge"
+    implementation "maven.modrinth:spell-power-attribute:VERSION-forge"
 }
 ```
 In `mods.toml` add a dependency to the mod:
