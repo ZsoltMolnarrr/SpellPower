@@ -7,11 +7,14 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
+import net.spell_power.api.attributes.CustomEntityAttribute;
+
+import java.util.UUID;
 
 public class AttributeFamily {
     public final String name;
     public final Identifier id;
-    public final EntityAttribute attribute;
+    public final CustomEntityAttribute attribute;
     public final SpellStatusEffect statusEffect;
 
 
@@ -31,7 +34,7 @@ public class AttributeFamily {
         this.name = name;
         this.id = new Identifier(SpellPowerMod.ID, name);
         var translationPrefix = "attribute.name." + SpellPowerMod.ID + ".";
-        this.attribute = new ClampedEntityAttribute(translationPrefix + name, attributeData.defaultValue, attributeData.min, attributeData.max).setTracked(true);
+        this.attribute = (CustomEntityAttribute) new CustomEntityAttribute(translationPrefix + name, attributeData.defaultValue, attributeData.min, attributeData.max, id).setTracked(true);
         this.statusEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, effectConfig.color);
         this.statusEffect.addAttributeModifier(
                 this.attribute,
