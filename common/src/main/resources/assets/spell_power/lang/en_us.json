@@ -32,5 +32,7 @@
   "enchantment.spell_power.critical_damage" : "Amplify Spell",
   "enchantment.spell_power.critical_damage.desc" : "Increases damage/healing of critical strikes done with spells",
   "enchantment.spell_power.haste" : "Spell Haste",
-  "enchantment.spell_power.haste.desc" : "Increases casting speed of your spells"
+  "enchantment.spell_power.haste.desc" : "Increases casting speed of your spells",
+  "enchantment.spell_power.magic_protection" : "Magic Protection",
+  "enchantment.spell_power.magic_protection.desc" : "Reduces damage from hostile magic"
 }

@@ -20,6 +20,8 @@ public class EnchantmentsConfig {
     public ExtendedEnchantmentConfig critical_damage = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.1F);
     public ExtendedEnchantmentConfig haste = new ExtendedEnchantmentConfig(MAGICAL_WEAPON, 5, 15, 17, 0.05F);
 
+    public EnchantmentConfig magic_protection = new EnchantmentConfig(4, 3, 6, 2);
+
     // Helper
 
     public void apply() {
@@ -30,6 +32,7 @@ public class EnchantmentsConfig {
         Enchantments_SpellPower.CRITICAL_CHANCE.config = critical_chance;
         Enchantments_SpellPower.CRITICAL_DAMAGE.config = critical_damage;
         Enchantments_SpellPower.HASTE.config = haste;
+        Enchantments_SpellPower.MAGIC_PROTECTION.config = magic_protection;
     }
 
     public static class ExtendedEnchantmentConfig extends EnchantmentConfig {

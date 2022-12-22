@@ -8,6 +8,7 @@ import net.spell_power.api.MagicSchool;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.internals.AmplifierEnchantment;
 import net.spell_power.internals.Attributes;
+import net.spell_power.internals.MagicProtectionEnchantment;
 import net.spell_power.internals.SchoolFilteredEnchantment;
 
 import java.util.EnumSet;
@@ -89,10 +90,17 @@ public class Enchantments_SpellPower {
             BREAKABLE,
             EquipmentSlot.values());
 
+    // Resistance
+
+    public static EquipmentSlot[] ALL_ARMOR = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+    public static final String magicProtectionName = "magic_protection";
+    public static final Identifier magicProtectionId = new Identifier(SpellPowerMod.ID, magicProtectionName);
+    public static final MagicProtectionEnchantment MAGIC_PROTECTION = new MagicProtectionEnchantment(Enchantment.Rarity.RARE, config().magic_protection, ALL_ARMOR);
+
     // Helpers
 
     public static final Map<Identifier, SchoolFilteredEnchantment> damageEnchants;
-    public static final Map<Identifier, AmplifierEnchantment> all;
+    public static final Map<Identifier, Enchantment> all;
     static {
         damageEnchants = new HashMap<>();
         damageEnchants.put(spellPowerId, SPELL_POWER);
@@ -108,6 +116,7 @@ public class Enchantments_SpellPower {
         all = new HashMap<>();
         all.putAll(damageEnchants);
         all.putAll(secondaries);
+        all.put(magicProtectionId, MAGIC_PROTECTION);
     }
 
     private static EnchantmentsConfig config() {
