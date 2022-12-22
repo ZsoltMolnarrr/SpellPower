@@ -32,7 +32,7 @@ public class SpellDamageSource extends EntityDamageSource {
             damageSource.setFire();
         }
         damageSource.setBypassesArmor();
-        damageSource.setUnblockable();
+        // damageSource.setUnblockable();
         return damageSource;
     }
 
