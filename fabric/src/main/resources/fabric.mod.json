@@ -3,7 +3,7 @@
   "id": "spell_power",
   "version": "${version}",
   "name": "Spell Power Attribute",
-  "description": "Adds spell power entity attributes with related status effects and enchantments.",
+  "description": "Spell Power entity attributes with related status effects and enchantments.",
   "authors": [
     "Daedelus"
   ],
