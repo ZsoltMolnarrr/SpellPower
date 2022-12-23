@@ -8,17 +8,38 @@
 
 # 🔮️ Features
 
-Adds new entity attributes:
-- Multiple kind of Spell damage
-- Spell critical chance
-- Spell critical damage
-- Spell haste
+This library introduces new Entity Attributes for powering magical abilities, for the following magic types (schools):
+- 🔮 Arcane
+- 🔥 Fire
+- ❄️ Frost
+- 💚 Healing
+- ⚡️ Lightning
+- 👻 Soul
 
-Adds new enchantments:
-- Spell Power
+(Note: the design intent is to stay native to Minecraft, but establish Warcraft like magic schools. So no classic 4 element schools are implemented, besides fire.)
 
-Adds new status effects:
-- ...
+The library offers an API to query spell damage of an entity (based on its attributes, status effects, enchantments), and provides critical strike chance and multiplier. Critical striking is completely rng based, powered by secondary attributes.
+
+## 📦 Content
+
+Entity Attributes:
+- Spell Power, one for each specific magic school (for example: `spell_power:fire`)
+- Spell critical chance (id: `spell_power:critical_chance`)
+- Spell critical damage (id: `spell_power:critical_damage`)
+- Spell haste (id: `spell_power:haste`), can be used to quicken spell casting or cooldowns
+
+Status Effects:
+- One specifically for each introduced attribute, with a matching id (for example: `spell_power:fire`, `spell_power:critical_chance`)
+
+(All status effects come with fancy icons 😍)
+
+Enchantments:
+- Universal Spell Power (named: "Spell Power"), increasing all spell damage
+- School limited Spell Power (for example: "Sunfire", increasing arcane and fire damage) 
+- Secondary attribute enchantments (for example: "Spell Critical Chance")
+- "Magic Protection" (totally symmetric to Projectile Protection, but for magic)
+
+(All enchantments are fully configurable, and come with descriptions)
 
 # 🔧 Configuration
 
