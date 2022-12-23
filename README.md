@@ -1,3 +1,6 @@
+![Spell Power](.github/icon_and_title.png)
+
+
 <div align="center">
 
 <a href="">![Java 17](https://img.shields.io/badge/Java%2017-ee9258?logo=coffeescript&logoColor=ffffff&labelColor=606060&style=flat-square)</a>
@@ -22,18 +25,18 @@ The library offers an API to query spell damage of an entity (based on its attri
 
 ## 📦 Content
 
-Entity Attributes:
+### Entity Attributes:
 - Spell Power, one for each specific magic school (for example: `spell_power:fire`)
 - Spell critical chance (id: `spell_power:critical_chance`)
 - Spell critical damage (id: `spell_power:critical_damage`)
 - Spell haste (id: `spell_power:haste`), can be used to quicken spell casting or cooldowns
 
-Status Effects:
+### Status Effects:
 - One specifically for each introduced attribute, with a matching id (for example: `spell_power:fire`, `spell_power:critical_chance`)
 
 (All status effects come with fancy icons 😍)
 
-Enchantments:
+### Enchantments:
 - Universal Spell Power (named: "Spell Power"), increasing all spell damage
 - School limited Spell Power (for example: "Sunfire", increasing arcane and fire damage) 
 - Secondary attribute enchantments (for example: "Spell Critical Chance")
