@@ -1,5 +1,6 @@
-package net.spell_power.api;
+package net.spell_power.api.attributes;
 
+import net.spell_power.api.MagicSchool;
 import net.spell_power.api.attributes.CustomEntityAttribute;
 import net.spell_power.internals.Attributes;
 

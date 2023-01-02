@@ -5,40 +5,92 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.spell_power.SpellPowerMod;
+import net.spell_power.api.attributes.EntityAttributes_SpellPower;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
+import net.spell_power.api.statuseffects.VulnerabilityEffect;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 import static net.spell_power.internals.Attributes.PERCENT_ATTRIBUTE_BASELINE;
 
 public class SpellPower {
-    public record Result(MagicSchool school, double baseValue, double criticalChance, double criticalMultiplier) {
+    public record Result(MagicSchool school, double baseValue, double criticalChance, double criticalDamage) {
         private static Random rng = new Random();
         private enum CriticalStrikeMode {
             DISABLED, ALLOWED, FORCED
         }
 
         public double randomValue() {
-            return value(CriticalStrikeMode.ALLOWED);
+            return value(CriticalStrikeMode.ALLOWED, Vulnerability.none);
+        }
+
+        public double randomValue(Vulnerability vulnerability) {
+            return value(CriticalStrikeMode.ALLOWED, vulnerability);
         }
 
         public double nonCriticalValue() {
-            return value(CriticalStrikeMode.DISABLED);
+            return value(CriticalStrikeMode.DISABLED, Vulnerability.none);
         }
 
         public double forcedCriticalValue() {
-            return value(CriticalStrikeMode.FORCED);
+            return value(CriticalStrikeMode.FORCED, Vulnerability.none);
         }
 
-        private double value(CriticalStrikeMode mode) {
-            var value = baseValue;
+        private double value(CriticalStrikeMode mode, Vulnerability vulnerability) {
+            var value = baseValue * (1F + vulnerability.powerBaseMultiplier);
             if (mode != CriticalStrikeMode.DISABLED) {
-                boolean isCritical = (mode == CriticalStrikeMode.FORCED) || (rng.nextFloat() < criticalChance);
+                boolean isCritical = (mode == CriticalStrikeMode.FORCED) || (rng.nextFloat() < (criticalChance + vulnerability.criticalChanceBonus));
                 if (isCritical) {
-                    value *= criticalMultiplier;
+                    value *= (criticalDamage + vulnerability.criticalDamageBonus);
                 }
             }
             return value;
+        }
+    }
+
+    public record VulnerabilityQuery(LivingEntity entity, MagicSchool school) { }
+    public static final ArrayList<Function<VulnerabilityQuery, List<Vulnerability>>> vulnerabilitySources = new ArrayList<Function<VulnerabilityQuery, List<Vulnerability>>>(
+            Arrays.asList(
+                    (query -> {
+                        var vulnerabilities = new ArrayList<Vulnerability>();
+                        for(var effect: query.entity.getStatusEffects()) {
+                            if (effect.getEffectType() instanceof VulnerabilityEffect vulnerabilityEffect) {
+                                vulnerabilities.add(vulnerabilityEffect.getVulnerability(query.school, effect.getAmplifier()));
+                            }
+                        }
+                        return vulnerabilities;
+                    })
+            ));
+
+    public static Vulnerability getVulnerability(LivingEntity livingEntity, MagicSchool school) {
+        var query = new VulnerabilityQuery(livingEntity, school);
+        var elements = new ArrayList<Vulnerability>();
+        for(var source: vulnerabilitySources) {
+            elements.addAll(source.apply(query));
+        }
+        return Vulnerability.sum(elements);
+    }
+
+    public record Vulnerability(float powerBaseMultiplier, float criticalChanceBonus, float criticalDamageBonus) {
+        public static final Vulnerability none = new Vulnerability(0, 0, 0);
+        public static Vulnerability sum(List<Vulnerability> elements) {
+            var value = none;
+            for(var element: elements) {
+                value = new Vulnerability(
+                        value.powerBaseMultiplier + element.powerBaseMultiplier,
+                        value.criticalChanceBonus + element.criticalChanceBonus,
+                        value.criticalDamageBonus + element.criticalDamageBonus
+                );
+            }
+            return value;
+        }
+
+        public Vulnerability multiply(float value) {
+            return new Vulnerability(powerBaseMultiplier * value, criticalChanceBonus * value, criticalDamageBonus * value);
         }
     }
 
