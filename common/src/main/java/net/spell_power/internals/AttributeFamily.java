@@ -1,15 +1,11 @@
 package net.spell_power.internals;
 
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.api.attributes.CustomEntityAttribute;
-
-import java.util.UUID;
 
 public class AttributeFamily {
     public final String name;
@@ -30,7 +26,7 @@ public class AttributeFamily {
                 SpellPowerMod.effectsConfig.value.rating.get(name));
     }
 
-    public AttributeFamily(String name, AttributeData attributeData, SpellStatusEffect.AttributeModifierProperties effectConfig) {
+    public AttributeFamily(String name, AttributeData attributeData, SpellStatusEffect.Config effectConfig) {
         this.name = name;
         this.id = new Identifier(SpellPowerMod.ID, name);
         var translationPrefix = "attribute.name." + SpellPowerMod.ID + ".";
@@ -41,6 +37,7 @@ public class AttributeFamily {
                 effectConfig.udid,
                 effectConfig.bonus_per_stack,
                 EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.statusEffect.preferredRawId = effectConfig.raw_id;
     }
 
     public record AttributeData(float defaultValue, float min, float max) { };

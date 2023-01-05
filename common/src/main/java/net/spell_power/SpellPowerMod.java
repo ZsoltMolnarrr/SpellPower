@@ -60,7 +60,14 @@ public class SpellPowerMod {
 
     public static void registerStatusEffects() {
         for(var entry: Attributes.all.entrySet()) {
-            Registry.register(Registry.STATUS_EFFECT, entry.getValue().id, entry.getValue().statusEffect);
+            var rawId = entry.getValue().statusEffect.preferredRawId;
+            var id = entry.getValue().id;
+            var effect = entry.getValue().statusEffect;
+            if (rawId > 0) {
+                Registry.register(Registry.STATUS_EFFECT, rawId, id.toString(), effect);
+            } else {
+                Registry.register(Registry.STATUS_EFFECT, id, effect);
+            }
         }
     }
 }

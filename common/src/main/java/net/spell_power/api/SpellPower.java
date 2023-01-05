@@ -94,11 +94,11 @@ public class SpellPower {
         }
     }
 
-    public static Result getSpellDamage(MagicSchool school, LivingEntity entity) {
-        return getSpellDamage(school, entity, null);
+    public static Result getSpellPower(MagicSchool school, LivingEntity entity) {
+        return getSpellPower(school, entity, null);
     }
 
-    public static Result getSpellDamage(MagicSchool school, LivingEntity entity, ItemStack provisionedWeapon) {
+    public static Result getSpellPower(MagicSchool school, LivingEntity entity, ItemStack provisionedWeapon) {
         var attribute = EntityAttributes_SpellPower.POWER.get(school);
         var value = entity.getAttributeValue(attribute);
         for (var entry: Enchantments_SpellPower.damageEnchants.entrySet()) {
