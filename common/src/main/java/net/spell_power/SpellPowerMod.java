@@ -11,21 +11,21 @@ import net.tinyconfig.ConfigManager;
 public class SpellPowerMod {
     public static final String ID = "spell_power";
 
-    public static ConfigManager<EnchantmentsConfig> enchantmentConfig = new ConfigManager<EnchantmentsConfig>
+    public static final ConfigManager<EnchantmentsConfig> enchantmentConfig = new ConfigManager<EnchantmentsConfig>
             ("enchantments", new EnchantmentsConfig())
             .builder()
             .setDirectory(ID)
             .sanitize(true)
             .build();
 
-    public static ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
+    public static final ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
             ("attributes", new AttributesConfig())
             .builder()
             .setDirectory(ID)
             .sanitize(true)
             .build();
 
-    public static ConfigManager<StatusEffectConfig> effectsConfig = new ConfigManager<StatusEffectConfig>
+    public static final ConfigManager<StatusEffectConfig> effectsConfig = new ConfigManager<StatusEffectConfig>
             ("status_effects", new StatusEffectConfig())
             .builder()
             .setDirectory(ID)
@@ -42,10 +42,16 @@ public class SpellPowerMod {
         effectsConfig.refresh();
     }
 
+    private static boolean registeredAttributes = false;
     public static void registerAttributes() {
+        if (registeredAttributes) {
+            return;
+        }
+        attributesConfig.refresh();
         for(var entry: Attributes.all.entrySet()) {
             Registry.register(Registry.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
         }
+        registeredAttributes = true;
     }
 
     public static void registerEnchantments() {
