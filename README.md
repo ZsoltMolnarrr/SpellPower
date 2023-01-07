@@ -98,3 +98,7 @@ side="BOTH"
 ```
 
 (Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-damage-attribute/versions))
+
+## Using attributes
+
+Before referencing any attributes of the mod, make sure to call `SpellPowerMod.registerAttributes()`.
