@@ -11,8 +11,5 @@ public class FabricMod implements ModInitializer {
         SpellPowerMod.registerEnchantments();
         SpellPowerMod.configureEnchantments();
         SpellPowerMod.registerStatusEffects();
-//        for (var entry: EntityAttributes_SpellPower.POWER.entrySet()) {
-//            System.out.println(entry.getKey() + " weapon UUID " + entry.getValue().weaponUUID);
-//        }
     }
 }
