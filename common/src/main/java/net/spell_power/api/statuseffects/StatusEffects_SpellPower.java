@@ -1,7 +1,7 @@
 package net.spell_power.api.statuseffects;
 
 import net.spell_power.api.MagicSchool;
-import net.spell_power.internals.Attributes;
+import net.spell_power.api.attributes.Attributes;
 import net.spell_power.internals.SpellStatusEffect;
 
 import java.util.HashMap;

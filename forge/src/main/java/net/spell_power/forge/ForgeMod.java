@@ -6,7 +6,7 @@ import net.minecraftforge.registries.RegisterEvent;
 import net.spell_power.SpellPowerMod;
 import net.minecraftforge.fml.common.Mod;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
-import net.spell_power.internals.Attributes;
+import net.spell_power.api.attributes.Attributes;
 
 @Mod(SpellPowerMod.ID)
 public class ForgeMod {

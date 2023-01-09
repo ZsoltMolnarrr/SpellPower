@@ -5,7 +5,7 @@ import net.spell_power.api.enchantment.Enchantments_SpellPower;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.config.StatusEffectConfig;
-import net.spell_power.internals.Attributes;
+import net.spell_power.api.attributes.Attributes;
 import net.tinyconfig.ConfigManager;
 
 public class SpellPowerMod {

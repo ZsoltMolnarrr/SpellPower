@@ -6,7 +6,7 @@ import net.spell_power.internals.SpellStatusEffect;
 import java.util.Map;
 
 import static java.util.Map.entry;
-import static net.spell_power.internals.Attributes.*;
+import static net.spell_power.api.attributes.Attributes.*;
 
 public class StatusEffectConfig {
     public Map<String, SpellStatusEffect.Config> power = Map.ofEntries(

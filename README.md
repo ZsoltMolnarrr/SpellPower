@@ -101,4 +101,6 @@ side="BOTH"
 
 ## Using attributes
 
-Before referencing any attributes of the mod, make sure to call `SpellPowerMod.registerAttributes()`.
+### Magic enchants for armor pieces
+
+To allow your armor pieces to be enchanted with magical enchants use `MagicArmorEnchanting.register(myArmorPiece);` at item registration.

@@ -1,6 +1,7 @@
-package net.spell_power.internals;
+package net.spell_power.api.attributes;
 
 import net.spell_power.api.MagicSchool;
+import net.spell_power.internals.AttributeFamily;
 
 import java.util.HashMap;
 import java.util.List;

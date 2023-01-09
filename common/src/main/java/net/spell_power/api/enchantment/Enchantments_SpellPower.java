@@ -7,7 +7,7 @@ import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.internals.AmplifierEnchantment;
-import net.spell_power.internals.Attributes;
+import net.spell_power.api.attributes.Attributes;
 import net.spell_power.internals.MagicProtectionEnchantment;
 import net.spell_power.internals.SchoolFilteredEnchantment;
 
