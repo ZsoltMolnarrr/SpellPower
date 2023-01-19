@@ -70,7 +70,7 @@ repositories {
 ### Fabric workspace
 ```groovy
 dependencies {
-    modImplementation "maven.modrinth:spell-power-attribute:VERSION-fabric"
+    modImplementation "maven.modrinth:spell-power:VERSION-fabric"
 }
 ```
 In `fabric.mod.json` add a dependency to the mod:
@@ -80,12 +80,12 @@ In `fabric.mod.json` add a dependency to the mod:
   },
 ```
 
-(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-damage-attribute/versions))
+(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-power/versions))
 
 ### Forge workspace
 ```groovy
 dependencies {
-    implementation "maven.modrinth:spell-power-attribute:VERSION-forge"
+    implementation "maven.modrinth:spell-power:VERSION-forge"
 }
 ```
 In `mods.toml` add a dependency to the mod:
@@ -97,7 +97,7 @@ ordering="AFTER"
 side="BOTH"
 ```
 
-(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-damage-attribute/versions))
+(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-power/versions))
 
 ## Using attributes
 
