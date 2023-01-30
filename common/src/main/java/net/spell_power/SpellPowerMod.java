@@ -5,7 +5,7 @@ import net.spell_power.api.enchantment.Enchantments_SpellPower;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.config.StatusEffectConfig;
-import net.spell_power.api.attributes.Attributes;
+import net.spell_power.api.attributes.SpellAttributes;
 import net.tinyconfig.ConfigManager;
 
 public class SpellPowerMod {
@@ -48,7 +48,7 @@ public class SpellPowerMod {
             return;
         }
         attributesConfig.refresh();
-        for(var entry: Attributes.all.entrySet()) {
+        for(var entry: SpellAttributes.all.entrySet()) {
             Registry.register(Registry.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
         }
         registeredAttributes = true;
@@ -65,7 +65,7 @@ public class SpellPowerMod {
     }
 
     public static void registerStatusEffects() {
-        for(var entry: Attributes.all.entrySet()) {
+        for(var entry: SpellAttributes.all.entrySet()) {
             var rawId = entry.getValue().statusEffect.preferredRawId;
             var id = entry.getValue().id;
             var effect = entry.getValue().statusEffect;

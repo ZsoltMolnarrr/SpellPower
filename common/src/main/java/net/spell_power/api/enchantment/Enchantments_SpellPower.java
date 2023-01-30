@@ -7,7 +7,7 @@ import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.internals.AmplifierEnchantment;
-import net.spell_power.api.attributes.Attributes;
+import net.spell_power.api.attributes.SpellAttributes;
 import net.spell_power.internals.MagicProtectionEnchantment;
 import net.spell_power.internals.SchoolFilteredEnchantment;
 
@@ -66,7 +66,7 @@ public class Enchantments_SpellPower {
 
     // Rating enchants
 
-    public static final Identifier criticalChanceId = new Identifier(SpellPowerMod.ID, Attributes.CRITICAL_CHANCE);
+    public static final Identifier criticalChanceId = new Identifier(SpellPowerMod.ID, SpellAttributes.CRITICAL_CHANCE.name);
     public static final AmplifierEnchantment CRITICAL_CHANCE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
             ADD,
@@ -74,7 +74,7 @@ public class Enchantments_SpellPower {
             BREAKABLE,
             EquipmentSlot.values());
 
-    public static final Identifier criticalDamageId = new Identifier(SpellPowerMod.ID, Attributes.CRITICAL_DAMAGE);
+    public static final Identifier criticalDamageId = new Identifier(SpellPowerMod.ID, SpellAttributes.CRITICAL_DAMAGE.name);
     public static final AmplifierEnchantment CRITICAL_DAMAGE = new AmplifierEnchantment(
             Enchantment.Rarity.UNCOMMON,
             ADD,
@@ -82,7 +82,7 @@ public class Enchantments_SpellPower {
             BREAKABLE,
             EquipmentSlot.values());
 
-    public static final Identifier hasteId = new Identifier(SpellPowerMod.ID, Attributes.HASTE);
+    public static final Identifier hasteId = new Identifier(SpellPowerMod.ID, SpellAttributes.HASTE.name);
     public static final AmplifierEnchantment HASTE = new AmplifierEnchantment(
             Enchantment.Rarity.RARE,
             ADD,

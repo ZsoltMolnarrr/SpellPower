@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-import static net.spell_power.api.attributes.Attributes.PERCENT_ATTRIBUTE_BASELINE;
+import static net.spell_power.api.attributes.SpellAttributes.PERCENT_ATTRIBUTE_BASELINE;
 
 public class SpellPower {
     public record Result(MagicSchool school, double baseValue, double criticalChance, double criticalDamage) {

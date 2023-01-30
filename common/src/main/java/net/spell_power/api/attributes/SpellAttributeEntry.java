@@ -1,32 +1,32 @@
-package net.spell_power.internals;
+package net.spell_power.api.attributes;
 
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
-import net.spell_power.api.attributes.CustomEntityAttribute;
+import net.spell_power.internals.SpellStatusEffect;
 
-public class AttributeFamily {
+public class SpellAttributeEntry {
     public final String name;
     public final Identifier id;
     public final CustomEntityAttribute attribute;
     public final SpellStatusEffect statusEffect;
 
 
-    public AttributeFamily(MagicSchool school) {
+    public SpellAttributeEntry(MagicSchool school) {
         this(school.spellName(),
                 new AttributeData(0, 0, 2048),
                 SpellPowerMod.effectsConfig.value.power.get(school.spellName()));
     }
 
-    public AttributeFamily(String name, float defaultValue) {
+    public SpellAttributeEntry(String name, float defaultValue) {
         this(name,
                 new AttributeData(defaultValue, defaultValue, defaultValue * 10),
                 SpellPowerMod.effectsConfig.value.rating.get(name));
     }
 
-    public AttributeFamily(String name, AttributeData attributeData, SpellStatusEffect.Config effectConfig) {
+    public SpellAttributeEntry(String name, AttributeData attributeData, SpellStatusEffect.Config effectConfig) {
         this.name = name;
         this.id = new Identifier(SpellPowerMod.ID, name);
         var translationPrefix = "attribute.name." + SpellPowerMod.ID + ".";

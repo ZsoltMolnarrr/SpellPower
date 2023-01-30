@@ -6,7 +6,7 @@ import net.minecraftforge.registries.RegisterEvent;
 import net.spell_power.SpellPowerMod;
 import net.minecraftforge.fml.common.Mod;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
-import net.spell_power.api.attributes.Attributes;
+import net.spell_power.api.attributes.SpellAttributes;
 
 @Mod(SpellPowerMod.ID)
 public class ForgeMod {
@@ -22,7 +22,7 @@ public class ForgeMod {
         // These don't seem to do anything :D
         event.register(ForgeRegistries.Keys.ATTRIBUTES,
                 helper -> {
-                    for(var entry: Attributes.all.entrySet()) {
+                    for(var entry: SpellAttributes.all.entrySet()) {
                         helper.register(entry.getValue().id, entry.getValue().attribute);
                     }
                 }
@@ -36,7 +36,7 @@ public class ForgeMod {
         );
         event.register(ForgeRegistries.Keys.MOB_EFFECTS,
                 helper -> {
-                    for(var entry: Attributes.all.entrySet()) {
+                    for(var entry: SpellAttributes.all.entrySet()) {
                         helper.register(entry.getValue().id, entry.getValue().statusEffect);
                     }
                 }
