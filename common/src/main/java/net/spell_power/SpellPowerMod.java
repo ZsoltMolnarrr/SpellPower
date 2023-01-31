@@ -30,10 +30,12 @@ public class SpellPowerMod {
             .builder()
             .setDirectory(ID)
             .sanitize(true)
+            .validate(StatusEffectConfig::isValid)
             .build();
 
     public static void init() {
         loadConfig();
+        configureStatusEffects();
     }
 
     public static void loadConfig() {
@@ -74,6 +76,14 @@ public class SpellPowerMod {
             } else {
                 Registry.register(Registry.STATUS_EFFECT, id, effect);
             }
+        }
+    }
+
+    public static void configureStatusEffects() {
+        for (var entry: SpellAttributes.all.entrySet()) {
+            var config = effectsConfig.value.effects.get(entry.getKey());
+            var attribute = entry.getValue();
+            attribute.setupStatusEffect(config);
         }
     }
 }

@@ -9,7 +9,7 @@ import static java.util.Map.entry;
 import static net.spell_power.api.attributes.SpellAttributes.*;
 
 public class StatusEffectConfig {
-    public Map<String, SpellStatusEffect.Config> power = Map.ofEntries(
+    public Map<String, SpellStatusEffect.Config> effects = Map.ofEntries(
             entry(MagicSchool.ARCANE.spellName(), new SpellStatusEffect.Config(
                     730,
                     MagicSchool.ARCANE.color(),
@@ -39,9 +39,7 @@ public class StatusEffectConfig {
                     735,
                     MagicSchool.SOUL.color(),
                     "5515bafc-4a63-11ed-b878-0242ac120002",
-                    0.2F))
-            );
-    public Map<String, SpellStatusEffect.Config> rating = Map.ofEntries(
+                    0.2F)),
             entry(CRITICAL_CHANCE.name, new SpellStatusEffect.Config(
                     736,
                     0xffffcc,
@@ -58,4 +56,8 @@ public class StatusEffectConfig {
                     "092f4f58-3ce5-11ed-b878-0242ac120002",
                     0.05F))
     );
+
+    public boolean isValid() {
+        return effects != null && !effects.isEmpty();
+    }
 }
