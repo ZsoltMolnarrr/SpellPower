@@ -10,32 +10,32 @@ import static net.spell_power.api.attributes.SpellAttributes.*;
 
 public class StatusEffectConfig {
     public Map<String, SpellStatusEffect.Config> effects = Map.ofEntries(
-            entry(MagicSchool.ARCANE.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.ARCANE).name, new SpellStatusEffect.Config(
                     730,
                     MagicSchool.ARCANE.color(),
                     "e8222db4-6c3c-4bbe-bacb-6e8d07e96e8b",
                     0.2F)),
-            entry(MagicSchool.FIRE.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.FIRE).name, new SpellStatusEffect.Config(
                     731,
                     MagicSchool.FIRE.color(),
                     "3c06c1d4-3cce-11ed-a261-0242ac120002",
                     0.2F)),
-            entry(MagicSchool.FROST.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.FROST).name, new SpellStatusEffect.Config(
                     732,
                     MagicSchool.FROST.color(),
                     "41569be6-3cce-11ed-a261-0242ac120002",
                     0.2F)),
-            entry(MagicSchool.HEALING.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.HEALING).name, new SpellStatusEffect.Config(
                     733,
                     MagicSchool.HEALING.color(),
                     "4eccd93c-4a63-11ed-b878-0242ac120002",
                     0.2F)),
-            entry(MagicSchool.LIGHTNING.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.LIGHTNING).name, new SpellStatusEffect.Config(
                     734,
                     MagicSchool.LIGHTNING.color(),
                     "48a773c8-4a63-11ed-b878-0242ac120002",
                     0.2F)),
-            entry(MagicSchool.SOUL.spellName(), new SpellStatusEffect.Config(
+            entry(POWER.get(MagicSchool.SOUL).name, new SpellStatusEffect.Config(
                     735,
                     MagicSchool.SOUL.color(),
                     "5515bafc-4a63-11ed-b878-0242ac120002",

@@ -36,7 +36,7 @@ public class SpellAttributeEntry {
         if (config != null) {
             color = config.color;
         }
-        this.statusEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, 0xFFFFFF);
+        this.statusEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
         if (config != null) {
             this.statusEffect.addAttributeModifier(
                     this.attribute,
