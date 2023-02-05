@@ -1,5 +1,13 @@
-# 0.9.3
+# 0.9.5
+- Magic schools specific enchantments will be no longer applied to irrelevant pieces (such as no Sunfire for frost items)
 
+# 0.9.4
+- Update license to LGPL v3
+- Add chinse translation by Kzeroko and Kasualix
+- Rework Spell Attributes API
+- Improve status effect configuration structure
+
+# 0.9.3
 - Update API for named attributes
 - Update enchantment config defaults
 

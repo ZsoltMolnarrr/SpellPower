@@ -12,7 +12,11 @@ public enum ItemType {
                 return stack.getItem() instanceof ArmorItem;
             }
             case MAGICAL_ARMOR -> {
-                return (stack.getItem() instanceof ArmorItem) && (MagicArmorEnchanting.isRegistered(stack.getItem()));
+                if (stack.getItem() instanceof ArmorItem armor) {
+                    return MagicArmorEnchanting.isRegistered(armor)
+                            || !MagicArmorEnchanting.relevantSchools(stack, armor.getSlotType()).isEmpty();
+                }
+                return false;
             }
             case MAGICAL_WEAPON -> {
                 return isValidMagicalStack(stack);
