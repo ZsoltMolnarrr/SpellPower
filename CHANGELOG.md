@@ -1,4 +1,7 @@
-# 0.9.5
+# 0.9.6
+- Reduce default bonus per stack of spell power status effects (to rebalance Arcane spec)
+
+#0.9.5
 - Magic schools specific enchantments will be no longer applied to irrelevant pieces (such as no Sunfire for frost items)
 
 # 0.9.4
