@@ -7,6 +7,11 @@ import java.util.List;
 @Deprecated
 public final class MagicArmorEnchanting {
     @Deprecated
+    public static void register(ArmorItem item) {
+        SpellPowerEnchanting.registerArmor(item);
+    }
+
+    @Deprecated
     public static void register(ArmorItem... items) {
         SpellPowerEnchanting.registerArmor(items);
     }
