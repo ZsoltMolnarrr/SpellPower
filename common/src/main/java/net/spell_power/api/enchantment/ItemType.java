@@ -13,24 +13,15 @@ public enum ItemType {
             }
             case MAGICAL_ARMOR -> {
                 if (stack.getItem() instanceof ArmorItem armor) {
-                    return MagicArmorEnchanting.isRegistered(armor)
-                            || !MagicArmorEnchanting.relevantSchools(stack, armor.getSlotType()).isEmpty();
+                    return SpellPowerEnchanting.isArmorRegistered(armor)
+                            || !SpellPowerEnchanting.relevantSchools(stack, armor.getSlotType()).isEmpty();
                 }
                 return false;
             }
             case MAGICAL_WEAPON -> {
-                return isValidMagicalStack(stack);
+                return SpellPowerEnchanting.isAllowedForWeapon(stack);
             }
         }
         return true;
-    }
-
-    private boolean isValidMagicalStack(ItemStack stack) {
-        var object = (Object) stack;
-        if (object instanceof MagicalItemStack magicalItemStack) {
-            var school = magicalItemStack.getMagicSchool();
-            return school != null;
-        }
-        return false;
     }
 }

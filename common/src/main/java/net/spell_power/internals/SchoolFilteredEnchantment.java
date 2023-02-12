@@ -6,8 +6,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.spell_power.api.MagicSchool;
-import net.spell_power.api.enchantment.MagicArmorEnchanting;
-import net.spell_power.api.enchantment.MagicalItemStack;
+import net.spell_power.api.enchantment.SpellPowerEnchanting;
 import net.spell_power.config.EnchantmentsConfig;
 
 import java.util.EnumSet;
@@ -35,22 +34,16 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
 
     protected boolean schoolsMatch(ItemStack stack) {
         var item = stack.getItem();
+        EquipmentSlot slot = EquipmentSlot.MAINHAND;
         if (item instanceof ArmorItem armor) {
-            var schools = MagicArmorEnchanting.relevantSchools(stack, armor.getSlotType());
-            for (var school : schools) {
-                if (this.schools.contains(school)) {
-                    return true;
-                }
-            }
-            return false;
+            slot = armor.getSlotType();
         }
-        var object = (Object)stack;
-        if (object instanceof MagicalItemStack magicalItemStack) {
-            var school = magicalItemStack.getMagicSchool();
-            if (school != null) {
-                return schools.contains(school);
+        var schools = SpellPowerEnchanting.relevantSchools(stack, slot);
+        for (var school : schools) {
+            if (this.schools.contains(school)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
