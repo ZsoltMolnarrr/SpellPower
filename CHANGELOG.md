@@ -1,5 +1,6 @@
 # 0.9.7
 - Update enchanting API
+- Add magic school to SpellDamageSource
 
 # 0.9.6
 - Reduce default bonus per stack of spell power status effects (to rebalance Arcane spec)

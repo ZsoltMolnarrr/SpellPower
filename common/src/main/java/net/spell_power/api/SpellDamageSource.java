@@ -26,7 +26,7 @@ public class SpellDamageSource extends EntityDamageSource {
     }
 
     private static SpellDamageSource create(MagicSchool school, String name, Entity source) {
-        var damageSource = new SpellDamageSource(name, source);
+        var damageSource = new SpellDamageSource(name, source, school);
         damageSource.setUsesMagic();
         if (school == FIRE) {
             damageSource.setFire();
@@ -36,8 +36,15 @@ public class SpellDamageSource extends EntityDamageSource {
         return damageSource;
     }
 
-    public SpellDamageSource(String name, Entity source) {
+    private MagicSchool school;
+
+    public SpellDamageSource(String name, Entity source, MagicSchool school) {
         super(name, source);
+        this.school = school;
+    }
+
+    public MagicSchool getMagicSchool() {
+        return school;
     }
 
     @Override
