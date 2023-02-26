@@ -17,7 +17,7 @@ public class EnchantmentsConfig {
     public ExtendedEnchantmentConfig sunfire = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.05F);
     public ExtendedEnchantmentConfig energize = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.05F)
             .setEnabled(false); // Remove when healer content is added
-    public ExtendedEnchantmentConfig critical_chance = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.04F);
+    public ExtendedEnchantmentConfig critical_chance = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.02F);
     public ExtendedEnchantmentConfig critical_damage = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.1F);
     public ExtendedEnchantmentConfig haste = new ExtendedEnchantmentConfig(MAGICAL_WEAPON, 5, 15, 17, 0.05F);
 
