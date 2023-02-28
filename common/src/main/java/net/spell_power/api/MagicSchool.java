@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public enum MagicSchool {
     ARCANE, FIRE, FROST, HEALING, LIGHTNING, SOUL,
-    PHYSICAL_MELEE(new Identifier("generic.attack_speed"), SpellDamageSource.Configurator.MELEE);
+    PHYSICAL_MELEE(new Identifier("generic.attack_damage"), SpellDamageSource.Configurator.MELEE);
 
     @Nullable private final Identifier externalAttributeId;
     private final Consumer<SpellDamageSource> damageSourceConfigurator;
