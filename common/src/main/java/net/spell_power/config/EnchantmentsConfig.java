@@ -3,12 +3,13 @@ package net.spell_power.config;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
 import net.spell_power.api.enchantment.ItemType;
 import net.tinyconfig.models.EnchantmentConfig;
+import net.tinyconfig.versioning.VersionableConfig;
 import org.jetbrains.annotations.Nullable;
 
 import static net.spell_power.api.enchantment.ItemType.MAGICAL_ARMOR;
 import static net.spell_power.api.enchantment.ItemType.MAGICAL_WEAPON;
 
-public class EnchantmentsConfig {
+public class EnchantmentsConfig extends VersionableConfig {
 
     // Fields
 
