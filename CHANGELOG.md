@@ -1,3 +1,8 @@
+# 0.9.8
+
+- Add config versioning, so old configs can be overridden
+- Remove deprecated interfaces
+
 # 0.9.7
 - Update enchanting API
 - Add magic school to SpellDamageSource
@@ -10,7 +15,7 @@
 
 # 0.9.4
 - Update license to LGPL v3
-- Add chinse translation by Kzeroko and Kasualix
+- Add chinese translation by Kzeroko and Kasualix
 - Rework Spell Attributes API
 - Improve status effect configuration structure
 
