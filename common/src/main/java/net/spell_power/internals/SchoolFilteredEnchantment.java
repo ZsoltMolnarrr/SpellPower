@@ -14,10 +14,10 @@ import java.util.EnumSet;
 public class SchoolFilteredEnchantment extends AmplifierEnchantment {
     private EnumSet<MagicSchool> schools;
 
-    public boolean canBeAppliedFor(MagicSchool givenSchool) {
-        return schools.contains(givenSchool);
+    public EnumSet<MagicSchool> poweredSchools() {
+        return schools;
     }
-    
+
     public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentsConfig.ExtendedEnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, operation, config, type, slotTypes);
         this.schools = schools;

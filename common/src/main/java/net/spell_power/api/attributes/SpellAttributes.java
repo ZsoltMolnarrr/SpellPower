@@ -19,6 +19,7 @@ public class SpellAttributes {
         all = new HashMap<>();
         POWER = new HashMap<>();
         for (MagicSchool school : MagicSchool.values()) {
+            if (school.isExternalAttribute()) { continue; }
             var family = new SpellAttributeEntry(school);
             all.put(family.name, family);
             POWER.put(school, family);

@@ -1,5 +1,6 @@
 # 0.9.8
 
+- Add support for physical spell damage (aka ability damage)
 - Add config versioning, so old configs can be overridden
 - Remove deprecated interfaces
 

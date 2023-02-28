@@ -14,8 +14,10 @@ public class EntityAttributes_SpellPower {
     static {
         POWER = new HashMap<>();
         for(var school: MagicSchool.values()) {
-            var attribute = SpellAttributes.all.get(school.spellName()).attribute;
-            POWER.put(school, attribute);
+            var entry = SpellAttributes.all.get(school.spellName());
+            if (entry != null) {
+                POWER.put(school, entry.attribute);
+            }
         }
         HASTE.setTracked(true);
     }

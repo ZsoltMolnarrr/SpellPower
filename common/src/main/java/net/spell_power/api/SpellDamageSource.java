@@ -6,6 +6,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 
+import java.util.function.Consumer;
+
 import static net.spell_power.api.MagicSchool.FIRE;
 
 public class SpellDamageSource extends EntityDamageSource {
@@ -27,13 +29,21 @@ public class SpellDamageSource extends EntityDamageSource {
 
     private static SpellDamageSource create(MagicSchool school, String name, Entity source) {
         var damageSource = new SpellDamageSource(name, source, school);
-        damageSource.setUsesMagic();
+        school.damageSourceConfigurator().accept(damageSource);
         if (school == FIRE) {
             damageSource.setFire();
         }
-        damageSource.setBypassesArmor();
-        // damageSource.setUnblockable();
         return damageSource;
+    }
+
+    public static class Configurator {
+        public static Consumer<SpellDamageSource> MAGIC = source -> {
+            source.setUsesMagic();
+            source.setBypassesArmor();
+        };
+
+        public static Consumer<SpellDamageSource> MELEE = source -> {
+        };
     }
 
     private MagicSchool school;

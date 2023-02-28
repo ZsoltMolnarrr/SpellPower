@@ -3,10 +3,13 @@ package net.spell_power.api;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.registry.Registry;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.attributes.EntityAttributes_SpellPower;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
+import net.spell_power.api.enchantment.SpellPowerEnchanting;
 import net.spell_power.api.statuseffects.VulnerabilityEffect;
 
 import java.util.ArrayList;
@@ -99,16 +102,18 @@ public class SpellPower {
     }
 
     public static Result getSpellPower(MagicSchool school, LivingEntity entity, ItemStack provisionedWeapon) {
-        var attribute = EntityAttributes_SpellPower.POWER.get(school);
-        var value = entity.getAttributeValue(attribute);
-        for (var entry: Enchantments_SpellPower.damageEnchants.entrySet()) {
-            var enchantment = entry.getValue();
-            if (enchantment.canBeAppliedFor(school)) {
-                var level = getEnchantmentLevel(enchantment, entity, provisionedWeapon);
-                value = enchantment.amplify(value, level);
-            }
+        EntityAttribute attribute;
+        if (school.isExternalAttribute()) {
+            attribute = Registry.ATTRIBUTE.get(school.attributeId());
+        } else {
+            attribute = EntityAttributes_SpellPower.POWER.get(school);
         }
-        
+        var value = entity.getAttributeValue(attribute);
+        for (var booster: SpellPowerEnchanting.boostersFor(school)) {
+            var level = getEnchantmentLevel(booster.enchantment(), entity, provisionedWeapon);
+            value = booster.amplifier().apply(value, level);
+        }
+
         return new Result(
                 school,
                 value,
