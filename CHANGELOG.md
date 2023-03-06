@@ -3,6 +3,7 @@
 - Add support for physical spell damage (aka ability damage)
 - Add config versioning, so old configs can be overridden
 - Remove deprecated interfaces
+- Maybe fix some issues for turkish players
 
 # 0.9.7
 - Update enchanting API

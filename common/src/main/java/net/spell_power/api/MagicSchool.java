@@ -4,6 +4,7 @@ import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public enum MagicSchool {
@@ -30,7 +31,7 @@ public enum MagicSchool {
     }
 
     public String spellName() {
-        return this.toString().toLowerCase();
+        return this.toString().toLowerCase(Locale.ENGLISH);
     }
 
     public Identifier attributeId() {
