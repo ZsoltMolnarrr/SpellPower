@@ -2,8 +2,9 @@
 
 - Add support for physical spell damage (aka ability damage)
 - Add config versioning, so old configs can be overridden
+- Add Ukrainian translation, thanks to un_roman
 - Remove deprecated interfaces
-- Maybe fix some issues for turkish players
+- Fix some issues for turkish players
 
 # 0.9.7
 - Update enchanting API
