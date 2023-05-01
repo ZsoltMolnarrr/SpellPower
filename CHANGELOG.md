@@ -1,3 +1,7 @@
+# 0.9.9
+
+- Enable Energize
+
 # 0.9.8
 
 - Add support for physical spell damage (aka ability damage)

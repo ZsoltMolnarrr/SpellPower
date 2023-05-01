@@ -16,7 +16,7 @@ public class SpellPowerMod {
             .builder()
             .setDirectory(ID)
             .sanitize(true)
-            .schemaVersion(1)
+            .schemaVersion(2)
             .build();
 
     public static final ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
