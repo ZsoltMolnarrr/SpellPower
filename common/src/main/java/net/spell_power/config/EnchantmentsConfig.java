@@ -11,6 +11,7 @@ import static net.spell_power.api.enchantment.ItemType.MAGICAL_WEAPON;
 
 public class EnchantmentsConfig extends VersionableConfig {
 
+    public boolean allow_stacking = true;
     // Fields
 
     public ExtendedEnchantmentConfig spell_power = new ExtendedEnchantmentConfig(MAGICAL_WEAPON,5, 10, 9, 0.05F);

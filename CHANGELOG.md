@@ -1,3 +1,7 @@
+# 0.9.10
+
+- Fix enchantments not stacking 
+
 # 0.9.9
 
 - Enable Energize

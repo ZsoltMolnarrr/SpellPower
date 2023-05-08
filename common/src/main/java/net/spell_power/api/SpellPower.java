@@ -161,13 +161,34 @@ public class SpellPower {
     }
 
     private static int getEnchantmentLevel(Enchantment enchantment, LivingEntity entity, ItemStack provisionedWeapon) {
-        int level = EnchantmentHelper.getEquipmentLevel(enchantment, entity);
+        int level;
+        if (SpellPowerMod.enchantmentConfig.value.allow_stacking) {
+            level = getEnchantmentLevelEquipmentSum(enchantment, entity);
+        } else {
+            level = EnchantmentHelper.getEquipmentLevel(enchantment, entity);
+        }
         if (provisionedWeapon != null && !provisionedWeapon.isEmpty()) {
             var mainHandStack = entity.getMainHandStack();
             if (mainHandStack != null && !mainHandStack.isEmpty()) {
                 level -= EnchantmentHelper.getLevel(enchantment, mainHandStack);
             }
             level += EnchantmentHelper.getLevel(enchantment, provisionedWeapon);
+        }
+        return level;
+    }
+
+    private static int getEnchantmentLevelEquipmentSum(Enchantment enchantment, LivingEntity entity) {
+        int level = 0;
+        for (var itemStack: entity.getArmorItems()) {
+            level += EnchantmentHelper.getLevel(enchantment, itemStack);
+        }
+        var mainHandStack = entity.getMainHandStack();
+        if (mainHandStack != null) {
+            level += EnchantmentHelper.getLevel(enchantment, mainHandStack);
+        }
+        var offHandStack = entity.getOffHandStack();
+        if (offHandStack != null) {
+            level += EnchantmentHelper.getLevel(enchantment, offHandStack);
         }
         return level;
     }
