@@ -15,12 +15,12 @@ public class EnchantmentsConfig extends VersionableConfig {
     // Fields
 
     public ExtendedEnchantmentConfig spell_power = new ExtendedEnchantmentConfig(MAGICAL_WEAPON,5, 10, 9, 0.05F);
-    public ExtendedEnchantmentConfig soulfrost = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 9, 0.05F);
-    public ExtendedEnchantmentConfig sunfire = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.05F);
-    public ExtendedEnchantmentConfig energize = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.05F);
+    public ExtendedEnchantmentConfig soulfrost = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 9, 0.03F);
+    public ExtendedEnchantmentConfig sunfire = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.03F);
+    public ExtendedEnchantmentConfig energize = new ExtendedEnchantmentConfig(MAGICAL_ARMOR,5, 10, 9, 0.03F);
     public ExtendedEnchantmentConfig critical_chance = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.02F);
-    public ExtendedEnchantmentConfig critical_damage = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.1F);
-    public ExtendedEnchantmentConfig haste = new ExtendedEnchantmentConfig(MAGICAL_WEAPON, 5, 15, 17, 0.05F);
+    public ExtendedEnchantmentConfig critical_damage = new ExtendedEnchantmentConfig(MAGICAL_ARMOR, 5, 10, 12, 0.05F);
+    public ExtendedEnchantmentConfig haste = new ExtendedEnchantmentConfig(MAGICAL_WEAPON, 5, 15, 17, 0.04F);
 
     public EnchantmentConfig magic_protection = new EnchantmentConfig(4, 3, 6, 2);
 

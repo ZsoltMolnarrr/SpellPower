@@ -1,3 +1,7 @@
+# 0.9.11
+
+- Rebalance default bonus values for enchantments
+
 # 0.9.10
 
 - Fix enchantments not stacking 
