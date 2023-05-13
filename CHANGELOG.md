@@ -1,3 +1,7 @@
+# 0.9.12
+
+- Refactor custom enchantment conditioning API 
+
 # 0.9.11
 
 - Rebalance default bonus values for enchantments

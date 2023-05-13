@@ -21,10 +21,6 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
     public SchoolFilteredEnchantment(Rarity weight, Operation operation, EnchantmentsConfig.ExtendedEnchantmentConfig config, EnumSet<MagicSchool> schools, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, operation, config, type, slotTypes);
         this.schools = schools;
-        this.setCondition(stack -> {
-            var itemTypeRequirement = this.config.requires;
-            return itemTypeRequirement == null || (itemTypeRequirement.matches(stack) && schoolsMatch(stack));
-        });
     }
 
     @Override
@@ -41,6 +37,21 @@ public class SchoolFilteredEnchantment extends AmplifierEnchantment {
         var schools = SpellPowerEnchanting.relevantSchools(stack, slot);
         for (var school : schools) {
             if (this.schools.contains(school)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean schoolsMatch(EnumSet<MagicSchool> schools, ItemStack stack) {
+        var item = stack.getItem();
+        EquipmentSlot slot = EquipmentSlot.MAINHAND;
+        if (item instanceof ArmorItem armor) {
+            slot = armor.getSlotType();
+        }
+        var itemStackSchools = SpellPowerEnchanting.relevantSchools(stack, slot);
+        for (var school : itemStackSchools) {
+            if (schools.contains(school)) {
                 return true;
             }
         }

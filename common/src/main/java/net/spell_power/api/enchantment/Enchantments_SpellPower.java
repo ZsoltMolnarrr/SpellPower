@@ -2,6 +2,7 @@ package net.spell_power.api.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.MagicSchool;
@@ -117,6 +118,25 @@ public class Enchantments_SpellPower {
         all.putAll(damageEnchants);
         all.putAll(secondaries);
         all.put(magicProtectionId, MAGIC_PROTECTION);
+
+        for(var entry: damageEnchants.entrySet()) {
+            var enchantment = entry.getValue();
+            EnchantmentRestriction.prohibit(enchantment, itemStack -> {
+                var itemTypeRequirement = enchantment.config.requires;
+                var typeMatches = itemTypeRequirement == null || itemTypeRequirement.matches(itemStack);
+                var schoolMatches = SchoolFilteredEnchantment.schoolsMatch(enchantment.poweredSchools(), itemStack);
+                return !typeMatches || !schoolMatches;
+            });
+        }
+
+        for(var entry: secondaries.entrySet()) {
+            var enchantment = entry.getValue();
+            EnchantmentRestriction.prohibit(enchantment, itemStack -> {
+                var itemTypeRequirement = enchantment.config.requires;
+                var typeMatches = itemTypeRequirement == null || itemTypeRequirement.matches(itemStack);
+                return !typeMatches;
+            });
+        }
     }
 
     private static EnchantmentsConfig config() {

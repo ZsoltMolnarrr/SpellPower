@@ -3,11 +3,9 @@ package net.spell_power.internals;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.spell_power.api.enchantment.CustomConditionalEnchantment;
 import net.spell_power.config.EnchantmentsConfig;
 
-public class AmplifierEnchantment extends Enchantment implements CustomConditionalEnchantment {
+public class AmplifierEnchantment extends Enchantment {
     public Operation operation;
 
     public enum Operation {
@@ -33,10 +31,6 @@ public class AmplifierEnchantment extends Enchantment implements CustomCondition
         super(weight, type, slotTypes);
         this.operation = operation;
         this.config = config;
-        this.setCondition(stack -> {
-            var itemTypeRequirement = this.config.requires;
-            return itemTypeRequirement == null || itemTypeRequirement.matches(stack);
-        });
     }
 
     public int getMaxLevel() {
@@ -52,22 +46,5 @@ public class AmplifierEnchantment extends Enchantment implements CustomCondition
 
     public int getMaxPower(int level) {
         return super.getMinPower(level) + 50;
-    }
-
-    // MARK: CustomConditionalEnchantment
-
-    private Condition condition;
-
-    @Override
-    public void setCondition(Condition condition) {
-        this.condition = condition;
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        if (condition != null) {
-            return condition.isAcceptableItem(stack);
-        }
-        return super.isAcceptableItem(stack);
     }
 }
