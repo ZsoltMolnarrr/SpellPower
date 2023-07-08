@@ -1,6 +1,7 @@
 package net.spell_power;
 
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.Registries;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.config.EnchantmentsConfig;
@@ -52,14 +53,14 @@ public class SpellPowerMod {
         }
         attributesConfig.refresh();
         for(var entry: SpellAttributes.all.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
+            Registry.register(Registries.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
         }
         registeredAttributes = true;
     }
 
     public static void registerEnchantments() {
         for(var entry: Enchantments_SpellPower.all.entrySet()) {
-            Registry.register(Registry.ENCHANTMENT, entry.getKey(), entry.getValue());
+            Registry.register(Registries.ENCHANTMENT, entry.getKey(), entry.getValue());
         }
     }
 
@@ -73,9 +74,9 @@ public class SpellPowerMod {
             var id = entry.getValue().id;
             var effect = entry.getValue().statusEffect;
             if (rawId > 0) {
-                Registry.register(Registry.STATUS_EFFECT, rawId, id.toString(), effect);
+                Registry.register(Registries.STATUS_EFFECT, rawId, id.toString(), effect);
             } else {
-                Registry.register(Registry.STATUS_EFFECT, id, effect);
+                Registry.register(Registries.STATUS_EFFECT, id, effect);
             }
         }
     }

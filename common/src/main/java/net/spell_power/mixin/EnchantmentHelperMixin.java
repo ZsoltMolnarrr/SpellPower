@@ -6,7 +6,7 @@ import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,7 +38,7 @@ public class EnchantmentHelperMixin {
         // This logic is mostly copied from EnchantmentHelper.getPossibleEntries
         Item item = stack.getItem();
         boolean isBook = stack.isOf(Items.BOOK);
-        for (Enchantment enchantment : Registry.ENCHANTMENT) {
+        for (Enchantment enchantment : Registries.ENCHANTMENT) {
             // Don't check entries already added
             boolean alreadyAdded = currentEntries.stream().anyMatch(entry -> entry.enchantment.equals(enchantment));
             if (alreadyAdded) { continue; }

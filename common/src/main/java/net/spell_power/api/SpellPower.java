@@ -5,7 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.attributes.EntityAttributes_SpellPower;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
@@ -104,7 +104,7 @@ public class SpellPower {
     public static Result getSpellPower(MagicSchool school, LivingEntity entity, ItemStack provisionedWeapon) {
         EntityAttribute attribute;
         if (school.isExternalAttribute()) {
-            attribute = Registry.ATTRIBUTE.get(school.attributeId());
+            attribute = Registries.ATTRIBUTE.get(school.attributeId());
         } else {
             attribute = EntityAttributes_SpellPower.POWER.get(school);
         }

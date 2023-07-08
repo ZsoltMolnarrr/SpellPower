@@ -4,6 +4,9 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.tinyconfig.models.EnchantmentConfig;
 
 public class MagicProtectionEnchantment extends ProtectionEnchantment {
@@ -31,10 +34,10 @@ public class MagicProtectionEnchantment extends ProtectionEnchantment {
 
     @Override
     public int getProtectionAmount(int level, DamageSource source) {
-        if (source.isOutOfWorld()) {
+        if (source.getType().equals(DamageTypes.OUT_OF_WORLD)) {
             return 0;
         }
-        if (source.isMagic()) {
+        if (source.getType().equals(DamageTypes.MAGIC)) {
             return Math.round((float)level * config.bonus_per_level);
         }
         return 0;
