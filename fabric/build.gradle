@@ -42,18 +42,20 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    // classifier "dev-shadow"
+    archiveClassifier.set("dev-shadow")
     relocate 'net.tinyconfig', 'net.spell_power.tinyconfig'
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    archiveClassifier.set(null)
+    // classifier null
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier.set("dev")
 }
 
 sourcesJar {
