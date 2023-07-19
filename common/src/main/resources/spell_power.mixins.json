@@ -4,6 +4,7 @@
   "package": "net.spell_power.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "DamageSourcesAccessor",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
     "LivingEntityMixin",

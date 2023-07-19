@@ -1,11 +1,12 @@
 package net.spell_power;
 
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.spell_power.api.attributes.SpellAttributes;
 import net.spell_power.api.enchantment.Enchantments_SpellPower;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.config.EnchantmentsConfig;
 import net.spell_power.config.StatusEffectConfig;
-import net.spell_power.api.attributes.SpellAttributes;
 import net.tinyconfig.ConfigManager;
 
 public class SpellPowerMod {
@@ -52,16 +53,30 @@ public class SpellPowerMod {
         }
         attributesConfig.refresh();
         for(var entry: SpellAttributes.all.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
+            Registry.register(Registries.ATTRIBUTE, entry.getValue().id, entry.getValue().attribute);
         }
         registeredAttributes = true;
     }
 
     public static void registerEnchantments() {
         for(var entry: Enchantments_SpellPower.all.entrySet()) {
-            Registry.register(Registry.ENCHANTMENT, entry.getKey(), entry.getValue());
+            Registry.register(Registries.ENCHANTMENT, entry.getKey(), entry.getValue());
         }
     }
+
+    // No need for imperative registration. The presence of data file will automatically get them registered.
+//    private record DamageTypeEntry(Identifier id, RegistryKey<DamageType> key) { }
+//    public static void registerDamageTypes(Registerable<DamageType> registry) {
+//        var damageTypeEntries = Arrays.stream(MagicSchool.values())
+//                .map(MagicSchool::damageTypeId)
+//                .distinct()
+//                .map(id -> {
+//                    return new DamageTypeEntry(id, RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id));
+//                }).toList();
+//        for(var entry: damageTypeEntries) {
+//            registry.register(entry.key(), new DamageType("player", 0.1F));
+//        }
+//    }
 
     public static void configureEnchantments() {
         enchantmentConfig.value.apply();
@@ -73,9 +88,9 @@ public class SpellPowerMod {
             var id = entry.getValue().id;
             var effect = entry.getValue().statusEffect;
             if (rawId > 0) {
-                Registry.register(Registry.STATUS_EFFECT, rawId, id.toString(), effect);
+                Registry.register(Registries.STATUS_EFFECT, rawId, id.toString(), effect);
             } else {
-                Registry.register(Registry.STATUS_EFFECT, id, effect);
+                Registry.register(Registries.STATUS_EFFECT, id, effect);
             }
         }
     }

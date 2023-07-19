@@ -8,22 +8,23 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 public enum MagicSchool {
-    ARCANE, FIRE, FROST, HEALING, LIGHTNING, SOUL,
-    PHYSICAL_MELEE(new Identifier("generic.attack_damage"), SpellDamageSource.Configurator.MELEE);
+    ARCANE, FIRE(null, new Identifier(SpellPowerMod.ID, "spell_fire")), FROST, HEALING, LIGHTNING, SOUL,
+    PHYSICAL_MELEE(new Identifier("generic.attack_damage"), new Identifier(SpellPowerMod.ID, "spell_physical"));
 
     @Nullable private final Identifier externalAttributeId;
-    private final Consumer<SpellDamageSource> damageSourceConfigurator;
+    private final Identifier damageTypeId;
+
     public boolean isExternalAttribute() {
         return externalAttributeId != null;
     }
 
     MagicSchool() {
-        this(null, SpellDamageSource.Configurator.MAGIC);
+        this(null, new Identifier(SpellPowerMod.ID, "spell_generic"));
     }
 
-    MagicSchool(@Nullable Identifier externalAttributeId, Consumer<SpellDamageSource> damageSourceConfigurator) {
+    MagicSchool(@Nullable Identifier externalAttributeId, Identifier damageTypeId) {
         this.externalAttributeId = externalAttributeId;
-        this.damageSourceConfigurator = damageSourceConfigurator;
+        this.damageTypeId = damageTypeId;
     }
 
     public static MagicSchool fromAttributeId(Identifier id) {
@@ -41,8 +42,8 @@ public enum MagicSchool {
         return new Identifier(SpellPowerMod.ID, spellName());
     }
 
-    public Consumer<SpellDamageSource> damageSourceConfigurator() {
-        return damageSourceConfigurator;
+    public Identifier damageTypeId() {
+        return damageTypeId;
     }
 
     public int color() {

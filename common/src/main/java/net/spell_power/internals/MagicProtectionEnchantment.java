@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.tinyconfig.models.EnchantmentConfig;
 
 public class MagicProtectionEnchantment extends ProtectionEnchantment {
@@ -31,10 +32,12 @@ public class MagicProtectionEnchantment extends ProtectionEnchantment {
 
     @Override
     public int getProtectionAmount(int level, DamageSource source) {
-        if (source.isOutOfWorld()) {
+        if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return 0;
         }
-        if (source.isMagic()) {
+
+        // Used to be `source.isMagic()` which is now gone, even related tag is gone
+        if (source.isIn(DamageTypeTags.BYPASSES_ARMOR) && source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
             return Math.round((float)level * config.bonus_per_level);
         }
         return 0;

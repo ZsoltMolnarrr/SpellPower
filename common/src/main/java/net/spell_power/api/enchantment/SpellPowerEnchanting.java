@@ -8,7 +8,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.api.attributes.SpellAttributes;
 
@@ -71,7 +71,7 @@ public class SpellPowerEnchanting {
         var schools = EnumSet.noneOf(MagicSchool.class);
         var attributes = stack.getAttributeModifiers(slot);
         for (var entry: attributes.entries()) {
-            var attributeId = Registry.ATTRIBUTE.getId(entry.getKey());
+            var attributeId = Registries.ATTRIBUTE.getId(entry.getKey());
             for (var powerEntry: SpellAttributes.POWER.entrySet()) {
                 if (powerEntry.getValue().id.equals(attributeId)) {
                     schools.add(powerEntry.getKey());

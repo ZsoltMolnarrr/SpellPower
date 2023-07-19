@@ -1,3 +1,8 @@
+# 0.9.13
+
+- Update to 1.20.1
+- Data based custom damage sources
+
 # 0.9.12
 
 - Refactor custom enchantment conditioning API 
