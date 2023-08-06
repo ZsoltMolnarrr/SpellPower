@@ -1,3 +1,7 @@
+# 0.9.14
+
+- Add italian translation thanks to Zano1999 #11
+
 # 0.9.13
 
 - Update to 1.20.1
