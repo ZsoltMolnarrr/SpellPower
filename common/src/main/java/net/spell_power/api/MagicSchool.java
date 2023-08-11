@@ -20,7 +20,7 @@ public enum MagicSchool {
 
     MagicSchool() {
         this(null, new Identifier(SpellPowerMod.ID, "spell"));
-        this.damageTypeId = new Identifier(SpellPowerMod.ID, spellName());
+        this.damageTypeId = new Identifier(SpellPowerMod.ID, "spell_" + spellName());
     }
 
     MagicSchool(Identifier damageTypeId) {
