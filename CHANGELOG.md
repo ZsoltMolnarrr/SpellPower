@@ -1,3 +1,8 @@
+# 0.9.15
+
+- Unique damage type identifier for each magic school
+- Disable fire spell damage counting is actual fire damage (can be restored using data pack)
+
 # 0.9.14
 
 - Add italian translation thanks to Zano1999 #11

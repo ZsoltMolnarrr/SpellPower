@@ -8,18 +8,23 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 public enum MagicSchool {
-    ARCANE, FIRE(null, new Identifier(SpellPowerMod.ID, "spell_fire")), FROST, HEALING, LIGHTNING, SOUL,
+    ARCANE, FIRE, FROST, HEALING, LIGHTNING, SOUL,
     PHYSICAL_MELEE(new Identifier("generic.attack_damage"), new Identifier(SpellPowerMod.ID, "spell_physical"));
 
     @Nullable private final Identifier externalAttributeId;
-    private final Identifier damageTypeId;
+    private Identifier damageTypeId;
 
     public boolean isExternalAttribute() {
         return externalAttributeId != null;
     }
 
     MagicSchool() {
-        this(null, new Identifier(SpellPowerMod.ID, "spell_generic"));
+        this(null, new Identifier(SpellPowerMod.ID, "spell"));
+        this.damageTypeId = new Identifier(SpellPowerMod.ID, spellName());
+    }
+
+    MagicSchool(Identifier damageTypeId) {
+        this(null, damageTypeId);
     }
 
     MagicSchool(@Nullable Identifier externalAttributeId, Identifier damageTypeId) {

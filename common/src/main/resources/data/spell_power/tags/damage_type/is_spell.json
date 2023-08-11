@@ -1,7 +1,11 @@
 {
   "values": [
+    "spell_power:spell_arcane",
     "spell_power:spell_fire",
-    "spell_power:spell_generic",
+    "spell_power:spell_frost",
+    "spell_power:spell_healing",
+    "spell_power:spell_lightning",
+    "spell_power:spell_soul",
     "spell_power:spell_physical"
   ]
 }
