@@ -1,5 +1,6 @@
 # 0.9.15
 
+- Update Arcane Power icon
 - Unique damage type identifier for each magic school
 - Disable fire spell damage counting is actual fire damage (can be restored using data pack)
 
