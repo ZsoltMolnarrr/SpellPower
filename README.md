@@ -128,12 +128,6 @@ Registries.ATTRIBUTE.get(new Identifier("spell_power:critical_chance"));
 
 ### Query Spell Power
 
-Do not use vanilla API to query Spell Power values, as it doesn't take into account any of the above mentioned factors.
-```java
-// 🚫
-player.getAttributeValue(EntityAttributes_SpellPower.POWER.get(MagicSchool.FIRE));
-```
-
 Use the dedicated API (`SpellPower` class) to query spell power of an entity (only PlayerEntities are supported). This will produce a result with critical strike support, and will take into account:
 - the queried attribute
 - critical strike related attributes (chance and multiplier)
@@ -155,6 +149,12 @@ The value received is an abstract number. Spell implementations should calculate
 
 The total value of Spell Power queried completely depends on the content mods.
 
+Do not use vanilla API to query Spell Power values, as it doesn't take into account any of the above mentioned factors.
+```java
+// 🚫
+player.getAttributeValue(EntityAttributes_SpellPower.POWER.get(MagicSchool.FIRE));
+```
+
 ### Adding attributes modifiers to equipment
 
 Add attributes modifiers to your equipment items, to increase spell power of the player. For example:
@@ -172,19 +172,21 @@ builder.put(
 );
 ```
 
-It is recommended to keep your Spell Power bonuses roughly in the same ballpark as vanilla `attack_damage` attribute. For example:
+**How big bonuses should be used?**
+
+As long as the user experience is intended to be Vanilla friendly, it is recommended to keep your Spell Power bonuses roughly in the same ballpark as vanilla `attack_damage` attribute. For example:
 - A staff might have + 4 Fire Spell Power
 
 ### Adopting Spell haste
 
-The retrieve the Spell Haste value of a player, use the following API:
+To retrieve the Spell Haste value of a player, use the following API:
 ```java
 // Given `player` is a PlayerEntity
 double haste = SpellPower.getHaste(player);
 ```
 
 This value represents a relative casting speed. For example:
-- When players have no haste bonus (so default attriubte value of 100) it returns `1.0`
+- When players have no haste bonus (so default attribute value) it returns `1.0`
 - When players have 50% haste bonus (so attribute value of 150) it returns `1.5`
 
 Haste can be calculated with at arbitrary formula. But the typical recommendation is the following:
@@ -198,4 +200,36 @@ float hasteAffectedValue(PlayerEntity caster, float value) {
     var haste = (float) SpellPower.getHaste(caster);
     return value / haste;
 }
+```
+
+### Vulnerabilities
+
+Vulnerabilities are a way to increase spell damage taken by an entity. They can be attached to any arbitrary trait or object of an entity.
+
+A vulnerability can modify the following for a specific entity:
+- Total spell damage taken
+- Critical strike chance against the entity
+- Critical strike damage against the entity
+
+This library implements Vulnerabilities as status effects by default.
+
+The following example shows how _Frozen_ status effect increases critical strike chance against frozen the entity.
+```java
+// 1. Create a StatusEffect subclassing SpellVulnerabilityStatusEffect, or implementing `VulnerabilityEffect`
+public class FrozenStatusEffect extends SpellVulnerabilityStatusEffect { ... }
+
+// 2. Create your status effect instance and configure it
+public static StatusEffect frozen = new FrozenStatusEffect(StatusEffectCategory.HARMFUL, 0x99ccff)
+        .setVulnerability(MagicSchool.FROST, new SpellPower.Vulnerability(0, 1F, 0F));
+
+// 3. Register your status effect as usual
+```
+
+To add a completely custom vulnerability mechanic, the following can be used:
+```java
+SpellPower.vulnerabilitySources.add(query -> {
+    var target = query.entity();
+    // My logic
+    return List.of(...)
+})
 ```
