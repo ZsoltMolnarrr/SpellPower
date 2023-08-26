@@ -177,31 +177,6 @@ builder.put(
 As long as the user experience is intended to be Vanilla friendly, it is recommended to keep your Spell Power bonuses roughly in the same ballpark as vanilla `attack_damage` attribute. For example:
 - A staff might have + 4 Fire Spell Power
 
-### Adopting Spell haste
-
-To retrieve the Spell Haste value of a player, use the following API:
-```java
-// Given `player` is a PlayerEntity
-double haste = SpellPower.getHaste(player);
-```
-
-This value represents a relative casting speed. For example:
-- When players have no haste bonus (so default attribute value) it returns `1.0`
-- When players have 50% haste bonus (so attribute value of 150) it returns `1.5`
-
-Haste can be calculated with at arbitrary formula. But the typical recommendation is the following:
-```java
-// Given `myCooldownDuration` is a valid number that presrents the duration of the cooldown
-float hasteAffectedCooldownDuration = hasteAffectedValue(caster, myCooldownDuration);
-// Given `mySpellCastDuration` is a valid number that presrents the duration of the spell cast
-float hasteAffectedSpellCastDuration = hasteAffectedValue(caster, mySpellCastDuration);
-
-float hasteAffectedValue(PlayerEntity caster, float value) {
-    var haste = (float) SpellPower.getHaste(caster);
-    return value / haste;
-}
-```
-
 ### Vulnerabilities
 
 Vulnerabilities are a way to increase spell damage taken by an entity. They can be attached to any arbitrary trait or object of an entity.
@@ -232,4 +207,31 @@ SpellPower.vulnerabilitySources.add(query -> {
     // My logic
     return List.of(...)
 })
+```
+
+### Adopting Spell haste
+
+If implementing completely custom spells and want to calculate with Spell Haste attribute of players keep reading.
+
+To retrieve the Spell Haste value of a player, use the following API:
+```java
+// Given `player` is a PlayerEntity
+double haste = SpellPower.getHaste(player);
+```
+
+This value represents a relative casting speed. For example:
+- When players have no haste bonus (so default attribute value) it returns `1.0`
+- When players have 50% haste bonus (so attribute value of 150) it returns `1.5`
+
+Haste can be calculated with at arbitrary formula. But the typical recommendation is the following:
+```java
+// Given `myCooldownDuration` is a valid number that presrents the duration of the cooldown
+float hasteAffectedCooldownDuration = hasteAffectedValue(caster, myCooldownDuration);
+// Given `mySpellCastDuration` is a valid number that presrents the duration of the spell cast
+float hasteAffectedSpellCastDuration = hasteAffectedValue(caster, mySpellCastDuration);
+
+float hasteAffectedValue(PlayerEntity caster, float value) {
+    var haste = (float) SpellPower.getHaste(caster);
+    return value / haste;
+}
 ```
