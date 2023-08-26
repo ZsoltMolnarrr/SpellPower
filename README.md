@@ -48,7 +48,7 @@ The library offers an API to query spell damage of an entity (based on its attri
 
 **Server side** configuration can be found in the `config` directory, after running the game with the mod installed.
 
-# 🔨 Using it as a modder
+# 🔨 Using it as a developer
 
 ## Installation
 
@@ -78,23 +78,6 @@ In `fabric.mod.json` add a dependency to the mod:
   "depends": {
     "spell_power": ">=VERSION"
   },
-```
-
-(Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-power/versions))
-
-### Forge workspace
-```groovy
-dependencies {
-    implementation "maven.modrinth:spell-power:VERSION-forge"
-}
-```
-In `mods.toml` add a dependency to the mod:
-```
-modId="spell_power"
-mandatory=true
-versionRange="[VERSION,)"
-ordering="AFTER"
-side="BOTH"
 ```
 
 (Substitute `VERSION` with the name of the latest release available on [Modrinth](https://modrinth.com/mod/spell-power/versions))
