@@ -26,13 +26,36 @@ The library offers an API to query spell damage of an entity (based on its attri
 ## 📦 Content
 
 ### Entity Attributes:
-- Spell Power, one for each specific magic school (for example: `spell_power:fire`)
-- Spell critical chance (id: `spell_power:critical_chance`)
-- Spell critical damage (id: `spell_power:critical_damage`)
-- Spell haste (id: `spell_power:haste`), can be used to quicken spell casting or cooldowns
+#### Spell Power
+- Represents power of spells with a number (somewhat analogous to `minecraft:generic_attack_damage` attribute), which serves as base to calculate spell damage
+- Attribute id (formula): `spell_power:SCHOOL` (for example: `spell_power:fire`)
+- A separate attribute exists for each specific magic school
+- `Base value = 0`
+
+#### Spell critical chance
+- Represents chance of critical striking with spells 
+- Attribute id: `spell_power:critical_chance`
+- `Base value = 100` (technically) (this means 0% critical chance)
+- Example values: 120% = 20% critical chance, 200% = 100% critical chance
+- All players have a `0.05, MULTIPLY_BASE` modifier by default, so the practical default value is `105` chance, making all spells `5%` critical chance by default
+
+#### Spell critical damage 
+- Represents how much damage is increased when critical striking wit a spell
+- Attribute id: `spell_power:critical_damage`
+- `Base value = 100` (technically)  (this means critical strikes don't do more damage than non-critical ones)
+- All players have a `0.5, MULTIPLY_BASE` modifier by default, so the practical default value is 150, making all spells doe 1.5x damage on critical strike by default
+
+#### Spell haste
+- Represents the spell casting speed, (to be used to quicken spell casting or cooldowns by spell implementations)
+- Attribute id: `spell_power:haste`
+- `Base value = 100` (this means player casts spells at normal speed)
+- Players have no modifiers by default
+- Example values = 50 (50% faster spell casting), 200 (200% faster spell casting)
 
 ### Status Effects:
-- One specifically for each introduced attribute, with a matching id (for example: `spell_power:fire`, `spell_power:critical_chance`)
+Each introduced attribute (mentioned above), has with a matching status effect to boost them.
+
+The id of these matches the with the id of the boosted attribute (for example: `spell_power:fire`, `spell_power:critical_chance`)
 
 (All status effects come with fancy icons 😍)
 
@@ -105,6 +128,12 @@ Registries.ATTRIBUTE.get(new Identifier("spell_power:critical_chance"));
 
 ### Query Spell Power
 
+Do not use vanilla API to query Spell Power values, as it doesn't take into account any of the above mentioned factors.
+```java
+// 🚫
+player.getAttributeValue(EntityAttributes_SpellPower.POWER.get(MagicSchool.FIRE));
+```
+
 Use the dedicated API (`SpellPower` class) to query spell power of an entity (only PlayerEntities are supported). This will produce a result with critical strike support, and will take into account:
 - the queried attribute
 - critical strike related attributes (chance and multiplier)
@@ -115,16 +144,16 @@ Use the dedicated API (`SpellPower` class) to query spell power of an entity (on
 // Given `player` is a PlayerEntity
 // ✅
 var result = SpellPower.getSpellPower(player, MagicSchool.FIRE);
-var value = result.randomValue(); // Randomly produces a critical strike or a base value (based on attributes)
-var forcedCritValue = result.forcedCriticalValue(); // Forces a critical strike value
-var forcedBaseValue = result.nonCriticalValue()(); // Forces a non-critical strike value
+double value = result.randomValue(); // Randomly produces a critical strike or a base value (based on attributes)
+double forcedCritValue = result.forcedCriticalValue(); // Forces a critical strike value
+dobule forcedBaseValue = result.nonCriticalValue()(); // Forces a non-critical strike value
 ```
 
-Do not use vanilla API to query Spell Power values, as it doesn't take into account any of the above mentioned factors.
-```java
-// 🚫
-player.getAttributeValue(EntityAttributes_SpellPower.POWER.get(MagicSchool.FIRE));
-```
+The value received is an abstract number. Spell implementations should calculate with this value using an arbitrary formula. This typically means some linear scaling. For example:
+- A quickly casted spell named _Scorch_ might apply a low multiplier. `var damage = result.randomValue() * 0.5;`
+- A slowly casted spell named _Fireball_ might apply a higher multiplier. `var damage = result.randomValue() * 0.9F;`
+
+The total value of Spell Power queried completely depends on the content mods.
 
 ### Adding attributes modifiers to equipment
 
@@ -141,4 +170,32 @@ builder.put(
         EntityAttributeModifier.Operation.ADDITION
     )
 );
+```
+
+It is recommended to keep your Spell Power bonuses roughly in the same ballpark as vanilla `attack_damage` attribute. For example:
+- A staff might have + 4 Fire Spell Power
+
+### Adopting Spell haste
+
+The retrieve the Spell Haste value of a player, use the following API:
+```java
+// Given `player` is a PlayerEntity
+double haste = SpellPower.getHaste(player);
+```
+
+This value represents a relative casting speed. For example:
+- When players have no haste bonus (so default attriubte value of 100) it returns `1.0`
+- When players have 50% haste bonus (so attribute value of 150) it returns `1.5`
+
+Haste can be calculated with at arbitrary formula. But the typical recommendation is the following:
+```java
+// Given `myCooldownDuration` is a valid number that presrents the duration of the cooldown
+float hasteAffectedCooldownDuration = hasteAffectedValue(caster, myCooldownDuration);
+// Given `mySpellCastDuration` is a valid number that presrents the duration of the spell cast
+float hasteAffectedSpellCastDuration = hasteAffectedValue(caster, mySpellCastDuration);
+
+float hasteAffectedValue(PlayerEntity caster, float value) {
+    var haste = (float) SpellPower.getHaste(caster);
+    return value / haste;
+}
 ```
