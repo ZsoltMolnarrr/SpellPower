@@ -25,7 +25,7 @@ The library offers an API to query spell damage of an entity (based on its attri
 
 ## 📦 Content
 
-### Entity Attributes:
+### Entity Attributes
 #### Spell Power
 - Represents power of spells with a number (somewhat analogous to `minecraft:generic_attack_damage` attribute), which serves as base to calculate spell damage
 - Attribute id (formula): `spell_power:SCHOOL` (for example: `spell_power:fire`)
@@ -52,14 +52,14 @@ The library offers an API to query spell damage of an entity (based on its attri
 - Players have no modifiers by default
 - Example values = 50 (50% faster spell casting), 200 (200% faster spell casting)
 
-### Status Effects:
+### Status Effects
 Each introduced attribute (mentioned above), has with a matching status effect to boost them.
 
 The id of these matches the with the id of the boosted attribute (for example: `spell_power:fire`, `spell_power:critical_chance`)
 
 (All status effects come with fancy icons 😍)
 
-### Enchantments:
+### Enchantments
 - Universal Spell Power (named: "Spell Power"), increasing all spell damage
 - School limited Spell Power (for example: "Sunfire", increasing arcane and fire damage) 
 - Secondary attribute enchantments (for example: "Spell Critical Chance")
@@ -223,7 +223,7 @@ This value represents a relative casting speed. For example:
 - When players have no haste bonus (so default attribute value) it returns `1.0`
 - When players have 50% haste bonus (so attribute value of 150) it returns `1.5`
 
-Haste can be calculated with at arbitrary formula. But the typical recommendation is the following:
+Haste can be calculated with using arbitrary formula. But the typical recommendation is the following:
 ```java
 // Given `myCooldownDuration` is a valid number that presrents the duration of the cooldown
 float hasteAffectedCooldownDuration = hasteAffectedValue(caster, myCooldownDuration);
