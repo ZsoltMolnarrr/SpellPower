@@ -5,6 +5,8 @@ import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.spell_power.SpellPowerMod;
+import net.spell_power.api.SpellPowerTags;
 import net.tinyconfig.models.EnchantmentConfig;
 
 public class MagicProtectionEnchantment extends ProtectionEnchantment {
@@ -36,8 +38,16 @@ public class MagicProtectionEnchantment extends ProtectionEnchantment {
             return 0;
         }
 
-        // Used to be `source.isMagic()` which is now gone, even related tag is gone
-        if (source.isIn(DamageTypeTags.BYPASSES_ARMOR) && source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+        boolean isMagic;
+        if (SpellPowerMod.attributesConfig.value.use_vanilla_magic_damage_type) {
+            isMagic = source.isIn(DamageTypeTags.WITCH_RESISTANT_TO)
+                    || source.isIn(DamageTypeTags.WITHER_IMMUNE_TO);
+        } else {
+            isMagic = source.isIn(DamageTypeTags.WITCH_RESISTANT_TO)
+                    || source.isIn(DamageTypeTags.WITHER_IMMUNE_TO)
+                    || source.isIn(SpellPowerTags.DamageType.IS_SPELL);
+        }
+        if (isMagic) {
             return Math.round((float)level * config.bonus_per_level);
         }
         return 0;
