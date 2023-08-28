@@ -1,3 +1,7 @@
+# 0.9.16
+
+- SpellDamageSource now returns DamageSource with vanilla damage type ("minecraft:magic")  (Can be disabled in attributes config)
+
 # 0.9.15
 
 - Update Arcane Power icon
