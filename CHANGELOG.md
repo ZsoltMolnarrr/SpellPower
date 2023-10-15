@@ -1,3 +1,7 @@
+# 0.9.18
+
+- Add `PHYSICAL_RANGE` school
+
 # 0.9.17
 
 - Fix damage type tags

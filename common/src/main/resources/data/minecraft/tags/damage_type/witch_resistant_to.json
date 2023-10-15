@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "spell_power:spell_arcane",
     "spell_power:spell_fire",

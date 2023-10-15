@@ -1,5 +1,6 @@
 package net.spell_power.api;
 
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
 import org.jetbrains.annotations.Nullable;
@@ -9,9 +10,11 @@ import java.util.function.Consumer;
 
 public enum MagicSchool {
     ARCANE, FIRE, FROST, HEALING, LIGHTNING, SOUL,
-    PHYSICAL_MELEE(new Identifier("generic.attack_damage"), new Identifier(SpellPowerMod.ID, "spell_physical"));
+    PHYSICAL_MELEE(false, new Identifier("generic.attack_damage"), new Identifier(SpellPowerMod.ID, "spell_physical")),
+    PHYSICAL_RANGED(false, new Identifier("projectile_damage:generic"), DamageTypes.ARROW.getValue());
 
     @Nullable private final Identifier externalAttributeId;
+    public final boolean isMagical;
     private Identifier damageTypeId;
 
     public boolean isExternalAttribute() {
@@ -19,15 +22,12 @@ public enum MagicSchool {
     }
 
     MagicSchool() {
-        this(null, new Identifier(SpellPowerMod.ID, "spell"));
+        this(true, null, new Identifier(SpellPowerMod.ID, "spell"));
         this.damageTypeId = new Identifier(SpellPowerMod.ID, "spell_" + spellName());
     }
 
-    MagicSchool(Identifier damageTypeId) {
-        this(null, damageTypeId);
-    }
-
-    MagicSchool(@Nullable Identifier externalAttributeId, Identifier damageTypeId) {
+    MagicSchool(boolean isMagical, @Nullable Identifier externalAttributeId, Identifier damageTypeId) {
+        this.isMagical = isMagical;
         this.externalAttributeId = externalAttributeId;
         this.damageTypeId = damageTypeId;
     }

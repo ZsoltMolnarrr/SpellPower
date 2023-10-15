@@ -30,7 +30,7 @@ public class SpellDamageSource {
     }
 
     private static DamageSource create(MagicSchool school, String name, Entity attacker) {
-        if (SpellPowerMod.attributesConfig.value.use_vanilla_magic_damage_type) {
+        if (school.isMagical && SpellPowerMod.attributesConfig.value.use_vanilla_magic_damage_type) {
             var registry = ((DamageSourcesAccessor)attacker.getDamageSources()).getRegistry();
             return new DamageSource(registry.entryOf(DamageTypes.MAGIC), attacker);
         } else {
@@ -39,8 +39,4 @@ public class SpellDamageSource {
             return new DamageSource(registry.entryOf(key), attacker);
         }
     }
-
-//    public static boolean isSpell(DamageSource source) {
-//        return source.isIn(SpellPowerTags.DamageType.IS_SPELL);
-//    }
 }
