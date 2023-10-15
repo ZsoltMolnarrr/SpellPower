@@ -89,5 +89,6 @@ public class SpellPowerEnchanting {
             }
         }
         boostSchool(MagicSchool.PHYSICAL_MELEE, Enchantments.SHARPNESS, (value, level) -> value * (1 + ((0.05) * level)));
+        boostSchool(MagicSchool.PHYSICAL_RANGED, Enchantments.POWER, (value, level) -> value * (1 + ((0.05) * level)));
     }
 }

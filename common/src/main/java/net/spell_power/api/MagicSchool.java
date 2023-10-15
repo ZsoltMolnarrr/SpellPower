@@ -74,6 +74,9 @@ public enum MagicSchool {
             case PHYSICAL_MELEE -> {
                 return 0xb3b3b3;
             }
+            case PHYSICAL_RANGED -> {
+                return 0x993300;
+            }
         }
         assert true;
         return 0xffffff;

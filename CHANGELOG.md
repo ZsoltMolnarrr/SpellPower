@@ -1,6 +1,6 @@
 # 0.9.18
 
-- Add `PHYSICAL_RANGE` school
+- Add `PHYSICAL_RANGED` school
 
 # 0.9.17
 
