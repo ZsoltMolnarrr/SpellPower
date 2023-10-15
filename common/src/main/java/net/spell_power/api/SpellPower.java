@@ -22,6 +22,9 @@ import static net.spell_power.api.attributes.SpellAttributes.PERCENT_ATTRIBUTE_B
 
 public class SpellPower {
     public record Result(MagicSchool school, double baseValue, double criticalChance, double criticalDamage) {
+        public static Result empty(MagicSchool school) {
+            return new Result(school, 0, 0, 0);
+        }
         private static Random rng = new Random();
         private enum CriticalStrikeMode {
             DISABLED, ALLOWED, FORCED
@@ -108,6 +111,10 @@ public class SpellPower {
         } else {
             attribute = EntityAttributes_SpellPower.POWER.get(school);
         }
+        if (attribute == null) {
+            return Result.empty(school);
+        }
+
         var value = entity.getAttributeValue(attribute);
         for (var booster: SpellPowerEnchanting.boostersFor(school)) {
             var level = getEnchantmentLevel(booster.enchantment(), entity, provisionedWeapon);
