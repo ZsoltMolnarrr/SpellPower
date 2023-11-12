@@ -1,3 +1,7 @@
+# 0.9.19
+
+- Add partial mutex for spell enchantments and ranged weapon enchantments
+
 # 0.9.18
 
 - Add `PHYSICAL_RANGED` school

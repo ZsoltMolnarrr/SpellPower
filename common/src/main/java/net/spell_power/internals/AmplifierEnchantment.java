@@ -47,4 +47,10 @@ public class AmplifierEnchantment extends Enchantment {
     public int getMaxPower(int level) {
         return super.getMinPower(level) + 50;
     }
+
+    @Override
+    protected boolean canAccept(Enchantment other) {
+        var otherIsRanged = other.target == EnchantmentTarget.BOW || other.target == EnchantmentTarget.CROSSBOW;
+        return !otherIsRanged && super.canAccept(other);
+    }
 }
