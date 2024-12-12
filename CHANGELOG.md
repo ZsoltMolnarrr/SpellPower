@@ -1,3 +1,8 @@
+# 1.0.6
+
+- Add Russian translation, thanks to @Heimdallr
+- Add Brazilian translation, thanks to @demorogabrtz
+
 # 1.0.5
 
 - Fix spell vulnerability status effects
