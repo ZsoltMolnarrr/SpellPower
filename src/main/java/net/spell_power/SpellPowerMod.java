@@ -3,10 +3,8 @@ package net.spell_power;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.util.TriState;
-import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -16,9 +14,6 @@ import net.spell_power.config.AttributesConfig;
 import net.spell_power.internals.AttributeUtil;
 import net.spell_power.internals.CrossFunctionalAttributes;
 import net.tinyconfig.ConfigManager;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SpellPowerMod implements ModInitializer {
     public static final String ID = "spell_power";

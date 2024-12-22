@@ -1,3 +1,7 @@
+# 1.0.7
+
+- Add all custom spell power related damage types to `c:is_magic`, for improved compatibility with other mods
+
 # 1.0.6
 
 - Add Russian translation, thanks to @Heimdallr
