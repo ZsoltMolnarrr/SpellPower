@@ -20,7 +20,7 @@
             "tags": [
               {
                 "expected": true,
-                "id": "spell_power:all"
+                "id": "c:is_magic"
               },
               {
                 "expected": false,

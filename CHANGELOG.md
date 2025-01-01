@@ -1,3 +1,7 @@
+# 1.0.8
+
+- Magic Protection enchantment now uses `c:is_magic` for compatibility with other mods
+
 # 1.0.7
 
 - Add all custom spell power related damage types to `c:is_magic`, for improved compatibility with other mods
