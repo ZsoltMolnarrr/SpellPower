@@ -15,7 +15,7 @@ public class AttributesConfig {
     public SpellStatusEffect.Config spell_power_effect = new SpellStatusEffect.Config(0.1F);
     public Map<String, SpellStatusEffect.Config> secondary_effects;
     public float resistance_reduction_cap = 0.75F;
-    public boolean register_potions = true;
+    public boolean register_potions = false;
 
     public static AttributesConfig defaults() {
         var config = new AttributesConfig();

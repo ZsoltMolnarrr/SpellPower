@@ -1,6 +1,6 @@
 # 1.1.0
 
-- Add spell potions
+- Add spell potions, disabled by default (can be turned on `config/spell_power/attributes.json`)
 
 # 1.0.8
 
