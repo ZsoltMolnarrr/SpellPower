@@ -1,3 +1,7 @@
+# 1.1.0
+
+- Add spell potions
+
 # 1.0.8
 
 - Magic Protection enchantment now uses `c:is_magic` for compatibility with other mods

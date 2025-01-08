@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -105,6 +107,27 @@ public class SpellPowerMod implements ModInitializer {
                     bonus_per_stack,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
             Registry.register(Registries.STATUS_EFFECT, id.toString(), secondary.boostEffect);
+        }
+    }
+
+    public static void registerPotions() {
+        attributesConfig.refresh();
+        if (!attributesConfig.value.register_potions) {
+            return;
+        }
+        for(var school: SpellSchools.all()) {
+            if (school.archetype == SpellSchool.Archetype.MAGIC
+                    && !school.id.getPath().contains("generic")) {
+                school.registerPotion();
+            }
+        }
+        for (var secondary: SpellPowerMechanics.all.entrySet()) {
+            var mechanic = secondary.getValue();
+            var entry = Registries.STATUS_EFFECT.getEntry(mechanic.boostEffect);
+            if (entry != null) {
+                var potion = new Potion(new StatusEffectInstance(entry, 3600));
+                Registry.register(Registries.POTION, mechanic.id, potion);
+            }
         }
     }
 

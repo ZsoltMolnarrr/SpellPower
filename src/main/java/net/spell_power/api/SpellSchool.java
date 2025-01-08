@@ -5,6 +5,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -57,6 +59,7 @@ public class SpellSchool {
     public final RegistryKey<DamageType> damageType;
 
     @Nullable public RegistryEntry<EntityAttribute> attributeEntry;
+    @Nullable public RegistryEntry<Potion> potionEntry;
 
     public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, RegistryEntry<EntityAttribute> attributeEntry) {
         this(archetype, id, color, damageType, null, null);
@@ -75,6 +78,16 @@ public class SpellSchool {
     public void registerAttribute() {
         if (ownedAttribute != null) {
             attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, ownedAttribute);
+        }
+    }
+
+    public void registerPotion() {
+        if (ownedBoostEffect != null) {
+            var entry = Registries.STATUS_EFFECT.getEntry(ownedBoostEffect);
+            if (entry != null) {
+                var potion = new Potion(new StatusEffectInstance(entry, 3600));
+                Registry.register(Registries.POTION, id, potion);
+            }
         }
     }
 

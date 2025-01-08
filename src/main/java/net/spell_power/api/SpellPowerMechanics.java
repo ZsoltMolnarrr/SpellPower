@@ -33,7 +33,7 @@ public class SpellPowerMechanics {
         @Nullable
         public RegistryEntry<StatusEffect> effectEntry;
 
-        public Entry(String name, float defaultValue, float min, float max) {
+        public Entry(String name, float defaultValue, float min, float max, int color) {
             this.name = name;
             this.id = Identifier.of(SpellPowerMod.ID, name);
             this.defaultValue = defaultValue;
@@ -41,7 +41,7 @@ public class SpellPowerMechanics {
             this.max = max;
             this.attribute = new CustomEntityAttribute(translationPrefix() + name, defaultValue, min, max, id);
             this.attribute.setTracked(true);
-            this.boostEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff);
+            this.boostEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
         }
 
         public void registerAttribute() {
@@ -55,13 +55,13 @@ public class SpellPowerMechanics {
 
     public static final HashMap<String, Entry> all = new HashMap<>();
 
-    public static Entry entry(String name, float defaultValue, float min, float max) {
-        var entry = new Entry(name, defaultValue, min, max);
+    public static Entry entry(String name, float defaultValue, float min, float max, int color) {
+        var entry = new Entry(name, defaultValue, min, max, color);
         all.put(name, entry);
         return entry;
     }
 
-    public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10);
-    public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10);
-    public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10);
+    public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ccff);
+    public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc);
+    public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0xcc99ff);
 }

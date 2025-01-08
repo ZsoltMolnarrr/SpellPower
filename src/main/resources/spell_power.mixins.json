@@ -8,6 +8,7 @@
     "EntityAttributesMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
+    "PotionsMixin",
     "StatusEffectsMixin",
     "attributes.CrossAttributeContainer",
     "attributes.CrossDefaultAttributeContainer",
