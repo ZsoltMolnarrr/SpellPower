@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Add exposed potion registration function
+
 # 1.1.0
 
 - Add spell potions, disabled by default (can be turned on `config/spell_power/attributes.json`)

@@ -110,11 +110,20 @@ public class SpellPowerMod implements ModInitializer {
         }
     }
 
-    public static void registerPotions() {
+    public static void registerPotionsInternal() {
         attributesConfig.refresh();
-        if (!attributesConfig.value.register_potions) {
+        if (attributesConfig.value.register_potions) {
+            registerPotions();
+        }
+    }
+
+    private static boolean potionsRegistered = false;
+    public static void registerPotions() {
+        if (potionsRegistered) {
             return;
         }
+        potionsRegistered = true;
+
         for(var school: SpellSchools.all()) {
             if (school.archetype == SpellSchool.Archetype.MAGIC
                     && !school.id.getPath().contains("generic")) {

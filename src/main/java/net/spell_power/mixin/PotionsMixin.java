@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PotionsMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void static_tail_SpellPower(CallbackInfo ci) {
-        SpellPowerMod.registerPotions();
+        SpellPowerMod.registerPotionsInternal();
     }
 }
