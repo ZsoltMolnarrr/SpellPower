@@ -12,6 +12,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.spell_power.SpellPowerMod;
 import net.spell_power.api.misc.SpellSchoolJSONAdapter;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,7 +87,8 @@ public class SpellSchool {
             var entry = Registries.STATUS_EFFECT.getEntry(ownedBoostEffect);
             if (entry != null) {
                 var potion = new Potion(new StatusEffectInstance(entry, 3600));
-                Registry.register(Registries.POTION, id, potion);
+                var potionId = SpellPowerMod.potionIdFrom(id);
+                Registry.register(Registries.POTION, potionId, potion);
             }
         }
     }

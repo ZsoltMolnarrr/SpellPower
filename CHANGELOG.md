@@ -1,6 +1,7 @@
 # 1.1.1
 
 - Add exposed potion registration function
+- Update potion ids and translation keys
 
 # 1.1.0
 

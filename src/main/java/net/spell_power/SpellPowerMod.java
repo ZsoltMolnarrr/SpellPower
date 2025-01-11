@@ -135,9 +135,13 @@ public class SpellPowerMod implements ModInitializer {
             var entry = Registries.STATUS_EFFECT.getEntry(mechanic.boostEffect);
             if (entry != null) {
                 var potion = new Potion(new StatusEffectInstance(entry, 3600));
-                Registry.register(Registries.POTION, mechanic.id, potion);
+                Registry.register(Registries.POTION, potionIdFrom(mechanic.id), potion);
             }
         }
+    }
+
+    public static Identifier potionIdFrom(Identifier id) {
+        return Identifier.of(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 
     public static AttributesConfig.AttributeScope attributeScopeOverride = null;
