@@ -1,3 +1,7 @@
+# 1.1.2
+
+- Attempt fix cross powered attribute crash #37
+
 # 1.1.1
 
 - Add exposed potion registration function

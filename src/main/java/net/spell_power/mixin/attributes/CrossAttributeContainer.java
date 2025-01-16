@@ -42,8 +42,10 @@ public class CrossAttributeContainer
     private void addTemporaryModifiers_Head(Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> modifiersMap, CallbackInfo ci) {
         for (var entry: modifiersMap.entries()) {
             var instance = custom.get(entry.getKey());
-            var attribute = instance.getAttribute();
-            this.updateProvidersPoweredBy(attribute);
+            if (instance != null) {
+                var attribute = instance.getAttribute();
+                this.updateProvidersPoweredBy(attribute);
+            }
         }
     }
 
