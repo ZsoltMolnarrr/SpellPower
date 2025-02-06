@@ -18,32 +18,46 @@ public class SpellPower {
         private enum CriticalStrikeMode {
             DISABLED, ALLOWED, FORCED
         }
+        public record Value(double amount, boolean isCritical) { }
 
-        public double randomValue() {
+        public Value random() {
             return value(CriticalStrikeMode.ALLOWED, Vulnerability.none);
         }
+        public double randomValue() {
+            return random().amount();
+        }
 
-        public double randomValue(Vulnerability vulnerability) {
+        public Value random(Vulnerability vulnerability) {
             return value(CriticalStrikeMode.ALLOWED, vulnerability);
         }
+        public double randomValue(Vulnerability vulnerability) {
+            return random(vulnerability).amount();
+        }
 
-        public double nonCriticalValue() {
+        public Value nonCritical() {
             return value(CriticalStrikeMode.DISABLED, Vulnerability.none);
         }
-
-        public double forcedCriticalValue() {
-            return value(CriticalStrikeMode.FORCED, Vulnerability.none);
+        public double nonCriticalValue() {
+            return nonCritical().amount();
         }
 
-        private double value(CriticalStrikeMode mode, Vulnerability vulnerability) {
+        public Value forcedCritical() {
+            return value(CriticalStrikeMode.FORCED, Vulnerability.none);
+        }
+        public double forcedCriticalValue() {
+            return forcedCritical().amount();
+        }
+
+        private Value value(CriticalStrikeMode mode, Vulnerability vulnerability) {
             var value = baseValue * (1F + vulnerability.powerBaseMultiplier);
+            boolean isCritical = false;
             if (mode != CriticalStrikeMode.DISABLED) {
-                boolean isCritical = (mode == CriticalStrikeMode.FORCED) || (rng.nextFloat() < (criticalChance + vulnerability.criticalChanceBonus));
+                isCritical = (mode == CriticalStrikeMode.FORCED) || (rng.nextFloat() < (criticalChance + vulnerability.criticalChanceBonus));
                 if (isCritical) {
                     value *= (criticalDamage + vulnerability.criticalDamageBonus);
                 }
             }
-            return value;
+            return new Value(value, isCritical);
         }
     }
 

@@ -1,3 +1,7 @@
+# 1.2.0
+
+- Expose `isCritical` data on SpellPower.Result queries
+
 # 1.1.2
 
 - Attempt fix cross powered attribute crash #37
