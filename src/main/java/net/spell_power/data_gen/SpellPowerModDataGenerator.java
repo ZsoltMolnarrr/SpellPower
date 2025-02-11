@@ -200,7 +200,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                             new AttributeEnchantmentEffect(
                                     Identifier.of(SpellPowerMod.ID, "enchantment"),
                                     SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry,
-                                    EnchantmentLevelBasedValue.linear(0.02F),
+                                    EnchantmentLevelBasedValue.linear(0.01F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     );
             entries.add(critical_chanceId, critical_chance.build(critical_chanceId.getValue()));
@@ -220,7 +220,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                             new AttributeEnchantmentEffect(
                                     Identifier.of(SpellPowerMod.ID, "enchantment"),
                                     SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry,
-                                    EnchantmentLevelBasedValue.linear(0.05F),
+                                    EnchantmentLevelBasedValue.linear(0.04F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     );
             entries.add(critical_damageId, critical_damage.build(critical_damageId.getValue()));

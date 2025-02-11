@@ -1,3 +1,7 @@
+# 1.2.1
+
+- Nerf spell critical strike related enchantments
+
 # 1.2.0
 
 - Expose `isCritical` data on SpellPower.Result queries

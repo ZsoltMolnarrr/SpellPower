@@ -8,8 +8,8 @@
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 0.05,
-          "per_level_above_first": 0.05
+          "base": 0.04,
+          "per_level_above_first": 0.04
         },
         "attribute": "spell_power:critical_damage",
         "id": "spell_power:enchantment",
