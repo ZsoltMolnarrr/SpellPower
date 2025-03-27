@@ -1,3 +1,7 @@
+# 1.2.2
+
+- Update chinese translations
+
 # 1.2.1
 
 - Nerf spell critical strike related enchantments
