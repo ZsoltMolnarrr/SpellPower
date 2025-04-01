@@ -1,3 +1,7 @@
+# 1.2.3
+
+- Improve spell resistance attribute calculation
+
 # 1.2.2
 
 - Update chinese translations

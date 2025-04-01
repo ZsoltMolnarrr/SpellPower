@@ -14,6 +14,7 @@ public class AttributesConfig {
     public double base_spell_critical_damage_percentage = 50;
     public SpellStatusEffect.Config spell_power_effect = new SpellStatusEffect.Config(0.1F);
     public Map<String, SpellStatusEffect.Config> secondary_effects;
+    public float resistance_multiplier = 1F;
     public float resistance_reduction_cap = 0.75F;
     public boolean register_potions = false;
 

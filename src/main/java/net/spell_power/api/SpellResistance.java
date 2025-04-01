@@ -63,7 +63,7 @@ public class SpellResistance {
             }
         }
 
-        public static final Entry GENERIC = entry("generic", "all", Curve.LINEAR, 100, true);
+        public static final Entry GENERIC = entry("generic", "resistable", Curve.LINEAR, 100, true);
     }
 
     public static double resist(LivingEntity target, double damage, DamageSource source) {
@@ -74,12 +74,14 @@ public class SpellResistance {
                 var maxValue = resistance.maxValue;
                 switch (resistance.curve) {
                     case LINEAR -> {
-                        modifier *= 1 - (value / maxValue) * SpellPowerMod.attributesConfig.value.resistance_reduction_cap;
+                        modifier *= 1 - Math.min( (value / maxValue) * SpellPowerMod.attributesConfig.value.resistance_multiplier,
+                                SpellPowerMod.attributesConfig.value.resistance_reduction_cap);
                     }
                     case SQUARE ->  {
                         // https://www.wolframalpha.com/input?i=sqrt%28x*100%29+%3D+100
                         var sqrt = Math.sqrt(value * maxValue);
-                        modifier *= 1 - (sqrt / maxValue) * SpellPowerMod.attributesConfig.value.resistance_reduction_cap;
+                        modifier *= 1 - Math.min( (sqrt / maxValue) * SpellPowerMod.attributesConfig.value.resistance_multiplier,
+                                SpellPowerMod.attributesConfig.value.resistance_reduction_cap);
                     }
                 }
             }
