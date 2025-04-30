@@ -57,7 +57,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var eid = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, spell_power));
             Enchantment.Builder builder = Enchantment.builder(
                     Enchantment.definition(
-                            itemLookup.getOrThrow(requirementTag("spell_power_generic")),
+                            itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.SPELL_POWER_GENERIC),
                             10, 5,
                             Enchantment.leveledCost(1, 11),
                             Enchantment.leveledCost(12, 11),
@@ -79,7 +79,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var sunfireId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "sunfire"));
             Enchantment.Builder sunfire = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("spell_power_sunfire")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.SPELL_POWER_SUNFIRE),
                                     2, 5,
                                     Enchantment.leveledCost(1, 11),
                                     Enchantment.leveledCost(12, 11),
@@ -108,7 +108,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var soulfrostId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "soulfrost"));
             Enchantment.Builder soulfrost = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("spell_power_soulfrost")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.SPELL_POWER_SOULFROST),
                                     2, 5,
                                     Enchantment.leveledCost(1, 11),
                                     Enchantment.leveledCost(12, 11),
@@ -138,7 +138,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var energizeId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "energize"));
             Enchantment.Builder energize = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("spell_power_energize")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.SPELL_POWER_ENERGIZE),
                                     2, 5,
                                     Enchantment.leveledCost(1, 11),
                                     Enchantment.leveledCost(12, 11),
@@ -168,7 +168,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var hasteId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "haste"));
             Enchantment.Builder haste = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("haste")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.HASTE),
                                     5, 5,
                                     Enchantment.leveledCost(5, 12),
                                     Enchantment.leveledCost(15, 15),
@@ -188,7 +188,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var critical_chanceId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "critical_chance"));
             Enchantment.Builder critical_chance = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("critical_chance")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.CRITICAL_CHANCE),
                                     4, 5,
                                     Enchantment.leveledCost(5, 12),
                                     Enchantment.leveledCost(15, 15),
@@ -208,7 +208,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var critical_damageId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "critical_damage"));
             Enchantment.Builder critical_damage = Enchantment.builder(
                             Enchantment.definition(
-                                    itemLookup.getOrThrow(requirementTag("critical_damage")),
+                                    itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.CRITICAL_DAMAGE),
                                     4, 5,
                                     Enchantment.leveledCost(5, 12),
                                     Enchantment.leveledCost(15, 15),

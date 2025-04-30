@@ -1,3 +1,7 @@
+# 1.2.4
+
+- Add spell power enchantable item tags to java API
+
 # 1.2.3
 
 - Improve spell resistance attribute calculation
