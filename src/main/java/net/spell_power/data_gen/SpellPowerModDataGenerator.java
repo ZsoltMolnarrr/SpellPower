@@ -11,6 +11,7 @@ import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
 import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
 import net.minecraft.predicate.TagPredicate;
@@ -209,18 +210,18 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             Enchantment.Builder critical_damage = Enchantment.builder(
                             Enchantment.definition(
                                     itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.CRITICAL_DAMAGE),
-                                    4, 5,
+                                    5, 5,
                                     Enchantment.leveledCost(5, 12),
                                     Enchantment.leveledCost(15, 15),
                                     3,
-                                    AttributeModifierSlot.ARMOR)
+                                    AttributeModifierSlot.MAINHAND)
                     )
                     .addEffect(
                             EnchantmentEffectComponentTypes.ATTRIBUTES,
                             new AttributeEnchantmentEffect(
                                     Identifier.of(SpellPowerMod.ID, "enchantment"),
                                     SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry,
-                                    EnchantmentLevelBasedValue.linear(0.04F),
+                                    EnchantmentLevelBasedValue.linear(0.1F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     );
             entries.add(critical_damageId, critical_damage.build(critical_damageId.getValue()));
@@ -243,7 +244,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                             new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.0F)),
                             DamageSourcePropertiesLootCondition.builder(
                                     DamageSourcePredicate.Builder.create()
-                                            .tag(TagPredicate.expected(SpellPowerTags.DamageTypes.ALL))
+                                            .tag(TagPredicate.expected(damageTypeTag("c:is_magic")))
                                             .tag(TagPredicate.unexpected(DamageTypeTags.BYPASSES_INVULNERABILITY))
                             )
                     );
@@ -252,6 +253,10 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
 
         private TagKey<Item> requirementTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(SpellPowerMod.ID, "enchantable/" + name));
+        }
+
+        private TagKey<DamageType> damageTypeTag(String id) {
+            return TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(id));
         }
 
         @Override

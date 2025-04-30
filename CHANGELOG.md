@@ -1,3 +1,9 @@
+# 1.3.0
+
+- Rework Amplify Spell 
+  - grants 5x10% spell critical damage
+  - applies to weapons
+
 # 1.2.4
 
 - Add spell power enchantable item tags to java API
