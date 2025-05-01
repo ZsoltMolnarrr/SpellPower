@@ -3,6 +3,7 @@
 - Rework Amplify Spell 
   - grants 5x10% spell critical damage
   - applies to weapons
+- Fix effect descriptions compatibility
 
 # 1.2.4
 
