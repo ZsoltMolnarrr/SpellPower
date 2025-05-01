@@ -39,19 +39,19 @@
 "effect.spell_power.haste": "Скорость заклинания",
 
 "enchantment.spell_power.spell_power": "Сила заклинания",
-"enchantment.spell_power.spell_power.desc": "Повышает разным заклинаниям, наносимый Вами урон.",
+"enchantment.spell_power.spell_power.description": "Повышает разным заклинаниям, наносимый Вами урон.",
 "enchantment.spell_power.soulfrost": "Ледяная душа",
-"enchantment.spell_power.soulfrost.desc": "Повышает духовному и морозному заклинанию, наносимый Вами урон.",
+"enchantment.spell_power.soulfrost.description": "Повышает духовному и морозному заклинанию, наносимый Вами урон.",
 "enchantment.spell_power.sunfire": "Солнечный огонь",
-"enchantment.spell_power.sunfire.desc": "Повышает мистическому и огненному заклинанию, наносимый Вами урон.",
+"enchantment.spell_power.sunfire.description": "Повышает мистическому и огненному заклинанию, наносимый Вами урон.",
 "enchantment.spell_power.energize": "Наполнение энергией",
-"enchantment.spell_power.energize.desc": "Повышает исцеляющему и грозовому заклинанию, наносимый Вами урон.",
+"enchantment.spell_power.energize.description": "Повышает исцеляющему и грозовому заклинанию, наносимый Вами урон.",
 "enchantment.spell_power.critical_chance": "Непостоянство заклинания",
-"enchantment.spell_power.critical_chance.desc": "Повышает шанс критических ударов, наносимых заклинаниями.",
+"enchantment.spell_power.critical_chance.description": "Повышает шанс критических ударов, наносимых заклинаниями.",
 "enchantment.spell_power.critical_damage": "Усилить заклинание",
-"enchantment.spell_power.critical_damage.desc": "Повышает критические удары урона/исцеления, наносимые заклинаниями.",
+"enchantment.spell_power.critical_damage.description": "Повышает критические удары урона/исцеления, наносимые заклинаниями.",
 "enchantment.spell_power.haste": "Скорость заклинания",
-"enchantment.spell_power.haste.desc": "Повышает скорость использования Ваших заклинаний.",
+"enchantment.spell_power.haste.description": "Повышает скорость использования Ваших заклинаний.",
 "enchantment.spell_power.magic_protection": "Защита от магии",
-"enchantment.spell_power.magic_protection.desc": "Понижает урон от враждебной магии."
+"enchantment.spell_power.magic_protection.description": "Понижает урон от враждебной магии."
 }

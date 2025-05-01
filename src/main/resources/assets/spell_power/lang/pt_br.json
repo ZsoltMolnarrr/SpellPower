@@ -39,19 +39,19 @@
   "effect.spell_power.haste": "Aceleração de feitiço",
 
   "enchantment.spell_power.spell_power" : "Poder de feitiço",
-  "enchantment.spell_power.spell_power.desc" : "Aumenta todos os tipos de dano de feitiço que você causa",
+  "enchantment.spell_power.spell_power.description" : "Aumenta todos os tipos de dano de feitiço que você causa",
   "enchantment.spell_power.soulfrost" : "Almagelo",
-  "enchantment.spell_power.soulfrost.desc" : "Aumenta o dano de feitiço de alma e gelo que você causa",
+  "enchantment.spell_power.soulfrost.description" : "Aumenta o dano de feitiço de alma e gelo que você causa",
   "enchantment.spell_power.sunfire" : "Fogo solar",
-  "enchantment.spell_power.sunfire.desc" : "Aumenta o dano de feitiço arcano e de fogo que você causa",
+  "enchantment.spell_power.sunfire.description" : "Aumenta o dano de feitiço arcano e de fogo que você causa",
   "enchantment.spell_power.energize" : "Energizar",
-  "enchantment.spell_power.energize.desc" : "Aumenta o dano de feitiço de cura e relâmpago que você causa",
+  "enchantment.spell_power.energize.description" : "Aumenta o dano de feitiço de cura e relâmpago que você causa",
   "enchantment.spell_power.critical_chance" : "Volatilidade de feitiço",
-  "enchantment.spell_power.critical_chance.desc" : "Aumenta a chance de golpes críticos com feitiços",
+  "enchantment.spell_power.critical_chance.description" : "Aumenta a chance de golpes críticos com feitiços",
   "enchantment.spell_power.critical_damage" : "Amplificar feitiço",
-  "enchantment.spell_power.critical_damage.desc" : "Aumenta o dano/cura de golpes críticos com feitiços",
+  "enchantment.spell_power.critical_damage.description" : "Aumenta o dano/cura de golpes críticos com feitiços",
   "enchantment.spell_power.haste" : "Aceleração de feitiço",
-  "enchantment.spell_power.haste.desc" : "Aumenta a velocidade de conjuração dos seus feitiços",
+  "enchantment.spell_power.haste.description" : "Aumenta a velocidade de conjuração dos seus feitiços",
   "enchantment.spell_power.magic_protection" : "Proteção mágica",
-  "enchantment.spell_power.magic_protection.desc" : "Reduz o dano de magia hostil"
+  "enchantment.spell_power.magic_protection.description" : "Reduz o dano de magia hostil"
 }
