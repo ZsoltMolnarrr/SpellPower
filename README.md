@@ -52,7 +52,7 @@ The library offers an API to query spell power of an entity (based on its attrib
 - Attribute id: `spell_power:haste`
 - `Base value = 100` (this means player casts spells at normal speed)
 - Players have no modifiers by default
-- Example values: `50` (50% faster spell casting), 200 (200% faster spell casting)
+- Example values: `150` = 50% faster spell casting, `200` = 100% faster spell casting
 
 ### Status Effects
 Each introduced attribute (mentioned above), has with a matching status effect to boost them.
