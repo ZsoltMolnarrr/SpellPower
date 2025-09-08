@@ -54,6 +54,15 @@ The library offers an API to query spell power of an entity (based on its attrib
 - Players have no modifiers by default
 - Example values: `150` = 50% faster spell casting, `200` = 100% faster spell casting
 
+#### Resistance
+- Represents resistance against spell damage (magical analog to armor)
+- Attribute id: `spell_power:resistance.generic` (protects against all magic schools)
+- Calculation is configurable, with the following formulas available:
+  - `LINEAR` : `r / C`
+  - `QUADRATIC` : `sqrt(r * C) / C`
+  - `HYPERBOLIC` : `r / (r + C)` (default)
+  - Where `r` is the resistance attribute value, and `C` is a configurable tuning constant (default: `20`)
+
 ### Status Effects
 Each introduced attribute (mentioned above), has with a matching status effect to boost them.
 
@@ -309,7 +318,7 @@ For regular `magic` schools, it is strongly recommended to perform the registrat
 public class SpellSchoolsMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void static_tail_BloodMagic(CallbackInfo ci) {
-        SpellSchool.register(BloodMagicMod.BLOOD); // Trigger registration
+        SpellSchools.register(SpellSchools.createMagic("blood", 0x8B0000));
     }
 }
 ```

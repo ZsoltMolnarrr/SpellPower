@@ -1,5 +1,6 @@
 package net.spell_power.config;
 
+import net.spell_power.api.DamageCurve;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.internals.SpellStatusEffect;
 
@@ -14,8 +15,12 @@ public class AttributesConfig {
     public double base_spell_critical_damage_percentage = 50;
     public SpellStatusEffect.Config spell_power_effect = new SpellStatusEffect.Config(0.1F);
     public Map<String, SpellStatusEffect.Config> secondary_effects;
+
+
+    public DamageCurve resistance_curve = DamageCurve.HYPERBOLIC;
     public float resistance_multiplier = 1F;
-    public float resistance_reduction_cap = 0.75F;
+    public float resistance_tuning_constant = 20F;
+    public float resistance_reduction_cap = 0.9F;
     public boolean register_potions = false;
 
     public static AttributesConfig defaults() {

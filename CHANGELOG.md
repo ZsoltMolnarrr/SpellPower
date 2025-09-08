@@ -1,3 +1,10 @@
+# 1.3.1
+
+- Resistance attribute is now configurable
+  - resistance_curve: `LINEAR`, `QUADRATIC`, `HYPERBOLIC`
+  - resistance_tuning_constant: the constant used in resistance formula
+  - new default is `HYPERBOLIC` with `20` constant
+
 # 1.3.0
 
 - Rework Amplify Spell 
