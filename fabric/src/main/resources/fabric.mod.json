@@ -2,36 +2,41 @@
   "schemaVersion": 1,
   "id": "spell_power",
   "version": "${version}",
-  "name": "Spell Power",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Spell Power Attribute",
+  "description": "Spell Power entity attributes with related status effects and enchantments.",
   "authors": [
-    "Me!"
+    "Daedelus"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "repo": "https://github.com/ZsoltMolnarrr/SpellPower",
+    "issues": "https://github.com/ZsoltMolnarrr/SpellPower/issues"
   },
-  "license": "CC0-1.0",
+  "license": "GPL-3.0",
   "icon": "assets/spell_power/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.spell_power.fabric.ExampleModFabric"
+      "net.spell_power.fabric.FabricMod"
     ],
     "client": [
-      "net.spell_power.fabric.client.ExampleModFabricClient"
+      "net.spell_power.fabric.client.FabricClientMod"
+    ],
+    "fabric-datagen": [
+      "net.spell_power.fabric.data_gen.SpellPowerModDataGenerator"
     ]
   },
   "mixins": [
     "spell_power.mixins.json"
   ],
   "depends": {
-    "fabricloader": "*",
-    "minecraft": "~1.21.1",
-    "java": ">=21",
-    "fabric-api": "*"
+    "minecraft": ">=${minecraft_compat_version}",
+    "fabricloader": ">=${fabric_loader_version}"
   },
-  "suggests": {
-    "another-mod": "*"
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/KN9b3pjFTM"
+      }
+    }
   }
 }

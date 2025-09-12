@@ -1,6 +1,5 @@
 package net.spell_power;
 
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.component.DataComponentTypes;
@@ -17,7 +16,7 @@ import net.spell_power.internals.AttributeUtil;
 import net.spell_power.internals.CrossFunctionalAttributes;
 import net.tinyconfig.ConfigManager;
 
-public class SpellPowerMod implements ModInitializer {
+public class SpellPowerMod {
     public static final String ID = "spell_power";
 
     public static final ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
@@ -28,8 +27,7 @@ public class SpellPowerMod implements ModInitializer {
             .validate(AttributesConfig::isValid)
             .build();
 
-    @Override
-    public void onInitialize() {
+    public static void init() {
         attributesConfig.refresh();
     }
 

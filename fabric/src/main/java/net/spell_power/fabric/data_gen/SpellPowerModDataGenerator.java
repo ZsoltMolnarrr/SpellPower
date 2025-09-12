@@ -1,4 +1,4 @@
-package net.spell_power.data_gen;
+package net.spell_power.fabric.data_gen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
