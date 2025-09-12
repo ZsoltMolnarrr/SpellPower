@@ -14,7 +14,7 @@ import net.spell_power.api.*;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.internals.AttributeUtil;
 import net.spell_power.internals.CrossFunctionalAttributes;
-import net.tinyconfig.ConfigManager;
+import net.tiny_config.ConfigManager;
 
 public class SpellPowerMod {
     public static final String ID = "spell_power";

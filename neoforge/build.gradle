@@ -49,6 +49,7 @@ repositories {
     maven {
         url "https://maven.su5ed.dev/releases"
     }
+    mavenLocal()
 }
 
 dependencies {
@@ -59,8 +60,7 @@ dependencies {
 
     modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
 
-    forgeRuntimeLibrary("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
-    include("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
+    include(modImplementation("net.tiny_config:tiny_config-neoforge:${project.tiny_config_version}"))
 }
 
 processResources {

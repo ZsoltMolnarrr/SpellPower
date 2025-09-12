@@ -3,7 +3,7 @@ architectury {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenLocal()
 }
 
 dependencies {
@@ -15,5 +15,5 @@ dependencies {
     // Temporary solution, to compile the project, and later to resolve
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
-    implementation ("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
+    modImplementation "net.tiny_config:tiny_config-fabric:${project.tiny_config_version}"
 }
