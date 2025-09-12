@@ -9,6 +9,13 @@ architectury {
     neoForge()
 }
 
+def generatedResources = project(':common').file('src/main/generated')
+sourceSets {
+    main {
+        resources.srcDir generatedResources
+    }
+}
+
 configurations {
     common {
         canBeResolved = true
@@ -39,6 +46,9 @@ repositories {
             includeGroup 'maven.modrinth'
         }
     }
+    maven {
+        url "https://maven.su5ed.dev/releases"
+    }
 }
 
 dependencies {
@@ -46,6 +56,8 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+
+    modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
 
     forgeRuntimeLibrary("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
     include("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
@@ -85,6 +97,10 @@ if(project.hasProperty('release_type')) {
             addGameVersion "${rootProject.minecraft_version}"
             addGameVersion "NeoForge"
 
+            relations {
+                requiredDependency 'forgified-fabric-api'
+            }
+
             mainArtifact(remapJar)
             afterEvaluate {
                 uploadTask.dependsOn(remapJar)
@@ -103,10 +119,11 @@ if(project.hasProperty('release_type')) {
         versionNumber = "${version}-neoforge" // You don't need to set this manually. Will fail if Modrinth has this version already
         versionType = release_type // This is the default -- can also be `beta` or `alpha`
         uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-        gameVersions = ["${rootProject.minecraft_version}"] // Must be an array, even with only one version
+        gameVersions = ["${project.minecraft_version}", "${project.minecraft_compat_version}"] // Must be an array, even with only one version
         loaders = ["neoforge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
         changelog = changelog_last_section()
         dependencies { // A special DSL for creating dependencies
+            required.project 'forgified-fabric-api'
         }
     }
 }

@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "GPL-3.0"
 
 [[mods]]
 modId = "spell_power"
 version = "${version}"
-displayName = "Spell Power"
-authors = "Me!"
+displayName = "Spell Power Attribute"
+authors = "Daedelus"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Spell Power entity attributes with related status effects and enchantments.
 '''
-#logoFile = ""
+logoFile = "assets/spell_power/icon.png"
 
 [[dependencies.spell_power]]
 modId = "neoforge"
@@ -24,6 +24,14 @@ side = "BOTH"
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+# Forgified Fabric API
+[[dependencies.spell_power]]
+modId = "fabric_api_base"
+type = "required"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
