@@ -1,3 +1,7 @@
+# 1.4.0
+
+Migrate to Architectury workspace.
+
 # 1.3.1
 
 - Resistance attribute is now configurable
