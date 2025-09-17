@@ -76,6 +76,10 @@ public class SpellSchool {
         this.ownedBoostEffect = boostEffect;
     }
 
+    public float attributeBaseValue() {
+        return ownedAttribute != null ? (float) ownedAttribute.getDefaultValue() : 0;
+    }
+
     public void registerAttribute() {
         if (ownedAttribute != null) {
             attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, ownedAttribute);

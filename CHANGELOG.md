@@ -1,6 +1,7 @@
 # 1.4.0
 
-Migrate to Architectury workspace.
+- Migrate to Architectury
+- Rework generic Spell Power attribute implementation, to be multiplier attribute
 
 # 1.3.1
 

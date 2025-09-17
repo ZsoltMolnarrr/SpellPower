@@ -42,7 +42,7 @@ public class SpellSchools {
 
     // Predefined Spell Schools
 
-    public static final SpellSchool GENERIC = register(createMagic("generic", 0x9999BB));
+    public static final SpellSchool GENERIC = register(createMagic("generic", 0x9999BB, 100));
     public static final SpellSchool ARCANE = register(createMagic("arcane", 0xff66ff));
     public static final SpellSchool FIRE = register(createMagic("fire", 0xff3300));
     public static final SpellSchool FROST = register(createMagic("frost", 0xccffff));
@@ -53,14 +53,22 @@ public class SpellSchools {
     // School Creation
 
     public static SpellSchool createMagic(String name, int color) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color);
+        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, 0);
+    }
+
+    public static SpellSchool createMagic(String name, int color, int base) {
+        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
     }
 
     public static SpellSchool createMagic(Identifier id, int color) {
+        return createMagic(id, color, 0);
+    }
+
+    public static SpellSchool createMagic(Identifier id, int color, int base) {
         var powerEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
 
         var translationPrefix = "attribute.name." + id.getNamespace() + ".";
-        var attribute = new CustomEntityAttribute(translationPrefix + id.getPath(), 0, 0, 2048, id).setTracked(true);
+        var attribute = new CustomEntityAttribute(translationPrefix + id.getPath(), base, 0, 2048, id).setTracked(true);
 
         return createMagic(id, color, true, attribute, powerEffect);
     }

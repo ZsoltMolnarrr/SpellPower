@@ -13,7 +13,6 @@ import net.minecraft.util.Identifier;
 import net.spell_power.api.*;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.internals.AttributeUtil;
-import net.spell_power.internals.CrossFunctionalAttributes;
 import net.tiny_config.ConfigManager;
 
 public class SpellPowerMod {
@@ -42,12 +41,8 @@ public class SpellPowerMod {
             resistance.registerAttribute();
         }
 
-        var genericSpellSchool = SpellSchools.GENERIC;
         for(var school: SpellSchools.all()) {
             school.registerAttribute();
-            if (school != genericSpellSchool && school.ownsAttribute()) {
-                CrossFunctionalAttributes.power(school.attributeEntry, genericSpellSchool.attributeEntry);
-            }
         }
 
         EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> {

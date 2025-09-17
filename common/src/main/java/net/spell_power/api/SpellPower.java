@@ -1,12 +1,11 @@
 package net.spell_power.api;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.spell_power.api.statuseffects.VulnerabilityEffect;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 
 public class SpellPower {
@@ -105,11 +104,31 @@ public class SpellPower {
 
     public static Result getSpellPower(SpellSchool school, LivingEntity entity) {
         var args = new SpellSchool.QueryArgs(entity);
+        var power = school.getValue(SpellSchool.Trait.POWER, args);
+        if (school.archetype == SpellSchool.Archetype.MAGIC) {
+            var instance = entity.getAttributes().getCustomInstance(school.attributeEntry);
+            if (instance != null) {
+                var flatPower = getAttributeFlatValue(instance);
+                var genericSpellPower = entity.getAttributeValue(SpellSchools.GENERIC.attributeEntry);
+                var multiplier = genericSpellPower / SpellSchools.GENERIC.attributeBaseValue();
+                power += flatPower * (multiplier - 1);
+            }
+        }
         return new Result(
                 school,
-                school.getValue(SpellSchool.Trait.POWER, args),
+                power,
                 school.getValue(SpellSchool.Trait.CRIT_CHANCE, args),
                 school.getValue(SpellSchool.Trait.CRIT_DAMAGE, args));
+    }
+
+    private static double getAttributeFlatValue(EntityAttributeInstance instance) {
+        double result = 0;
+        for (var modifier: instance.getModifiers()) {
+            if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
+                result += modifier.value();
+            }
+        }
+        return result;
     }
 
     public static float getHaste(LivingEntity entity, SpellSchool school) {

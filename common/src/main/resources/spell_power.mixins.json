@@ -9,10 +9,7 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "PotionsMixin",
-    "StatusEffectsMixin",
-    "attributes.CrossAttributeContainer",
-    "attributes.CrossDefaultAttributeContainer",
-    "attributes.CrossEntityAttributeInstance"
+    "StatusEffectsMixin"
   ],
   "client": [
   ],
