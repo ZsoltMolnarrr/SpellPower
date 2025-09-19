@@ -62,7 +62,7 @@ dependencies {
 
     modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
 
-    include(modImplementation("net.tiny_config:tiny_config-${platform}:${project.tiny_config_version}"))
+    include(modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}"))
 }
 
 processResources {
