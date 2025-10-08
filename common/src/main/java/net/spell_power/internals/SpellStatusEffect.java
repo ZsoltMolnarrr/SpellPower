@@ -7,14 +7,4 @@ public class SpellStatusEffect extends StatusEffect {
     public SpellStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
-
-    public static class Config {
-        public float bonus_per_stack = 0.1F;
-
-        public Config() { }
-
-        public Config(float bonus_per_stack) {
-            this.bonus_per_stack = bonus_per_stack;
-        }
-    }
 }

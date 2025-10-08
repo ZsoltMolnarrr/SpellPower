@@ -1,3 +1,7 @@
+# 1.4.1
+
+- Fix innate attribute modifiers for spell crit chance, and spell crit damage attributes (now correctly show up when queried, or on GUI)
+
 # 1.4.0
 
 - Migrate to Architectury

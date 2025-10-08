@@ -1,6 +1,7 @@
 package net.spell_power.api;
 
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
@@ -26,6 +27,7 @@ public class SpellPowerMechanics {
         public final float defaultValue, min, max;
         public final CustomEntityAttribute attribute;
         public final StatusEffect boostEffect;
+        public @Nullable EntityAttributeModifier innateModifier;
 
         @Nullable
         public RegistryEntry<EntityAttribute> attributeEntry;
@@ -51,6 +53,11 @@ public class SpellPowerMechanics {
         public void registerEffect() {
             effectEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, boostEffect);
         }
+
+        public Entry innateModifier(EntityAttributeModifier.Operation operation, float value) {
+            innateModifier = new EntityAttributeModifier(ModifierDefinitions.INNATE_BONUS, value, operation);
+            return this;
+        }
     }
 
     public static final HashMap<String, Entry> all = new HashMap<>();
@@ -61,7 +68,9 @@ public class SpellPowerMechanics {
         return entry;
     }
 
-    public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ccff);
-    public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc);
+    public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ccff)
+            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.safeLoadedConfig().base_spell_critical_chance_percentage) / 100F);
+    public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc)
+            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.safeLoadedConfig().base_spell_critical_damage_percentage) / 100F);
     public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0xcc99ff);
 }

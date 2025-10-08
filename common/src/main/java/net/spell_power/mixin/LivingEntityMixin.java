@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -41,6 +42,19 @@ abstract class LivingEntityMixin extends Entity {
             }
             for (var resistance: SpellResistance.Attributes.all) {
                 info.getReturnValue().add(resistance.attributeEntry);
+            }
+        }
+    }
+
+    // init tail
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void onConstructed(EntityType entityType, World world, CallbackInfo ci) {
+        for (var mechanic : SpellPowerMechanics.all.values()) {
+            if (mechanic.innateModifier != null) {
+                ((LivingEntity)(Object)this)
+                        .getAttributes()
+                        .getCustomInstance(mechanic.attributeEntry)
+                        .addPersistentModifier(mechanic.innateModifier);
             }
         }
     }

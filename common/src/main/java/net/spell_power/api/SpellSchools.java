@@ -107,17 +107,15 @@ public class SpellSchools {
 
     public static SpellSchool configureSpellCritChance(SpellSchool school) {
         school.addSource(SpellSchool.Trait.CRIT_CHANCE, new SpellSchool.Source(SpellSchool.Apply.ADD, query ->  {
-            var value = SpellPowerMod.attributesConfig.value.base_spell_critical_chance_percentage  // 5
-                    + query.entity().getAttributeValue(SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry);    // 20
-            return (value / PERCENT_ATTRIBUTE_BASELINE) - 1;    // For example: (125/100) - 1 = 0.25
+            var value = query.entity().getAttributeValue(SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry);    // 20
+            return (value / PERCENT_ATTRIBUTE_BASELINE) - 1;    // For example: (120/100) - 1 = 0.25
         }));
         return school;
     }
 
     public static SpellSchool configureSpellCritDamage(SpellSchool school) {
         school.addSource(SpellSchool.Trait.CRIT_DAMAGE, new SpellSchool.Source(SpellSchool.Apply.ADD, query -> {
-            var value = SpellPowerMod.attributesConfig.value.base_spell_critical_damage_percentage          // 50
-                    + query.entity().getAttributeValue(SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry);    // 110
+            var value = query.entity().getAttributeValue(SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry);    // 160
             var rate = (value / PERCENT_ATTRIBUTE_BASELINE);    // For example: 160/100 = 1.6
             return rate - 1;    // 0.6
         }));

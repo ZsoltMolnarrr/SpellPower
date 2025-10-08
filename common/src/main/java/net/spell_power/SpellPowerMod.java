@@ -18,16 +18,25 @@ import net.tiny_config.ConfigManager;
 public class SpellPowerMod {
     public static final String ID = "spell_power";
 
-    public static final ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<AttributesConfig>
+    public static final ConfigManager<AttributesConfig> attributesConfig = new ConfigManager<>
             ("attributes", AttributesConfig.defaults())
             .builder()
             .setDirectory(ID)
             .sanitize(true)
             .validate(AttributesConfig::isValid)
             .build();
+    private static boolean configLoaded = false;
+    public static AttributesConfig safeLoadedConfig() {
+        var config = attributesConfig;
+        if (!configLoaded) {
+            config.refresh();
+            configLoaded = true;
+        }
+        return config.value;
+    }
 
     public static void init() {
-        attributesConfig.refresh();
+        safeLoadedConfig();
     }
 
     /**
