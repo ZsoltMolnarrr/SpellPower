@@ -1,5 +1,5 @@
 {
-  "attribute.name.spell_power.generic" : "法术强度",
+  "attribute.name.spell_power.generic" : "全法术强度",
   "attribute.name.spell_power.arcane" : "奥术法术强度",
   "attribute.name.spell_power.fire" : "火焰法术强度",
   "attribute.name.spell_power.frost" : "冰霜法术强度",
@@ -19,7 +19,7 @@
   "attribute.name.spell_power.haste" : "法术急速",
   "attribute.name.spell_power.resistance.generic" : "法术抗性",
 
-  "effect.spell_power.generic": "法术强度",
+  "effect.spell_power.generic": "全法术强度",
   "effect.spell_power.arcane": "奥术能量",
   "effect.spell_power.fire": "火焰能量",
   "effect.spell_power.frost": "冰霜能量",
@@ -38,7 +38,7 @@
   "effect.spell_power.critical_damage": "法术增幅",
   "effect.spell_power.haste": "法术急速",
 
-  "enchantment.spell_power.spell_power" : "法术强度",
+  "enchantment.spell_power.spell_power" : "全法术强度",
   "enchantment.spell_power.spell_power.description" : "提升所有类型的法术伤害",
   "enchantment.spell_power.soulfrost" : "灵魂冰霜",
   "enchantment.spell_power.soulfrost.description" : "提升灵魂与冰霜法术的伤害",
