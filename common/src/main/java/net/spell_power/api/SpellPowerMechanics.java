@@ -69,8 +69,8 @@ public class SpellPowerMechanics {
     }
 
     public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ccff)
-            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.safeLoadedConfig().base_spell_critical_chance_percentage) / 100F);
+            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_chance_percentage) / 100F);
     public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc)
-            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.safeLoadedConfig().base_spell_critical_damage_percentage) / 100F);
+            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_damage_percentage) / 100F);
     public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0xcc99ff);
 }

@@ -1,3 +1,9 @@
+# 1.4.3
+
+- Improve thread safety (for NeoForge)
+- Retire attribute registration scope config, now everything is registered for LivingEntity
+- Update TinyConfig
+
 # 1.4.2
 
 - Spell Power damage types now cause panic for mobs

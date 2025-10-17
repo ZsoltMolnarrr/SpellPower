@@ -13,22 +13,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
-    @Inject(
-            method = "createPlayerAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;",
-            require = 1, allow = 1, at = @At("RETURN")
-    )
-    private static void addAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
-        if (SpellPowerMod.attributeScope() == AttributesConfig.AttributeScope.PLAYER_ENTITY) {
-            for (var entry : SpellPowerMechanics.all.entrySet()) {
-                var secondary = entry.getValue();
-                info.getReturnValue().add(secondary.attributeEntry);
-            }
-            for (var school: SpellSchools.all()) {
-                if (school.ownsAttribute()) {
-                    var attribute = school.attributeEntry;
-                    info.getReturnValue().add(attribute);
-                }
-            }
-        }
-    }
+//    @Inject(
+//            method = "createPlayerAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;",
+//            require = 1, allow = 1, at = @At("RETURN")
+//    )
+//    private static void addAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
+//        if (SpellPowerMod.attributeScope() == AttributesConfig.AttributeScope.PLAYER_ENTITY) {
+//            for (var entry : SpellPowerMechanics.all.entrySet()) {
+//                var secondary = entry.getValue();
+//                info.getReturnValue().add(secondary.attributeEntry);
+//            }
+//            for (var school: SpellSchools.all()) {
+//                if (school.ownsAttribute()) {
+//                    var attribute = school.attributeEntry;
+//                    info.getReturnValue().add(attribute);
+//                }
+//            }
+//        }
+//    }
 }

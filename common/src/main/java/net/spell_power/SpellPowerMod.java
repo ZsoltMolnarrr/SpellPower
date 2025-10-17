@@ -25,18 +25,9 @@ public class SpellPowerMod {
             .sanitize(true)
             .validate(AttributesConfig::isValid)
             .build();
-    private static boolean configLoaded = false;
-    public static AttributesConfig safeLoadedConfig() {
-        var config = attributesConfig;
-        if (!configLoaded) {
-            config.refresh();
-            configLoaded = true;
-        }
-        return config.value;
-    }
 
     public static void init() {
-        safeLoadedConfig();
+        attributesConfig.safeValue();
     }
 
     /**
@@ -95,11 +86,12 @@ public class SpellPowerMod {
             }
         }
 
+        var safeConfig = attributesConfig.safeValue();
         for(var entry: SpellPowerMechanics.all.entrySet()) {
             var secondary = entry.getValue();
             var id = secondary.id;
 
-            var config = attributesConfig.value.secondary_effects.get(secondary.name);
+            var config = safeConfig.secondary_effects.get(secondary.name);
             if (config != null) {
                 bonus_per_stack = config.bonus_per_stack;
             }
@@ -113,8 +105,7 @@ public class SpellPowerMod {
     }
 
     public static void registerPotionsInternal() {
-        attributesConfig.refresh();
-        if (attributesConfig.value.register_potions) {
+        if (attributesConfig.safeValue().register_potions) {
             registerPotions();
         }
     }
@@ -146,8 +137,11 @@ public class SpellPowerMod {
         return Identifier.of(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 
+    @Deprecated(forRemoval = true)
     public static AttributesConfig.AttributeScope attributeScopeOverride = null;
+    @Deprecated(forRemoval = true)
     public static AttributesConfig.AttributeScope attributeScope() {
-        return attributeScopeOverride != null ? attributeScopeOverride : attributesConfig.value.attributes_container_injection_scope;
+        return attributeScopeOverride;
+        // return attributeScopeOverride != null ? attributeScopeOverride : attributesConfig.value.attributes_container_injection_scope;
     }
 }

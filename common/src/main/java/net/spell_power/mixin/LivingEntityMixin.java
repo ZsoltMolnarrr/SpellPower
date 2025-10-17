@@ -29,20 +29,20 @@ abstract class LivingEntityMixin extends Entity {
             require = 1, allow = 1, at = @At("RETURN")
     )
     private static void addAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
-        if (SpellPowerMod.attributeScope() == AttributesConfig.AttributeScope.LIVING_ENTITY) {
-            for (var entry : SpellPowerMechanics.all.entrySet()) {
-                var secondary = entry.getValue();
-                info.getReturnValue().add(secondary.attributeEntry);
+        // Disabled AttributeScope-ing, as mob mods and resistance attributes complicate things
+//        if (SpellPowerMod.attributeScope() == AttributesConfig.AttributeScope.LIVING_ENTITY) {
+        for (var entry : SpellPowerMechanics.all.entrySet()) {
+            var secondary = entry.getValue();
+            info.getReturnValue().add(secondary.attributeEntry);
+        }
+        for (var school: SpellSchools.all()) {
+            if (school.ownsAttribute()) {
+                var attribute = school.attributeEntry;
+                info.getReturnValue().add(attribute);
             }
-            for (var school: SpellSchools.all()) {
-                if (school.ownsAttribute()) {
-                    var attribute = school.attributeEntry;
-                    info.getReturnValue().add(attribute);
-                }
-            }
-            for (var resistance: SpellResistance.Attributes.all) {
-                info.getReturnValue().add(resistance.attributeEntry);
-            }
+        }
+        for (var resistance: SpellResistance.Attributes.all) {
+            info.getReturnValue().add(resistance.attributeEntry);
         }
     }
 

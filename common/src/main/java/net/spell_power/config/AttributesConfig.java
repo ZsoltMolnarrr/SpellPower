@@ -8,7 +8,7 @@ public class AttributesConfig {
     public enum AttributeScope {
         LIVING_ENTITY, PLAYER_ENTITY
     }
-    public AttributeScope attributes_container_injection_scope = AttributeScope.LIVING_ENTITY;
+    // public AttributeScope attributes_container_injection_scope = AttributeScope.LIVING_ENTITY;
     public double base_spell_critical_chance_percentage = 5;
     public double base_spell_critical_damage_percentage = 50;
     public EffectConfig spell_power_effect = new EffectConfig(0.1F);
@@ -38,9 +38,9 @@ public class AttributesConfig {
     public boolean isValid() {
         var defaults = defaults();
 
-        if (attributes_container_injection_scope == null) {
-            return false;
-        }
+//        if (attributes_container_injection_scope == null) {
+//            return false;
+//        }
         if (secondary_effects == null) {
             return false;
         }
