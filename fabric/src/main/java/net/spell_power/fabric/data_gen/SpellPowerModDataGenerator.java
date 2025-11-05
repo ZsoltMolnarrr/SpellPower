@@ -194,14 +194,14 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                                     Enchantment.leveledCost(5, 12),
                                     Enchantment.leveledCost(15, 15),
                                     3,
-                                    AttributeModifierSlot.ARMOR)
+                                    AttributeModifierSlot.MAINHAND)
                     )
                     .addEffect(
                             EnchantmentEffectComponentTypes.ATTRIBUTES,
                             new AttributeEnchantmentEffect(
                                     Identifier.of(SpellPowerMod.ID, "enchantment"),
                                     SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry,
-                                    EnchantmentLevelBasedValue.linear(0.01F),
+                                    EnchantmentLevelBasedValue.linear(0.04F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     );
             entries.add(critical_chanceId, critical_chance.build(critical_chanceId.getValue()));

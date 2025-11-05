@@ -1,3 +1,8 @@
+# 1.4.4
+
+- Spell Volatility enchantment is now available for Weapons only
+- Enchantment descriptions now have a trailing dot, to be consistent with vanilla enchantments
+
 # 1.4.3
 
 - Improve thread safety (for NeoForge)

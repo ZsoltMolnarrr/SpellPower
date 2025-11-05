@@ -8,8 +8,8 @@
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 0.01,
-          "per_level_above_first": 0.01
+          "base": 0.04,
+          "per_level_above_first": 0.04
         },
         "attribute": "spell_power:critical_chance",
         "id": "spell_power:enchantment",
@@ -27,7 +27,7 @@
     "per_level_above_first": 12
   },
   "slots": [
-    "armor"
+    "mainhand"
   ],
   "supported_items": "#spell_power:enchantable/critical_chance",
   "weight": 4
