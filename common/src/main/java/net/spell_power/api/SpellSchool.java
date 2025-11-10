@@ -1,8 +1,10 @@
 package net.spell_power.api;
 
+import com.google.common.base.Suppliers;
 import com.google.gson.annotations.JsonAdapter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @JsonAdapter(SpellSchoolJSONAdapter.class)
 public class SpellSchool {
@@ -62,6 +65,8 @@ public class SpellSchool {
     @Nullable public RegistryEntry<EntityAttribute> attributeEntry;
     @Nullable public RegistryEntry<Potion> potionEntry;
 
+    public float innateBonus = 0;
+
     public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, RegistryEntry<EntityAttribute> attributeEntry) {
         this(archetype, id, color, damageType, null, null);
         this.attributeEntry = attributeEntry;
@@ -74,6 +79,30 @@ public class SpellSchool {
         this.damageType = damageType;
         this.ownedAttribute = attribute;
         this.ownedBoostEffect = boostEffect;
+        this.innateBonus = SpellPowerMod.attributesConfig.safeValue().base_spell_power;
+    }
+
+    public SpellSchool innateModifier(float value) {
+        this.innateBonus = 0F;
+        return this;
+    }
+
+    public boolean hasInnateModifier() {
+        return innateBonus >= 0F;
+    }
+
+    private Supplier<EntityAttributeModifier> innateModifier = Suppliers.memoize(() ->
+            new EntityAttributeModifier(
+                    ModifierDefinitions.INNATE_BONUS,
+                    this.getInnateBonus(),
+                    EntityAttributeModifier.Operation.ADD_VALUE
+            )
+    );
+    private float getInnateBonus() {
+        return innateBonus;
+    }
+    public EntityAttributeModifier getInnateModifier() {
+        return innateModifier.get();
     }
 
     public float attributeBaseValue() {

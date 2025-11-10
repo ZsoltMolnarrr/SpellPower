@@ -7,6 +7,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;
 import net.spell_power.SpellPowerMod;
+import net.spell_power.api.ModifierDefinitions;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellResistance;
 import net.spell_power.api.SpellSchools;
@@ -49,10 +50,19 @@ abstract class LivingEntityMixin extends Entity {
     // init tail
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onConstructed(EntityType entityType, World world, CallbackInfo ci) {
+        var attributes = ((LivingEntity)(Object)this).getAttributes();
+        for (var school: SpellSchools.all()) {
+            if (school.ownsAttribute() && school.hasInnateModifier()
+                    && !attributes.hasModifierForAttribute(school.attributeEntry, ModifierDefinitions.INNATE_BONUS)) {
+                attributes
+                        .getCustomInstance(school.attributeEntry)
+                        .addPersistentModifier(school.getInnateModifier());
+            }
+        }
         for (var mechanic : SpellPowerMechanics.all.values()) {
-            if (mechanic.innateModifier != null) {
-                ((LivingEntity)(Object)this)
-                        .getAttributes()
+            if (mechanic.innateModifier != null
+                    && !attributes.hasModifierForAttribute(mechanic.attributeEntry, ModifierDefinitions.INNATE_BONUS)) {
+                attributes
                         .getCustomInstance(mechanic.attributeEntry)
                         .addPersistentModifier(mechanic.innateModifier);
             }

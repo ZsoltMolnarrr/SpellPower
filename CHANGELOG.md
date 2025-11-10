@@ -2,6 +2,8 @@
 
 - Spell Volatility enchantment is now available for Weapons only
 - Enchantment descriptions now have a trailing dot, to be consistent with vanilla enchantments
+- Add effect descriptions support
+- Add innate spell power bonus
 
 # 1.4.3
 
