@@ -65,8 +65,6 @@ public class SpellSchool {
     @Nullable public RegistryEntry<EntityAttribute> attributeEntry;
     @Nullable public RegistryEntry<Potion> potionEntry;
 
-    public float innateBonus = 0;
-
     public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, RegistryEntry<EntityAttribute> attributeEntry) {
         this(archetype, id, color, damageType, null, null);
         this.attributeEntry = attributeEntry;
@@ -79,30 +77,6 @@ public class SpellSchool {
         this.damageType = damageType;
         this.ownedAttribute = attribute;
         this.ownedBoostEffect = boostEffect;
-        this.innateBonus = SpellPowerMod.attributesConfig.safeValue().base_spell_power;
-    }
-
-    public SpellSchool innateModifier(float value) {
-        this.innateBonus = 0F;
-        return this;
-    }
-
-    public boolean hasInnateModifier() {
-        return innateBonus >= 0F;
-    }
-
-    private Supplier<EntityAttributeModifier> innateModifier = Suppliers.memoize(() ->
-            new EntityAttributeModifier(
-                    ModifierDefinitions.INNATE_BONUS,
-                    this.getInnateBonus(),
-                    EntityAttributeModifier.Operation.ADD_VALUE
-            )
-    );
-    private float getInnateBonus() {
-        return innateBonus;
-    }
-    public EntityAttributeModifier getInnateModifier() {
-        return innateModifier.get();
     }
 
     public float attributeBaseValue() {
@@ -132,6 +106,10 @@ public class SpellSchool {
 
     public boolean ownsAttribute() {
         return ownedAttribute != null;
+    }
+
+    public boolean isMagicArchetype() {
+        return archetype == Archetype.MAGIC;
     }
 
     // Sources

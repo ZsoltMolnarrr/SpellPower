@@ -156,7 +156,10 @@ public class SpellPowerMod {
     }
 
     public static void migrateAttributes(ServerPlayerEntity player) {
-        var attributes = List.of(SpellSchools.GENERIC.attributeEntry);
+        var attributes = SpellSchools.all().stream()
+                .filter(school -> school.isMagicArchetype() && school.ownsAttribute())
+                .map(school -> school.attributeEntry)
+                .toList();
         for (var attribute: attributes) {
             if (attribute == null) {
                 continue;
