@@ -17,6 +17,7 @@
       }
     ]
   },
+  "exclusive_set": "#spell_power:exclusive_set/spell_critical",
   "max_cost": {
     "base": 15,
     "per_level_above_first": 15

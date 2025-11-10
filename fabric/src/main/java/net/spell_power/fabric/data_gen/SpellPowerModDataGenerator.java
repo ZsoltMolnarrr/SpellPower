@@ -168,7 +168,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
 
             var hasteId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "haste"));
             Enchantment.Builder haste = Enchantment.builder(
-                            Enchantment.definition(
+                    Enchantment.definition(
                                     itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.HASTE),
                                     5, 5,
                                     Enchantment.leveledCost(5, 12),
@@ -188,7 +188,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
 
             var critical_chanceId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "critical_chance"));
             Enchantment.Builder critical_chance = Enchantment.builder(
-                            Enchantment.definition(
+                    Enchantment.definition(
                                     itemLookup.getOrThrow(SpellPowerTags.Items.Enchantable.CRITICAL_CHANCE),
                                     4, 5,
                                     Enchantment.leveledCost(5, 12),
@@ -203,7 +203,8 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                                     SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry,
                                     EnchantmentLevelBasedValue.linear(0.04F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
-                    );
+                    )
+                    .exclusiveSet(enchantmentLookup.getOrThrow(SpellPowerTags.Enchantments.SPELL_CRITICAL_EXCLUSIVE));
             entries.add(critical_chanceId, critical_chance.build(critical_chanceId.getValue()));
 
             var critical_damageId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "critical_damage"));
@@ -223,7 +224,8 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                                     SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry,
                                     EnchantmentLevelBasedValue.linear(0.1F),
                                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
-                    );
+                    )
+                    .exclusiveSet(enchantmentLookup.getOrThrow(SpellPowerTags.Enchantments.SPELL_CRITICAL_EXCLUSIVE));
             entries.add(critical_damageId, critical_damage.build(critical_damageId.getValue()));
 
             var protectionId = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "magic_protection"));

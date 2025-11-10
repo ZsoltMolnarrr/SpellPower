@@ -16,6 +16,7 @@ public class SpellPowerTags {
         public static final TagKey<Enchantment> REQUIRES_MATCHING_ATTRIBUTE = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "requires_matching_attribute"));
         // Exclusive set tag
         public static final TagKey<Enchantment> MULTI_SCHOOL = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "multi_school"));
+        public static final TagKey<Enchantment> SPELL_CRITICAL_EXCLUSIVE = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "exclusive_set/spell_critical"));
     }
     public static class Items {
         public static class Enchantable {
