@@ -9,6 +9,7 @@ public class AttributesConfig {
         LIVING_ENTITY, PLAYER_ENTITY
     }
     // public AttributeScope attributes_container_injection_scope = AttributeScope.LIVING_ENTITY;
+    public boolean migrate_attributes_base = true;
     public float base_spell_power = 1F;
     public double base_spell_critical_chance_percentage = 5;
     public double base_spell_critical_damage_percentage = 50;

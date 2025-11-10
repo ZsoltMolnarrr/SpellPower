@@ -1,5 +1,6 @@
 package net.spell_power.api;
 
+import com.google.common.base.Suppliers;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -16,10 +17,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static net.spell_power.api.SpellPowerMechanics.PERCENT_ATTRIBUTE_BASELINE;
 
 public class SpellSchools {
+    private static final Supplier<Float> defaultBaseValue = Suppliers.memoize(() -> {
+        return SpellPowerMod.attributesConfig.safeValue().base_spell_power;
+    });
 
     // Registration
 
@@ -41,8 +46,7 @@ public class SpellSchools {
 
     // Predefined Spell Schools
 
-    public static final SpellSchool GENERIC = register(createMagic("generic", 0x9999BB, 100))
-            .innateModifier(-1F);
+    public static final SpellSchool GENERIC = register(createMagic("generic", 0x9999BB, 100));
     public static final SpellSchool ARCANE = register(createMagic("arcane", 0xff66ff));
     public static final SpellSchool FIRE = register(createMagic("fire", 0xff3300));
     public static final SpellSchool FROST = register(createMagic("frost", 0xccffff));
@@ -53,10 +57,10 @@ public class SpellSchools {
     // School Creation
 
     public static SpellSchool createMagic(String name, int color) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, 0);
+        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, defaultBaseValue.get());
     }
 
-    public static SpellSchool createMagic(String name, int color, int base) {
+    public static SpellSchool createMagic(String name, int color, float base) {
         return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
     }
 
@@ -64,7 +68,7 @@ public class SpellSchools {
         return createMagic(id, color, 0);
     }
 
-    public static SpellSchool createMagic(Identifier id, int color, int base) {
+    public static SpellSchool createMagic(Identifier id, int color, float base) {
         var powerEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
 
         var translationPrefix = "attribute.name." + id.getNamespace() + ".";

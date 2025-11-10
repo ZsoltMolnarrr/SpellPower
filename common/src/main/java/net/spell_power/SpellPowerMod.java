@@ -1,6 +1,7 @@
 package net.spell_power;
 
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
@@ -9,11 +10,14 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.spell_power.api.*;
 import net.spell_power.config.AttributesConfig;
 import net.spell_power.internals.AttributeUtil;
 import net.tiny_config.ConfigManager;
+
+import java.util.List;
 
 public class SpellPowerMod {
     public static final String ID = "spell_power";
@@ -27,7 +31,13 @@ public class SpellPowerMod {
             .build();
 
     public static void init() {
-        attributesConfig.safeValue();
+        var config = attributesConfig.safeValue();
+        if (config.migrate_attributes_base) {
+            ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+                var player = handler.getPlayer();
+                SpellPowerMod.migrateAttributes(player);
+            });
+        }
     }
 
     /**
@@ -143,5 +153,22 @@ public class SpellPowerMod {
     public static AttributesConfig.AttributeScope attributeScope() {
         return attributeScopeOverride;
         // return attributeScopeOverride != null ? attributeScopeOverride : attributesConfig.value.attributes_container_injection_scope;
+    }
+
+    public static void migrateAttributes(ServerPlayerEntity player) {
+        var attributes = List.of(SpellSchools.GENERIC.attributeEntry);
+        for (var attribute: attributes) {
+            if (attribute == null) {
+                continue;
+            }
+            var instance = player.getAttributeInstance(attribute);
+            if (instance == null) {
+                continue;
+            }
+            var defaultValue = attribute.value().getDefaultValue();
+            if (instance.getBaseValue() != defaultValue) {
+                instance.setBaseValue(defaultValue);
+            }
+        }
     }
 }
