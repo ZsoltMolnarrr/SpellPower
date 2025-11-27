@@ -1,3 +1,7 @@
+# 1.4.5
+
+- Update translations
+
 # 1.4.4
 
 - Spell Volatility enchantment is now available for Weapons only
