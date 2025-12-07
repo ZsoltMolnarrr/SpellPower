@@ -1,3 +1,9 @@
+# 1.4.6
+
+- Enchantment that require matching attributes can now be configured to disable this requirement
+- Fix unsafe check in enchantment logic
+- Update translations
+
 # 1.4.5
 
 - Update translations

@@ -15,7 +15,7 @@ public class AttributesConfig {
     public double base_spell_critical_damage_percentage = 50;
     public EffectConfig spell_power_effect = new EffectConfig(0.1F);
     public Map<String, EffectConfig> secondary_effects;
-
+    public boolean enchantments_require_matching_attribute = true;
 
     public DamageCurve resistance_curve = DamageCurve.HYPERBOLIC;
     public float resistance_multiplier = 1F;

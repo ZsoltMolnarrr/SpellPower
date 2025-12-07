@@ -56,11 +56,15 @@ public class SpellPowerMod {
         }
 
         EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> {
-            if (enchantment.isIn(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE))  {
+            if (SpellPowerMod.attributesConfig.value.enchantments_require_matching_attribute &&
+                    enchantment.isIn(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE))  {
                 // System.out.println("Spell Power - School Filtering check: " + enchantment);
                 var enchantmentAttributes = enchantment.value().effects().get(EnchantmentEffectComponentTypes.ATTRIBUTES);
                 if (enchantmentAttributes != null && !enchantmentAttributes.isEmpty()) {
                     var itemAttributes = target.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+                    if (itemAttributes == null) {
+                        return TriState.FALSE;
+                    }
                     if (itemAttributes.modifiers().isEmpty()) {
                         itemAttributes = target.getItem().getAttributeModifiers();
                     }
