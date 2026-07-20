@@ -81,45 +81,46 @@ remapJar {
     inputFile.set shadowJar.archiveFile
 }
 
-if (project.hasProperty('release_type')) {
-    def mppType = release_type == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
-            : release_type == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA
+// Publishing is configured unconditionally: the tasks only *run* when explicitly invoked
+// (e.g. `publishMod` in CI), and all credentials are lazy `providers.environmentVariable(...)`,
+// so a local `build` — with none of the tokens present — is completely unaffected.
+def releaseTypeName = (project.findProperty('release_type') ?: 'beta').toString()
+
+// Keep the old task name so the existing workflow (`:neoforge:publishMod`) keeps working.
+// The plugin's own aggregate task is `publishMods` (plural).
+tasks.register("publishMod") {
+    dependsOn(build)
+    finalizedBy(tasks.named("publishMods"))
+}
+
+publishMods {
+    file = remapJar.archiveFile          // Loom production jar (NOT the dev-shadow jar)
+    changelog = providers.provider { changelog_last_section() }   // lazy: CHANGELOG.md read only at publish time
+    type = releaseTypeName == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
+            : releaseTypeName == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA
             : me.modmuss50.mpp.ReleaseType.BETA
+    version = "${project.version}-${platform}"   // per-loader suffix → unique Modrinth version number
+    displayName = "${project.version}"
+    modLoaders.add("neoforge")
 
-    // Keep the old task name so the existing workflow (`:neoforge:publishMod`) keeps working.
-    // The plugin's own aggregate task is `publishMods` (plural).
-    tasks.register("publishMod") {
-        dependsOn(build)
-        finalizedBy(tasks.named("publishMods"))
+    curseforge {
+        projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
+        accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+        minecraftVersions.add(project.minecraft_version)
+        minecraftVersions.add(project.minecraft_compat_version)
+        client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
+        server = true
+        changelogType = "markdown"
+        requires("forgified-fabric-api")
     }
 
-    publishMods {
-        file = remapJar.archiveFile          // Loom production jar (NOT the dev-shadow jar)
-        changelog = changelog_last_section()
-        type = mppType
-        version = "${project.version}-${platform}"   // per-loader suffix → unique Modrinth version number
-        displayName = "${project.version}"
-        modLoaders.add("neoforge")
-
-        curseforge {
-            projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
-            accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-            minecraftVersions.add(project.minecraft_version)
-            minecraftVersions.add(project.minecraft_compat_version)
-            client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
-            server = true
-            changelogType = "markdown"
-            requires("forgified-fabric-api")
-        }
-
-        modrinth {
-            projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
-            accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-            minecraftVersions.add(project.minecraft_version)
-            minecraftVersions.add(project.minecraft_compat_version)
-            requires { slug = "forgified-fabric-api" }
-        }
-
-        // No github{} block here — the GitHub release is published from the Fabric platform only.
+    modrinth {
+        projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
+        accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+        minecraftVersions.add(project.minecraft_version)
+        minecraftVersions.add(project.minecraft_compat_version)
+        requires { slug = "forgified-fabric-api" }
     }
+
+    // No github{} block here — the GitHub release is published from the Fabric platform only.
 }
