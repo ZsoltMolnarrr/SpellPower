@@ -1,3 +1,8 @@
+# 1.5.0
+
+- Allow sub-1 spell haste value, to make spell casting slower
+- Update some translations
+
 # 1.4.6
 
 - Enchantment that require matching attributes can now be configured to disable this requirement

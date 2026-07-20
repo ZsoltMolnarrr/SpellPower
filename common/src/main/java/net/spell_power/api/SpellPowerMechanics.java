@@ -72,5 +72,8 @@ public class SpellPowerMechanics {
             .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_chance_percentage) / 100F);
     public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc)
             .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_damage_percentage) / 100F);
-    public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0xcc99ff);
+    // Min is set below the baseline so harmful effects can lower haste, slowing casts and lengthening
+    // cooldowns (value / haste in SpellHelper). Floored at 1/10 of the baseline to cap the slow at 10x
+    // and keep the divisor safely away from 0 (haste == 0 would yield infinite cast/cooldown durations).
+    public static final Entry HASTE = entry("haste", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 0.1F, PERCENT_ATTRIBUTE_BASELINE * 10, 0xcc99ff);
 }
