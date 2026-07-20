@@ -122,5 +122,15 @@ publishMods {
         requires { slug = "forgified-fabric-api" }
     }
 
-    // No github{} block here — the GitHub release is published from the Fabric platform only.
+    // Each platform publishes its own GitHub release under a distinct, platform-suffixed
+    // tag (e.g. `1.5.0+1.21.1-neoforge`), so the two publish jobs don't collide.
+    github {
+        repository = providers.environmentVariable("GH_OWNER")
+                .zip(providers.environmentVariable("GH_REPO")) { owner, repo -> "$owner/$repo" }
+        accessToken = providers.environmentVariable("GH_API_KEY")
+        tagName = "${project.version}-${platform}"
+        // `commitish` is REQUIRED by the plugin. GITHUB_SHA is set automatically by GitHub
+        // Actions to the triggering commit — a valid target even in a detached-HEAD checkout.
+        commitish = providers.environmentVariable("GITHUB_SHA")
+    }
 }
