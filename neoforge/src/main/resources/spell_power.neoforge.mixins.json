@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.spell_power.neoforge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "IItemExtensionMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,10 +1,5 @@
 package net.spell_power;
 
-import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.util.TriState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.potion.Potion;
@@ -14,7 +9,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.spell_power.api.*;
 import net.spell_power.config.AttributesConfig;
-import net.spell_power.internals.AttributeUtil;
 import net.tiny_config.ConfigManager;
 
 import java.util.List;
@@ -31,12 +25,15 @@ public class SpellPowerMod {
             .build();
 
     public static void init() {
-        var config = attributesConfig.safeValue();
-        if (config.migrate_attributes_base) {
-            ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-                var player = handler.getPlayer();
-                SpellPowerMod.migrateAttributes(player);
-            });
+        // Event wiring lives in the loader entrypoints (FabricMod / NeoForgeMod), which forward to the
+        // loader-neutral callbacks below. This keeps `common` free of any loader event API.
+    }
+
+    /// Player-join hook: migrate legacy attribute base values when enabled. Wired to
+    /// `ServerPlayConnectionEvents.JOIN` on Fabric and `PlayerEvent.PlayerLoggedInEvent` on NeoForge.
+    public static void onPlayerJoin(ServerPlayerEntity player) {
+        if (attributesConfig.safeValue().migrate_attributes_base) {
+            migrateAttributes(player);
         }
     }
 
@@ -54,31 +51,8 @@ public class SpellPowerMod {
         for(var school: SpellSchools.all()) {
             school.registerAttribute();
         }
-
-        EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> {
-            if (SpellPowerMod.attributesConfig.value.enchantments_require_matching_attribute &&
-                    enchantment.isIn(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE))  {
-                // System.out.println("Spell Power - School Filtering check: " + enchantment);
-                var enchantmentAttributes = enchantment.value().effects().get(EnchantmentEffectComponentTypes.ATTRIBUTES);
-                if (enchantmentAttributes != null && !enchantmentAttributes.isEmpty()) {
-                    var itemAttributes = target.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-                    if (itemAttributes == null) {
-                        return TriState.FALSE;
-                    }
-                    if (itemAttributes.modifiers().isEmpty()) {
-                        itemAttributes = target.getItem().getAttributeModifiers();
-                    }
-                    // System.out.println("Spell Power - School Filtering | enchantmentAttributes: " + enchantmentAttributes + " | itemAttributes: " + itemAttributes);
-
-                    var intersect = AttributeUtil.attributesIntersect(enchantmentAttributes, itemAttributes);
-                    // System.out.println("Spell Power - Intersect: " + intersect + " | " + enchantmentAttributes + " | " + itemAttributes);
-                    if (!intersect) {
-                        return TriState.FALSE;
-                    }
-                }
-            }
-            return TriState.DEFAULT;
-        });
+        // Enchantment-applicability restrictions moved to SpellPowerEnchanting; wired per loader
+        // (Fabric: EnchantmentEvents.ALLOW_ENCHANTING; NeoForge: IItemExtension#supportsEnchantment mixin).
     }
 
     /**

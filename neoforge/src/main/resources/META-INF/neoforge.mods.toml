@@ -27,13 +27,8 @@ versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-# Forgified Fabric API
-[[dependencies.spell_power]]
-modId = "fabric_api_base"
-type = "required"
-versionRange = "*"
-ordering = "NONE"
-side = "BOTH"
-
 [[mixins]]
 config = "spell_power.mixins.json"
+
+[[mixins]]
+config = "spell_power.neoforge.mixins.json"
