@@ -1,3 +1,7 @@
+# 1.6.0
+
+- Drop FFAPI dependency
+
 # 1.5.0
 
 - Allow sub-1 spell haste value, to make spell casting slower
