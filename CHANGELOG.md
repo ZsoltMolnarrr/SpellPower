@@ -1,6 +1,7 @@
 # 1.6.0
 
-- Drop FFAPI dependency
+- NeoForge version no longer needs Forgified Fabric API
+- Fully translated content, now supporting 20 languages
 
 # 1.5.0
 
