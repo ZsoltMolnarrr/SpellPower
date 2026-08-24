@@ -115,8 +115,9 @@ public class SpellPowerMod {
             var mechanic = secondary.getValue();
             var entry = Registries.STATUS_EFFECT.getEntry(mechanic.boostEffect);
             if (entry != null) {
-                var potion = new Potion(new StatusEffectInstance(entry, 3600));
-                Registry.register(Registries.POTION, potionIdFrom(mechanic.id), potion);
+                var potionId = potionIdFrom(mechanic.id);
+                var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry, 3600));
+                Registry.register(Registries.POTION, potionId, potion);
             }
         }
     }

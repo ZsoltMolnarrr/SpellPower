@@ -51,8 +51,8 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
             var spell_power = "spell_power";
 
 
-            RegistryEntryLookup<Item> itemLookup = registries.createRegistryLookup().getOrThrow(RegistryKeys.ITEM);
-            RegistryEntryLookup<Enchantment> enchantmentLookup = registries.createRegistryLookup().getOrThrow(RegistryKeys.ENCHANTMENT);
+            RegistryEntryLookup<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
+            RegistryEntryLookup<Enchantment> enchantmentLookup = registries.getOrThrow(RegistryKeys.ENCHANTMENT);
 
 
             var eid = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, spell_power));

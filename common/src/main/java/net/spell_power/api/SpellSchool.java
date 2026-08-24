@@ -93,8 +93,8 @@ public class SpellSchool {
         if (ownedBoostEffect != null) {
             var entry = Registries.STATUS_EFFECT.getEntry(ownedBoostEffect);
             if (entry != null) {
-                var potion = new Potion(new StatusEffectInstance(entry, 3600));
                 var potionId = SpellPowerMod.potionIdFrom(id);
+                var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry, 3600));
                 Registry.register(Registries.POTION, potionId, potion);
             }
         }

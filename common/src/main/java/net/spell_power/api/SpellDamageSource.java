@@ -25,6 +25,6 @@ public class SpellDamageSource {
 
     private static DamageSource create(SpellSchool school, String name, Entity attacker) {
         var registry = ((DamageSourcesAccessor)attacker.getDamageSources()).getRegistry();
-        return new DamageSource(registry.entryOf(school.damageType), attacker);
+        return new DamageSource(registry.getOrThrow(school.damageType), attacker);
     }
 }

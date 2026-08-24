@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.spell_power.api.ModifierDefinitions;
 import net.spell_power.api.SpellPowerMechanics;
@@ -60,9 +61,9 @@ abstract class LivingEntityMixin extends Entity {
     }
 
     @ModifyVariable(method = "damage", at = @At("HEAD"), ordinal = 0)
-    private float damage_resistance(float amount, DamageSource source) {
+    private float damage_resistance(float amount, ServerWorld world, DamageSource source) {
         var entity = (LivingEntity)(Object)this;
-        if (entity.isInvulnerableTo(source) || entity.isDead()) {
+        if (entity.isInvulnerableTo(world, source) || entity.isDead()) {
             return amount;
         }
         return (float) SpellResistance.resist(entity, amount, source);

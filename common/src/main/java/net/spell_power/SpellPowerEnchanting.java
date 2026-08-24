@@ -2,6 +2,7 @@ package net.spell_power;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.item.ItemStack;
@@ -42,7 +43,7 @@ public final class SpellPowerEnchanting {
             return false;
         }
         if (itemAttributes.modifiers().isEmpty()) {
-            itemAttributes = item.getItem().getAttributeModifiers();
+            itemAttributes = item.getItem().getComponents().getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
         }
         return AttributeUtil.attributesIntersect(enchantmentAttributes, itemAttributes);
     }
