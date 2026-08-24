@@ -109,7 +109,9 @@ jobs:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
           CURSEFORGE_PROJECT_ID: ${{ vars.CURSEFORGE_PROJECT_ID }}
           MODRINTH_API_KEY: ${{ secrets.MODRINTH_API_KEY }}
+          # Two names in use across the ecosystem; each repo defines only its own.
           MODRINTH_PROJECT_RAW_ID: ${{ vars.MODRINTH_PROJECT_RAW_ID }}
+          MODRINTH_PROJECT_ID: ${{ vars.MODRINTH_PROJECT_ID }}
           GH_API_KEY: ${{ secrets.GH_API_KEY }}
           GH_OWNER: ${{ github.repository_owner }}
           GH_REPO: ${{ github.event.repository.name }}
