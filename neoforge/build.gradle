@@ -39,7 +39,7 @@ repositories {
         name = 'NeoForged'
         url = 'https://maven.neoforged.net/releases'
     }
-    maven { url 'https://jitpack.io' }
+    maven { url = 'https://jitpack.io' }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -48,7 +48,7 @@ repositories {
         }
     }
     maven {
-        url "https://maven.su5ed.dev/releases"
+        url = 'https://maven.su5ed.dev/releases'
     }
     mavenLocal()
 }
