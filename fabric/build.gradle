@@ -12,6 +12,7 @@ architectury {
 
 fabricApi {
     configureDataGeneration() {
+        modId = "spell_power"
         client = true
         outputDirectory = project(':common').file('src/main/generated')
     }
@@ -46,15 +47,15 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    include(modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}"))
+    include(implementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}"))
 }
 
 processResources {
@@ -66,13 +67,35 @@ processResources {
     }
 }
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+// Minecraft is not obfuscated on this version, so there is no remapJar task.
+// The shaded jar is the mod jar that ships.
+jar {
+    archiveClassifier = 'dev'
 }
 
-remapJar {
-    inputFile.set shadowJar.archiveFile
+shadowJar {
+    // Build on top of the `jar` task output instead of raw source-set outputs:
+    // in no-remap Loom the jar-in-jar nesting (`include`) is applied by `jar`
+    // (it was applied by `remapJar` after shadowing, before 26.1).
+    dependsOn jar
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = null
+}
+
+assemble.dependsOn shadowJar
+
+// Publish the shaded jar (common + platform classes) as the main artifact.
+configurations {
+    apiElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
+    runtimeElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
 }
 
 // Publishing is configured unconditionally: the tasks only *run* when explicitly invoked
@@ -87,7 +110,7 @@ tasks.register("publishMod") {
 }
 
 publishMods {
-    file = remapJar.archiveFile          // Loom production jar (NOT the dev-shadow jar)
+    file = shadowJar.archiveFile         // the shaded jar is the shipping jar on no-remap Loom
     changelog = providers.provider { changelog_last_section() }   // lazy: CHANGELOG.md read only at publish time
     type = releaseTypeName == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
             : releaseTypeName == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA
