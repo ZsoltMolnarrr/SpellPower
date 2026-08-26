@@ -1,8 +1,8 @@
 package net.spell_power.api;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.spell_power.api.statuseffects.VulnerabilityEffect;
 
 import java.util.*;
@@ -65,8 +65,8 @@ public class SpellPower {
             Arrays.asList(
                     (query -> {
                         var vulnerabilities = new ArrayList<Vulnerability>();
-                        for(var effect: query.entity.getStatusEffects()) {
-                            if (effect.getEffectType().value() instanceof VulnerabilityEffect vulnerabilityEffect) {
+                        for(var effect: query.entity.getActiveEffects()) {
+                            if (effect.getEffect().value() instanceof VulnerabilityEffect vulnerabilityEffect) {
                                 vulnerabilities.add(vulnerabilityEffect.getVulnerability(query.school, effect.getAmplifier()));
                             }
                         }
@@ -106,7 +106,7 @@ public class SpellPower {
         var args = new SpellSchool.QueryArgs(entity);
         var power = school.getValue(SpellSchool.Trait.POWER, args);
         if (school.archetype == SpellSchool.Archetype.MAGIC) {
-            var instance = entity.getAttributes().getCustomInstance(school.attributeEntry);
+            var instance = entity.getAttributes().getInstance(school.attributeEntry);
             if (instance != null) {
                 var flatPower = getAttributeFlatValue(instance);
                 var genericSpellPower = entity.getAttributeValue(SpellSchools.GENERIC.attributeEntry);
@@ -121,11 +121,11 @@ public class SpellPower {
                 school.getValue(SpellSchool.Trait.CRIT_DAMAGE, args));
     }
 
-    private static double getAttributeFlatValue(EntityAttributeInstance instance) {
+    private static double getAttributeFlatValue(AttributeInstance instance) {
         double result = 0;
         for (var modifier: instance.getModifiers()) {
-            if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                result += modifier.value();
+            if (modifier.operation() == AttributeModifier.Operation.ADD_VALUE) {
+                result += modifier.amount();
             }
         }
         return result;

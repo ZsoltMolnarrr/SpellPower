@@ -1,12 +1,12 @@
 package net.spell_power;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
 import net.spell_power.api.SpellPowerTags;
 import net.spell_power.internals.AttributeUtil;
 
@@ -25,25 +25,25 @@ public final class SpellPowerEnchanting {
 
     /// Condition: `enchantment` is subject to the "requires matching attribute" restriction — the
     /// feature is enabled, the enchantment is tagged, and it actually grants attributes to match against.
-    public static boolean requiresMatchingAttribute(RegistryEntry<Enchantment> enchantment) {
+    public static boolean requiresMatchingAttribute(Holder<Enchantment> enchantment) {
         return SpellPowerMod.attributesConfig.value.enchantments_require_matching_attribute
-                && enchantment.isIn(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE)
+                && enchantment.is(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE)
                 && !grantedAttributes(enchantment).isEmpty();
     }
 
     /// Condition: `item` carries at least one attribute that intersects the attributes `enchantment`
     /// would grant. An enchantment that grants no attributes trivially matches.
-    public static boolean itemHasMatchingAttribute(RegistryEntry<Enchantment> enchantment, ItemStack item) {
-        List<AttributeEnchantmentEffect> enchantmentAttributes = grantedAttributes(enchantment);
+    public static boolean itemHasMatchingAttribute(Holder<Enchantment> enchantment, ItemStack item) {
+        List<EnchantmentAttributeEffect> enchantmentAttributes = grantedAttributes(enchantment);
         if (enchantmentAttributes.isEmpty()) {
             return true;
         }
-        var itemAttributes = item.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+        var itemAttributes = item.getComponents().get(DataComponents.ATTRIBUTE_MODIFIERS);
         if (itemAttributes == null) {
             return false;
         }
         if (itemAttributes.modifiers().isEmpty()) {
-            itemAttributes = item.getItem().getComponents().getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+            itemAttributes = item.getItem().components().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
         }
         return AttributeUtil.attributesIntersect(enchantmentAttributes, itemAttributes);
     }
@@ -51,12 +51,12 @@ public final class SpellPowerEnchanting {
     /// Whether Spell Power permits `enchantment` on `item`: the conjunction of every restriction rule
     /// (currently only the matching-attribute rule). Both loaders call this so the decision lives in
     /// exactly one place — add future rules here as further `&&` terms.
-    public static boolean isAllowed(RegistryEntry<Enchantment> enchantment, ItemStack item) {
+    public static boolean isAllowed(Holder<Enchantment> enchantment, ItemStack item) {
         return !requiresMatchingAttribute(enchantment) || itemHasMatchingAttribute(enchantment, item);
     }
 
-    private static List<AttributeEnchantmentEffect> grantedAttributes(RegistryEntry<Enchantment> enchantment) {
-        var effects = enchantment.value().effects().get(EnchantmentEffectComponentTypes.ATTRIBUTES);
+    private static List<EnchantmentAttributeEffect> grantedAttributes(Holder<Enchantment> enchantment) {
+        var effects = enchantment.value().effects().get(EnchantmentEffectComponents.ATTRIBUTES);
         return effects != null ? effects : List.of();
     }
 }

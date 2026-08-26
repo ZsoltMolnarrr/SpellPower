@@ -1,13 +1,13 @@
 package net.spell_power.api;
 
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.internals.CustomEntityAttribute;
 import net.spell_power.internals.SpellStatusEffect;
@@ -26,36 +26,36 @@ public class SpellPowerMechanics {
         public final Identifier id;
         public final float defaultValue, min, max;
         public final CustomEntityAttribute attribute;
-        public final StatusEffect boostEffect;
-        public @Nullable EntityAttributeModifier innateModifier;
+        public final MobEffect boostEffect;
+        public @Nullable AttributeModifier innateModifier;
 
         @Nullable
-        public RegistryEntry<EntityAttribute> attributeEntry;
+        public Holder<Attribute> attributeEntry;
 
         @Nullable
-        public RegistryEntry<StatusEffect> effectEntry;
+        public Holder<MobEffect> effectEntry;
 
         public Entry(String name, float defaultValue, float min, float max, int color) {
             this.name = name;
-            this.id = Identifier.of(SpellPowerMod.ID, name);
+            this.id = Identifier.fromNamespaceAndPath(SpellPowerMod.ID, name);
             this.defaultValue = defaultValue;
             this.min = min;
             this.max = max;
             this.attribute = new CustomEntityAttribute(translationPrefix() + name, defaultValue, min, max, id);
-            this.attribute.setTracked(true);
-            this.boostEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
+            this.attribute.setSyncable(true);
+            this.boostEffect = new SpellStatusEffect(MobEffectCategory.BENEFICIAL, color);
         }
 
         public void registerAttribute() {
-            attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
+            attributeEntry = Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, id, attribute);
         }
 
         public void registerEffect() {
-            effectEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, boostEffect);
+            effectEntry = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id, boostEffect);
         }
 
-        public Entry innateModifier(EntityAttributeModifier.Operation operation, float value) {
-            innateModifier = new EntityAttributeModifier(ModifierDefinitions.INNATE_BONUS, value, operation);
+        public Entry innateModifier(AttributeModifier.Operation operation, float value) {
+            innateModifier = new AttributeModifier(ModifierDefinitions.INNATE_BONUS, value, operation);
             return this;
         }
     }
@@ -69,9 +69,9 @@ public class SpellPowerMechanics {
     }
 
     public static final Entry CRITICAL_CHANCE = entry("critical_chance", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ccff)
-            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_chance_percentage) / 100F);
+            .innateModifier(AttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_chance_percentage) / 100F);
     public static final Entry CRITICAL_DAMAGE = entry("critical_damage", PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE, PERCENT_ATTRIBUTE_BASELINE * 10, 0x66ffcc)
-            .innateModifier(EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_damage_percentage) / 100F);
+            .innateModifier(AttributeModifier.Operation.ADD_MULTIPLIED_BASE, ((float) SpellPowerMod.attributesConfig.safeValue().base_spell_critical_damage_percentage) / 100F);
     // Min is set below the baseline so harmful effects can lower haste, slowing casts and lengthening
     // cooldowns (value / haste in SpellParameters). Floored at 1/10 of the baseline to cap the slow at 10x
     // and keep the divisor safely away from 0 (haste == 0 would yield infinite cast/cooldown durations).

@@ -1,13 +1,13 @@
 package net.spell_power.api;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.internals.CustomEntityAttribute;
 import net.spell_power.internals.SpellStatusEffect;
@@ -57,11 +57,11 @@ public class SpellSchools {
     // School Creation
 
     public static SpellSchool createMagic(String name, int color) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, defaultBaseValue.get());
+        return createMagic(Identifier.fromNamespaceAndPath(DEFAULT_NAMESPACE, name.toLowerCase()), color, defaultBaseValue.get());
     }
 
     public static SpellSchool createMagic(String name, int color, float base) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
+        return createMagic(Identifier.fromNamespaceAndPath(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
     }
 
     public static SpellSchool createMagic(Identifier id, int color) {
@@ -69,20 +69,20 @@ public class SpellSchools {
     }
 
     public static SpellSchool createMagic(Identifier id, int color, float base) {
-        var powerEffect = new SpellStatusEffect(StatusEffectCategory.BENEFICIAL, color);
+        var powerEffect = new SpellStatusEffect(MobEffectCategory.BENEFICIAL, color);
 
         var translationPrefix = "attribute.name." + id.getNamespace() + ".";
-        var attribute = new CustomEntityAttribute(translationPrefix + id.getPath(), base, 0, 2048, id).setTracked(true);
+        var attribute = new CustomEntityAttribute(translationPrefix + id.getPath(), base, 0, 2048, id).setSyncable(true);
 
         return createMagic(id, color, true, attribute, powerEffect);
     }
 
-    public static SpellSchool createMagic(Identifier id, int color, boolean customDamageType, EntityAttribute powerAttribute, StatusEffect powerEffect) {
+    public static SpellSchool createMagic(Identifier id, int color, boolean customDamageType, Attribute powerAttribute, MobEffect powerEffect) {
         var school = new SpellSchool(
                 SpellSchool.Archetype.MAGIC,
                 id,
                 color,
-                customDamageType ? RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id) : DamageTypes.MAGIC,
+                customDamageType ? ResourceKey.create(Registries.DAMAGE_TYPE, id) : DamageTypes.MAGIC,
                 powerAttribute,
                 powerEffect);
         return configureAsMagic(school);
@@ -130,10 +130,10 @@ public class SpellSchools {
 
     @Nullable public static SpellSchool getSchool(String idString) {
         var string = idString.toLowerCase(Locale.US);
-        var id = Identifier.of(string);
+        var id = Identifier.parse(string);
         // Replacing default namespace
         if (id.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
-            id = Identifier.of(DEFAULT_NAMESPACE, id.getPath());
+            id = Identifier.fromNamespaceAndPath(DEFAULT_NAMESPACE, id.getPath());
         }
         return REGISTRY.get(id);
     }

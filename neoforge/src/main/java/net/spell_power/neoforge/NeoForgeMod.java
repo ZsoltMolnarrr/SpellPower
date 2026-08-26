@@ -1,6 +1,6 @@
 package net.spell_power.neoforge;
 
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -14,7 +14,7 @@ public final class NeoForgeMod {
 
         // Player-join attribute migration (replaces Fabric's ServerPlayConnectionEvents.JOIN).
         NeoForge.EVENT_BUS.addListener(PlayerEvent.PlayerLoggedInEvent.class, event -> {
-            if (event.getEntity() instanceof ServerPlayerEntity player) {
+            if (event.getEntity() instanceof ServerPlayer player) {
                 SpellPowerMod.onPlayerJoin(player);
             }
         });

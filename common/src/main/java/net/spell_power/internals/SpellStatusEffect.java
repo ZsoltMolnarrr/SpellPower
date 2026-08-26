@@ -1,10 +1,10 @@
 package net.spell_power.internals;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 
-public class SpellStatusEffect extends StatusEffect {
-    public SpellStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
+public class SpellStatusEffect extends MobEffect {
+    public SpellStatusEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 }

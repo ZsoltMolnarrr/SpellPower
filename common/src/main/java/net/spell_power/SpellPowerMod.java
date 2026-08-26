@@ -1,12 +1,12 @@
 package net.spell_power;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.alchemy.Potion;
 import net.spell_power.api.*;
 import net.spell_power.config.AttributesConfig;
 import net.tiny_config.ConfigManager;
@@ -31,7 +31,7 @@ public class SpellPowerMod {
 
     /// Player-join hook: migrate legacy attribute base values when enabled. Wired to
     /// `ServerPlayConnectionEvents.JOIN` on Fabric and `PlayerEvent.PlayerLoggedInEvent` on NeoForge.
-    public static void onPlayerJoin(ServerPlayerEntity player) {
+    public static void onPlayerJoin(ServerPlayer player) {
         if (attributesConfig.safeValue().migrate_attributes_base) {
             migrateAttributes(player);
         }
@@ -59,7 +59,7 @@ public class SpellPowerMod {
      * For internal use only!
      */
     public static void registerStatusEffects() {
-        var modifierId = Identifier.of(ID, "potion_effect");
+        var modifierId = Identifier.fromNamespaceAndPath(ID, "potion_effect");
         var bonus_per_stack = 0.1F;
         for(var school: SpellSchools.all()) {
             var id = school.id;
@@ -68,9 +68,9 @@ public class SpellPowerMod {
                         school.attributeEntry,
                         modifierId,
                         bonus_per_stack,
-                        EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
-                Registry.register(Registries.STATUS_EFFECT, id.toString(), school.ownedBoostEffect);
+                Registry.register(BuiltInRegistries.MOB_EFFECT, id.toString(), school.ownedBoostEffect);
             }
         }
 
@@ -87,8 +87,8 @@ public class SpellPowerMod {
                     secondary.attributeEntry,
                     modifierId,
                     bonus_per_stack,
-                    EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-            Registry.register(Registries.STATUS_EFFECT, id.toString(), secondary.boostEffect);
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+            Registry.register(BuiltInRegistries.MOB_EFFECT, id.toString(), secondary.boostEffect);
         }
     }
 
@@ -113,17 +113,17 @@ public class SpellPowerMod {
         }
         for (var secondary: SpellPowerMechanics.all.entrySet()) {
             var mechanic = secondary.getValue();
-            var entry = Registries.STATUS_EFFECT.getEntry(mechanic.boostEffect);
+            var entry = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(mechanic.boostEffect);
             if (entry != null) {
                 var potionId = potionIdFrom(mechanic.id);
-                var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry, 3600));
-                Registry.register(Registries.POTION, potionId, potion);
+                var potion = new Potion(potionId.getPath(), new MobEffectInstance(entry, 3600));
+                Registry.register(BuiltInRegistries.POTION, potionId, potion);
             }
         }
     }
 
     public static Identifier potionIdFrom(Identifier id) {
-        return Identifier.of(id.getNamespace(), id.getNamespace() + "." + id.getPath());
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 
     @Deprecated(forRemoval = true)
@@ -134,7 +134,7 @@ public class SpellPowerMod {
         // return attributeScopeOverride != null ? attributeScopeOverride : attributesConfig.value.attributes_container_injection_scope;
     }
 
-    public static void migrateAttributes(ServerPlayerEntity player) {
+    public static void migrateAttributes(ServerPlayer player) {
         var attributes = SpellSchools.all().stream()
                 .filter(school -> school.isMagicArchetype() && school.ownsAttribute())
                 .map(school -> school.attributeEntry)
@@ -143,7 +143,7 @@ public class SpellPowerMod {
             if (attribute == null) {
                 continue;
             }
-            var instance = player.getAttributeInstance(attribute);
+            var instance = player.getAttribute(attribute);
             if (instance == null) {
                 continue;
             }

@@ -1,6 +1,6 @@
 package net.spell_power.mixin;
 
-import net.minecraft.potion.Potions;
+import net.minecraft.world.item.alchemy.Potions;
 import net.spell_power.SpellPowerMod;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

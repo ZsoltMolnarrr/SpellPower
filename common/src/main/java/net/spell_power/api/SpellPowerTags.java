@@ -1,27 +1,27 @@
 package net.spell_power.api;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.spell_power.SpellPowerMod;
 
 public class SpellPowerTags {
     public static class DamageTypes {
-        public static final TagKey<DamageType> ALL = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(SpellPowerMod.ID, "all"));
+        public static final TagKey<DamageType> ALL = TagKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, "all"));
     }
     public static class Enchantments {
-        public static final TagKey<Enchantment> REQUIRES_MATCHING_ATTRIBUTE = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "requires_matching_attribute"));
+        public static final TagKey<Enchantment> REQUIRES_MATCHING_ATTRIBUTE = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, "requires_matching_attribute"));
         // Exclusive set tag
-        public static final TagKey<Enchantment> MULTI_SCHOOL = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "multi_school"));
-        public static final TagKey<Enchantment> SPELL_CRITICAL_EXCLUSIVE = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(SpellPowerMod.ID, "exclusive_set/spell_critical"));
+        public static final TagKey<Enchantment> MULTI_SCHOOL = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, "multi_school"));
+        public static final TagKey<Enchantment> SPELL_CRITICAL_EXCLUSIVE = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, "exclusive_set/spell_critical"));
     }
     public static class Items {
         public static class Enchantable {
             private static TagKey<Item> tag(String name) {
-                return TagKey.of(RegistryKeys.ITEM, Identifier.of(SpellPowerMod.ID, "enchantable/" + name));
+                return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, "enchantable/" + name));
             }
             public static final TagKey<Item> SPELL_POWER_GENERIC = tag("spell_power_generic");
             public static final TagKey<Item> SPELL_POWER_SUNFIRE = tag("spell_power_sunfire");

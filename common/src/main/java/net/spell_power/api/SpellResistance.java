@@ -1,17 +1,16 @@
 package net.spell_power.api;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-import net.minecraft.entity.attribute.EntityAttribute;
-
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.spell_power.SpellPowerMod;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,10 +21,10 @@ public class SpellResistance {
         public static final ArrayList<Entry> all = new ArrayList<>();
 
         public static Entry entry(String name, String tagName, double maxValue, boolean tracked) {
-            return entry("resistance." + name, Identifier.of(SpellPowerMod.ID, tagName), maxValue, tracked);
+            return entry("resistance." + name, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, tagName), maxValue, tracked);
         }
         public static Entry entry(String name, Identifier damageTagId, double maxValue, boolean tracked) {
-            var tag = TagKey.of(RegistryKeys.DAMAGE_TYPE, damageTagId);
+            var tag = TagKey.create(Registries.DAMAGE_TYPE, damageTagId);
             var entry = new Entry(name, tag, maxValue, tracked);
             all.add(entry);
             return entry;
@@ -34,29 +33,29 @@ public class SpellResistance {
         public static class Entry {
             public final Identifier id;
             public final String translationKey;
-            public final EntityAttribute attribute;
+            public final Attribute attribute;
             public final double baseValue;
 
             public final TagKey<DamageType> damageTypes;
             public final double maxValue;
 
             @Nullable
-            public RegistryEntry<EntityAttribute> attributeEntry;
+            public Holder<Attribute> attributeEntry;
 
             public Entry(String name, TagKey<DamageType> tag, double maxValue, boolean tracked) {
-                this.id = Identifier.of(SpellPowerMod.ID, name);
+                this.id = Identifier.fromNamespaceAndPath(SpellPowerMod.ID, name);
                 this.translationKey = "attribute.name." + SpellPowerMod.ID + "." + name;
 
                 double baseValue = 0;
                 double minValue = 0;
-                this.attribute = new ClampedEntityAttribute(translationKey, baseValue, minValue, maxValue).setTracked(tracked);
+                this.attribute = new RangedAttribute(translationKey, baseValue, minValue, maxValue).setSyncable(tracked);
                 this.baseValue = baseValue;
                 this.maxValue = maxValue;
                 this.damageTypes = tag;
             }
 
             public void registerAttribute() {
-                attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
+                attributeEntry = Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, id, attribute);
             }
         }
 
@@ -68,7 +67,7 @@ public class SpellResistance {
         var config = SpellPowerMod.attributesConfig.value;
 
         for (var resistanceType : Attributes.all) {
-            if (target.getAttributes().hasAttribute(resistanceType.attributeEntry) && source.isIn(resistanceType.damageTypes)) {
+            if (target.getAttributes().hasAttribute(resistanceType.attributeEntry) && source.is(resistanceType.damageTypes)) {
                 var resistancePoints = (float)target.getAttributeValue(resistanceType.attributeEntry);
                 var reduction = 0F;
                 switch (config.resistance_curve) {

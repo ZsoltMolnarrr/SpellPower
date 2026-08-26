@@ -2,18 +2,17 @@ package net.spell_power.api;
 
 import com.google.common.base.Suppliers;
 import com.google.gson.annotations.JsonAdapter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.alchemy.Potion;
 import net.spell_power.SpellPowerMod;
 import net.spell_power.api.misc.SpellSchoolJSONAdapter;
 import org.jetbrains.annotations.Nullable;
@@ -48,29 +47,29 @@ public class SpellSchool {
     /**
      * Internally managed entity attribute that boosts this spell school.
      */
-    @Nullable private final EntityAttribute ownedAttribute;
+    @Nullable private final Attribute ownedAttribute;
 
     /**
      * Status effect that boosts this spell school.
      * Maybe left null, if status effect that boosts the respective attribute already exists.
      * (Like how vanilla Strength boosts attack damage)
      */
-    @Nullable public final StatusEffect ownedBoostEffect;
+    @Nullable public final MobEffect ownedBoostEffect;
 
     /**
      * Spells of this school deal this type of damage
      */
-    public final RegistryKey<DamageType> damageType;
+    public final ResourceKey<DamageType> damageType;
 
-    @Nullable public RegistryEntry<EntityAttribute> attributeEntry;
-    @Nullable public RegistryEntry<Potion> potionEntry;
+    @Nullable public Holder<Attribute> attributeEntry;
+    @Nullable public Holder<Potion> potionEntry;
 
-    public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, RegistryEntry<EntityAttribute> attributeEntry) {
+    public SpellSchool(Archetype archetype, Identifier id, int color, ResourceKey<DamageType> damageType, Holder<Attribute> attributeEntry) {
         this(archetype, id, color, damageType, null, null);
         this.attributeEntry = attributeEntry;
     }
 
-    public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, EntityAttribute attribute, @Nullable StatusEffect boostEffect) {
+    public SpellSchool(Archetype archetype, Identifier id, int color, ResourceKey<DamageType> damageType, Attribute attribute, @Nullable MobEffect boostEffect) {
         this.archetype = archetype;
         this.id = id;
         this.color = color;
@@ -85,22 +84,22 @@ public class SpellSchool {
 
     public void registerAttribute() {
         if (ownedAttribute != null) {
-            attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, ownedAttribute);
+            attributeEntry = Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, id, ownedAttribute);
         }
     }
 
     public void registerPotion() {
         if (ownedBoostEffect != null) {
-            var entry = Registries.STATUS_EFFECT.getEntry(ownedBoostEffect);
+            var entry = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(ownedBoostEffect);
             if (entry != null) {
                 var potionId = SpellPowerMod.potionIdFrom(id);
-                var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry, 3600));
-                Registry.register(Registries.POTION, potionId, potion);
+                var potion = new Potion(potionId.getPath(), new MobEffectInstance(entry, 3600));
+                Registry.register(BuiltInRegistries.POTION, potionId, potion);
             }
         }
     }
 
-    public RegistryEntry<EntityAttribute> getAttributeEntry() {
+    public Holder<Attribute> getAttributeEntry() {
         return attributeEntry;
     }
 
