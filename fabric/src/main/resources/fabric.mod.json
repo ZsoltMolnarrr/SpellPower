@@ -29,7 +29,7 @@
     "spell_power.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.21.11",
+    "minecraft": ">=${minecraft_min_version}",
     "fabricloader": ">=0.19.3",
     "java": ">=21",
     "fabric-api": "*"
