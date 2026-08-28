@@ -1,6 +1,7 @@
 # 1.6.1
 
 - Minecraft 26.1.2 support (Java 25)
+- Fix double-consuming damage-protection effects (Spell Engine) on blocked hits
 
 # 1.6.0
 
