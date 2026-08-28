@@ -53,9 +53,15 @@ abstract class LivingEntityMixin extends Entity {
         for (var mechanic : SpellPowerMechanics.all.values()) {
             if (mechanic.innateModifier != null
                     && !attributes.hasModifier(mechanic.attributeEntry, ModifierDefinitions.INNATE_BONUS)) {
-                attributes
-                        .getInstance(mechanic.attributeEntry)
-                        .addPermanentModifier(mechanic.innateModifier);
+                // `AttributeMap#getInstance` is @Nullable: it returns null when the entity's
+                // `AttributeSupplier` does not carry the attribute at all — which is exactly the case
+                // `hasModifier` above also reports as `false`. Third-party living entities built from a
+                // bare `AttributeSupplier.builder()` (instead of `LivingEntity.createLivingAttributes()`)
+                // land here, and an unguarded dereference would NPE inside their constructor.
+                var instance = attributes.getInstance(mechanic.attributeEntry);
+                if (instance != null) {
+                    instance.addPermanentModifier(mechanic.innateModifier);
+                }
             }
         }
     }
