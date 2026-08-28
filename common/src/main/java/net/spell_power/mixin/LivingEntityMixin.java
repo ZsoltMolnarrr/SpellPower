@@ -63,7 +63,16 @@ abstract class LivingEntityMixin extends Entity {
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), ordinal = 0)
     private float damage_resistance(float amount, ServerLevel world, DamageSource source) {
         var entity = (LivingEntity)(Object)this;
-        if (entity.isInvulnerableTo(world, source) || entity.isDeadOrDying()) {
+        // NOTE: deliberately does NOT call `isInvulnerableTo` as an early-out guard.
+        // In this ecosystem that method is not a pure query: Spell Engine hooks it at RETURN
+        // (`LivingEntityProtectionEffectMixin` -> `Protection.tryProtect`) and *spends* a
+        // damage-protection charge there, playing the pop FX and decrementing the effect.
+        // Vanilla already calls it once per hit, so a speculative call here consumed a second
+        // charge per blocked hit — and on the last remaining charge it consumed the charge
+        // itself, leaving vanilla's own check with nothing left, so the hit landed anyway.
+        // Skipping the guard is safe: `SpellResistance.resist` is a pure multiplier with no
+        // side effects, so scaling the amount of a hit that never lands is a no-op.
+        if (entity.isDeadOrDying()) {
             return amount;
         }
         return (float) SpellResistance.resist(entity, amount, source);
