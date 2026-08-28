@@ -126,6 +126,8 @@ public class SpellPowerMod {
         return Identifier.fromNamespaceAndPath(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 
+    // Kept as deprecated public API only: the last internal consumer (the commented-out
+    // `PlayerEntityMixin`) was deleted, so nothing in this mod reads these any more.
     @Deprecated(forRemoval = true)
     public static AttributesConfig.AttributeScope attributeScopeOverride = null;
     @Deprecated(forRemoval = true)

@@ -29,8 +29,8 @@ abstract class LivingEntityMixin extends Entity {
             require = 1, allow = 1, at = @At("RETURN")
     )
     private static void addAttributes(final CallbackInfoReturnable<AttributeSupplier.Builder> info) {
-        // Disabled AttributeScope-ing, as mob mods and resistance attributes complicate things
-//        if (SpellPowerMod.attributeScope() == AttributesConfig.AttributeScope.LIVING_ENTITY) {
+        // Applied to every living entity unconditionally: AttributeScope-ing was dropped because
+        // mob mods and the resistance attributes complicate a player-only scope.
         for (var entry : SpellPowerMechanics.all.entrySet()) {
             var secondary = entry.getValue();
             info.getReturnValue().add(secondary.attributeEntry);

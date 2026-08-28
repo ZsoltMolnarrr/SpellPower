@@ -6,7 +6,6 @@
   "mixins": [
     "EntityAttributesMixin",
     "LivingEntityMixin",
-    "PlayerEntityMixin",
     "PotionsMixin",
     "StatusEffectsMixin"
   ],
