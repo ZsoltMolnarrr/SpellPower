@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/// Enforces Spell Power's enchantment restrictions on the enchanting-table path. NeoForge routes the
-/// table through `IItemExtension#supportsEnchantment(ItemStack, Holder)` (via `isPrimaryItemFor`), which
-/// carries the enchantment `RegistryEntry` directly — so the {@link SpellPowerEnchanting} decision (the
-/// same one the Fabric event uses) can be applied here without any extra plumbing.
-///
-/// The anvil path (raw `Enchantment#isAcceptableItem`) is intentionally NOT covered on NeoForge: a
-/// Minecraft-targeting mixin for it does not remap in the dev environment, so the anvil restriction
-/// stays Fabric-only.
+/// Enforces Spell Power's enchantment restrictions on NeoForge. NeoForge patches the anvil
+/// (`AnvilMenu`), loot enchanting (`EnchantRandomlyFunction`) and `/enchant` (`EnchantCommand`) to route
+/// through `IItemExtension#supportsEnchantment(ItemStack, Holder)`, and the enchanting table reaches it
+/// via `isPrimaryItemFor` — so this single method is the exact twin of Fabric's
+/// `EnchantmentEvents.ALLOW_ENCHANTING` with `EnchantingContext.ACCEPTABLE`. It carries the enchantment
+/// `Holder` directly, so the {@link SpellPowerEnchanting} decision (the same one the Fabric event uses)
+/// applies here with no extra plumbing, and the two loaders end up symmetric — anvil included.
 @Mixin(IItemExtension.class)
 public interface IItemExtensionMixin {
     @Inject(method = "supportsEnchantment", at = @At("RETURN"), cancellable = true)

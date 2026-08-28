@@ -64,7 +64,7 @@ public class SpellResistance {
 
     public static double resist(LivingEntity target, double damage, DamageSource source) {
         double modifier = 1;
-        var config = SpellPowerMod.attributesConfig.value;
+        var config = SpellPowerMod.attributesConfig.safeValue();
 
         for (var resistanceType : Attributes.all) {
             if (target.getAttributes().hasAttribute(resistanceType.attributeEntry) && source.is(resistanceType.damageTypes)) {

@@ -26,7 +26,7 @@ public final class SpellPowerEnchanting {
     /// Condition: `enchantment` is subject to the "requires matching attribute" restriction — the
     /// feature is enabled, the enchantment is tagged, and it actually grants attributes to match against.
     public static boolean requiresMatchingAttribute(Holder<Enchantment> enchantment) {
-        return SpellPowerMod.attributesConfig.value.enchantments_require_matching_attribute
+        return SpellPowerMod.attributesConfig.safeValue().enchantments_require_matching_attribute
                 && enchantment.is(SpellPowerTags.Enchantments.REQUIRES_MATCHING_ATTRIBUTE)
                 && !grantedAttributes(enchantment).isEmpty();
     }

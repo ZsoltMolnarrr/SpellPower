@@ -20,10 +20,10 @@ public final class NeoForgeMod {
         });
 
         // Enchantment restrictions (enchantments_require_matching_attribute): NeoForge has no global
-        // enchant-applicability event, so the enchanting-table path is enforced by IItemExtensionMixin
-        // (supportsEnchantment), calling SpellPowerEnchanting — the same decision code the Fabric event
-        // uses. The anvil path is NOT enforced on NeoForge (it checks raw Enchantment#isAcceptableItem,
-        // which would need a Minecraft-targeting mixin that does not remap in the dev environment);
-        // the anvil restriction remains Fabric-only.
+        // enchant-applicability event, so they are enforced by IItemExtensionMixin
+        // (IItemExtension#supportsEnchantment), calling SpellPowerEnchanting — the same decision code
+        // the Fabric event uses. NeoForge routes the anvil, loot enchanting and /enchant through that
+        // method, and the enchanting table reaches it via isPrimaryItemFor, so coverage matches
+        // Fabric's EnchantmentEvents.ALLOW_ENCHANTING — the anvil path included.
     }
 }
