@@ -67,7 +67,15 @@ processResources {
     inputs.property 'minecraft_min_version', rootProject.minecraft_min_version
 
     filesMatching('META-INF/neoforge.mods.toml') {
-        expand(project.properties + [minecraft_min_version: rootProject.minecraft_min_version])
+        // NeoForge compares mod versions with Maven semantics, where a `+build` suffix sorts
+        // BELOW the plain version — so `1.6.1+26.1.2` would fail a downstream `[1.6.1,)` range.
+        // Strip everything from the `+` on for the manifest only (the Maven/Gradle version keeps it).
+        def cleanedProps = project.properties.collectEntries { k, v ->
+            def s = v?.toString()
+            [(k.toString()): (s?.contains('+') ? s.substring(0, s.indexOf('+')) : s)]
+        }
+        cleanedProps.minecraft_min_version = rootProject.minecraft_min_version
+        expand(cleanedProps)
     }
 }
 

@@ -1,3 +1,7 @@
+# 1.6.1
+
+- Minecraft 26.1.2 support (Java 25)
+
 # 1.6.0
 
 - NeoForge version no longer needs Forgified Fabric API
