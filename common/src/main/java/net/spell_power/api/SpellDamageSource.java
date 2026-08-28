@@ -1,10 +1,10 @@
 package net.spell_power.api;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.spell_power.mixin.DamageSourcesAccessor;
 
 public class SpellDamageSource {
     public static DamageSource create(SpellSchool school, LivingEntity attacker) {
@@ -24,7 +24,9 @@ public class SpellDamageSource {
     }
 
     private static DamageSource create(SpellSchool school, String name, Entity attacker) {
-        var registry = ((DamageSourcesAccessor)attacker.damageSources()).getDamageTypes();
+        // Same lookup vanilla's `DamageSources` performs to build its own `damageTypes` field
+        // (`DamageSources(RegistryAccess)`), reached through fully public API — no accessor mixin needed.
+        var registry = attacker.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE);
         return new DamageSource(registry.getOrThrow(school.damageType), attacker);
     }
 }
