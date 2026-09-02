@@ -11,7 +11,7 @@ authors = "Daedelus"
 description = '''
 Spell Power entity attributes with related status effects and enchantments.
 '''
-logoFile = "assets/spell_power/icon.png"
+iconFile = "assets/spell_power/icon.png"
 
 [[dependencies.spell_power]]
 modId = "neoforge"
