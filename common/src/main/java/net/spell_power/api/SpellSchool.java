@@ -1,10 +1,8 @@
 package net.spell_power.api;
 
-import com.google.common.base.Suppliers;
 import com.google.gson.annotations.JsonAdapter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @JsonAdapter(SpellSchoolJSONAdapter.class)
 public class SpellSchool {
@@ -83,20 +80,24 @@ public class SpellSchool {
         return ownedAttribute != null ? (float) ownedAttribute.getDefaultValue() : 0;
     }
 
+    /// The raw attribute object this school owns (null for externally-owned attributes).
+    /// Needed on 1.20.1 where attribute-taking APIs (status effect modifiers, default attribute containers)
+    /// want the `EntityAttribute` itself rather than a `RegistryEntry`.
+    @Nullable public EntityAttribute ownedAttribute() {
+        return ownedAttribute;
+    }
+
     public void registerAttribute() {
-        if (ownedAttribute != null) {
+        if (ownedAttribute != null && attributeEntry == null) {
             attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, ownedAttribute);
         }
     }
 
     public void registerPotion() {
-        if (ownedBoostEffect != null) {
-            var entry = Registries.STATUS_EFFECT.getEntry(ownedBoostEffect);
-            if (entry != null) {
-                var potion = new Potion(new StatusEffectInstance(entry, 3600));
-                var potionId = SpellPowerMod.potionIdFrom(id);
-                Registry.register(Registries.POTION, potionId, potion);
-            }
+        if (ownedBoostEffect != null && potionEntry == null) {
+            var potion = new Potion(new StatusEffectInstance(ownedBoostEffect, 3600));
+            var potionId = SpellPowerMod.potionIdFrom(id);
+            potionEntry = Registry.registerReference(Registries.POTION, potionId, potion);
         }
     }
 

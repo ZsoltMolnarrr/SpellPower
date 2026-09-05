@@ -22,7 +22,7 @@ public class SpellResistance {
         public static final ArrayList<Entry> all = new ArrayList<>();
 
         public static Entry entry(String name, String tagName, double maxValue, boolean tracked) {
-            return entry("resistance." + name, Identifier.of(SpellPowerMod.ID, tagName), maxValue, tracked);
+            return entry("resistance." + name, new Identifier(SpellPowerMod.ID, tagName), maxValue, tracked);
         }
         public static Entry entry(String name, Identifier damageTagId, double maxValue, boolean tracked) {
             var tag = TagKey.of(RegistryKeys.DAMAGE_TYPE, damageTagId);
@@ -44,7 +44,7 @@ public class SpellResistance {
             public RegistryEntry<EntityAttribute> attributeEntry;
 
             public Entry(String name, TagKey<DamageType> tag, double maxValue, boolean tracked) {
-                this.id = Identifier.of(SpellPowerMod.ID, name);
+                this.id = new Identifier(SpellPowerMod.ID, name);
                 this.translationKey = "attribute.name." + SpellPowerMod.ID + "." + name;
 
                 double baseValue = 0;
@@ -56,7 +56,9 @@ public class SpellResistance {
             }
 
             public void registerAttribute() {
-                attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
+                if (attributeEntry == null) {
+                    attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
+                }
             }
         }
 

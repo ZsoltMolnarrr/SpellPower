@@ -3,6 +3,7 @@ package net.spell_power.api;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.spell_power.SpellPowerEnchanting;
 import net.spell_power.api.statuseffects.VulnerabilityEffect;
 
 import java.util.*;
@@ -66,7 +67,7 @@ public class SpellPower {
                     (query -> {
                         var vulnerabilities = new ArrayList<Vulnerability>();
                         for(var effect: query.entity.getStatusEffects()) {
-                            if (effect.getEffectType().value() instanceof VulnerabilityEffect vulnerabilityEffect) {
+                            if (effect.getEffectType() instanceof VulnerabilityEffect vulnerabilityEffect) {
                                 vulnerabilities.add(vulnerabilityEffect.getVulnerability(query.school, effect.getAmplifier()));
                             }
                         }
@@ -109,7 +110,10 @@ public class SpellPower {
             var instance = entity.getAttributes().getCustomInstance(school.attributeEntry);
             if (instance != null) {
                 var flatPower = getAttributeFlatValue(instance);
-                var genericSpellPower = entity.getAttributeValue(SpellSchools.GENERIC.attributeEntry);
+                // The generic `spell_power` enchantment is a query-time source on 1.20.1: it emulates the
+                // `ADD_MULTIPLIED_BASE` modifier the modern data-driven enchantment puts on the GENERIC attribute.
+                var genericSpellPower = entity.getAttributeValue(SpellSchools.GENERIC.attributeEntry)
+                        + SpellPowerEnchanting.schoolPowerEnchantmentBonus(SpellSchools.GENERIC, entity);
                 var multiplier = genericSpellPower / SpellSchools.GENERIC.attributeBaseValue();
                 power += flatPower * (multiplier - 1);
             }
@@ -124,8 +128,8 @@ public class SpellPower {
     private static double getAttributeFlatValue(EntityAttributeInstance instance) {
         double result = 0;
         for (var modifier: instance.getModifiers()) {
-            if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                result += modifier.value();
+            if (modifier.getOperation() == EntityAttributeModifier.Operation.ADDITION) {
+                result += modifier.getValue();
             }
         }
         return result;

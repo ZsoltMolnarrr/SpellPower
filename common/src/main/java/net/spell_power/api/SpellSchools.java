@@ -8,7 +8,9 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.spell_power.SpellPowerEnchanting;
 import net.spell_power.SpellPowerMod;
+import net.spell_power.api.enchantment.SpellPowerEnchantments;
 import net.spell_power.internals.CustomEntityAttribute;
 import net.spell_power.internals.SpellStatusEffect;
 import org.jetbrains.annotations.Nullable;
@@ -57,11 +59,11 @@ public class SpellSchools {
     // School Creation
 
     public static SpellSchool createMagic(String name, int color) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, defaultBaseValue.get());
+        return createMagic(new Identifier(DEFAULT_NAMESPACE, name.toLowerCase()), color, defaultBaseValue.get());
     }
 
     public static SpellSchool createMagic(String name, int color, float base) {
-        return createMagic(Identifier.of(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
+        return createMagic(new Identifier(DEFAULT_NAMESPACE, name.toLowerCase()), color, base);
     }
 
     public static SpellSchool createMagic(Identifier id, int color) {
@@ -93,7 +95,11 @@ public class SpellSchools {
         school.addSource(SpellSchool.Trait.POWER, new SpellSchool.Source(SpellSchool.Apply.ADD, query ->
             query.entity().getAttributeValue(school.getAttributeEntry()))
         );
-        // Spell Power Enchantments added by Enchantments_SpellDamage.attach
+        // Spell Power enchantments (sunfire / soulfrost / energize) are query-time sources on 1.20.1:
+        // they emulate the `ADD_MULTIPLIED_BASE` attribute modifier the modern data-driven enchantments apply.
+        school.addSource(SpellSchool.Trait.POWER, new SpellSchool.Source(SpellSchool.Apply.ADD, query ->
+            SpellPowerEnchanting.schoolPowerEnchantmentBonus(school, query.entity()))
+        );
         configureSpellHaste(school);
         configureSpellCritChance(school);
         configureSpellCritDamage(school);
@@ -106,6 +112,10 @@ public class SpellSchools {
             var rate = (value / PERCENT_ATTRIBUTE_BASELINE);    // For example: 110/100 = 1.1
             return rate - 1;  // 0.1
         }));
+        school.addSource(SpellSchool.Trait.HASTE, new SpellSchool.Source(SpellSchool.Apply.ADD, query -> {
+            var bonus = SpellPowerEnchanting.mechanicEnchantmentBonus(SpellPowerMechanics.HASTE, SpellPowerEnchantments.HASTE, query.entity()); // e.g. 100 * 0.04 * 3 = 12
+            return bonus / PERCENT_ATTRIBUTE_BASELINE;  // 0.12
+        }));
         return school;
     }
 
@@ -113,6 +123,10 @@ public class SpellSchools {
         school.addSource(SpellSchool.Trait.CRIT_CHANCE, new SpellSchool.Source(SpellSchool.Apply.ADD, query ->  {
             var value = query.entity().getAttributeValue(SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry);    // 20
             return (value / PERCENT_ATTRIBUTE_BASELINE) - 1;    // For example: (120/100) - 1 = 0.25
+        }));
+        school.addSource(SpellSchool.Trait.CRIT_CHANCE, new SpellSchool.Source(SpellSchool.Apply.ADD, query -> {
+            var bonus = SpellPowerEnchanting.mechanicEnchantmentBonus(SpellPowerMechanics.CRITICAL_CHANCE, SpellPowerEnchantments.CRITICAL_CHANCE, query.entity());
+            return bonus / PERCENT_ATTRIBUTE_BASELINE;
         }));
         return school;
     }
@@ -123,6 +137,10 @@ public class SpellSchools {
             var rate = (value / PERCENT_ATTRIBUTE_BASELINE);    // For example: 160/100 = 1.6
             return rate - 1;    // 0.6
         }));
+        school.addSource(SpellSchool.Trait.CRIT_DAMAGE, new SpellSchool.Source(SpellSchool.Apply.ADD, query -> {
+            var bonus = SpellPowerEnchanting.mechanicEnchantmentBonus(SpellPowerMechanics.CRITICAL_DAMAGE, SpellPowerEnchantments.CRITICAL_DAMAGE, query.entity());
+            return bonus / PERCENT_ATTRIBUTE_BASELINE;
+        }));
         return school;
     }
 
@@ -130,10 +148,10 @@ public class SpellSchools {
 
     @Nullable public static SpellSchool getSchool(String idString) {
         var string = idString.toLowerCase(Locale.US);
-        var id = Identifier.of(string);
+        var id = new Identifier(string);
         // Replacing default namespace
         if (id.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
-            id = Identifier.of(DEFAULT_NAMESPACE, id.getPath());
+            id = new Identifier(DEFAULT_NAMESPACE, id.getPath());
         }
         return REGISTRY.get(id);
     }

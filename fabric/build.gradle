@@ -10,13 +10,6 @@ architectury {
     fabric()
 }
 
-fabricApi {
-    configureDataGeneration() {
-        client = true
-        outputDirectory = project(':common').file('src/main/generated')
-    }
-}
-
 configurations {
     common {
         canBeResolved = true
@@ -35,33 +28,26 @@ configurations {
 }
 
 repositories {
-    maven {
-        name = 'Modrinth'
-        url = 'https://api.modrinth.com/maven'
-        content {
-            includeGroup 'maven.modrinth'
-        }
-    }
     mavenLocal()
 }
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
+    // Fabric API is only needed for the player-join event (attribute migration) wiring in the entrypoint.
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    include(modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}"))
+    include(modImplementation("net.tiny_config:tiny_config-${platform}:${project.tiny_config_version}"))
 }
 
 processResources {
     inputs.property 'version', project.version
 
     filesMatching("fabric.mod.json") {
-        expand(project.properties)
+        expand version: inputs.properties.version
     }
 }
 
@@ -99,7 +85,6 @@ publishMods {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
@@ -111,12 +96,11 @@ publishMods {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
         requires { slug = "fabric-api" }
     }
 
     // Each platform publishes its own GitHub release under a distinct, platform-suffixed
-    // tag (e.g. `1.5.0+1.21.1-fabric`), so the two publish jobs don't collide.
+    // tag (e.g. `1.6.0.001+1.20.1-fabric`), so the two publish jobs don't collide.
     github {
         repository = providers.environmentVariable("GH_OWNER")
                 .zip(providers.environmentVariable("GH_REPO")) { owner, repo -> "$owner/$repo" }

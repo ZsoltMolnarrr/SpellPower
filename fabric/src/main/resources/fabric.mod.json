@@ -20,17 +20,17 @@
     ],
     "client": [
       "net.spell_power.fabric.client.FabricClientMod"
-    ],
-    "fabric-datagen": [
-      "net.spell_power.fabric.data_gen.SpellPowerModDataGenerator"
     ]
   },
   "mixins": [
-    "spell_power.mixins.json"
+    "spell_power.mixins.json",
+    "spell_power.fabric.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=${minecraft_compat_version}",
-    "fabricloader": ">=${fabric_loader_version}"
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabricloader": ">=0.14.0",
+    "fabric-networking-api-v1": "*"
   },
   "custom": {
     "modmenu": {
