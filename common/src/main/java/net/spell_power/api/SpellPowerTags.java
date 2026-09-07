@@ -21,6 +21,11 @@ public class SpellPowerTags {
     public static class Items {
         /// Item tags gating each enchantment. On 1.20.1 these live at the plural path
         /// `data/spell_power/tags/items/enchantable/<name>.json`.
+        ///
+        /// The armor / multi-school enchantments (Sunfire, Soulfrost, Energize) additionally support every
+        /// `ArmorItem` through `AmplifierEnchantment#supportWholeTarget`, because 1.20.1 has no
+        /// `#minecraft:enchantable/armor` counterpart to base them on — see that method's docs. These tags
+        /// are therefore an *extension* seam for datapacks, not the sole eligibility source for armor.
         public static class Enchantable {
             private static TagKey<Item> tag(String name) {
                 return TagKey.of(RegistryKeys.ITEM, new Identifier(SpellPowerMod.ID, "enchantable/" + name));

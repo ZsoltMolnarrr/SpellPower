@@ -21,6 +21,9 @@ public class AmplifierEnchantment extends Enchantment {
     @Nullable protected TagKey<Item> requiredTag;
     /// Enchantments sharing a non-null group are mutually exclusive (modern exclusive-set tags).
     @Nullable protected String exclusiveGroup;
+    /// Whether everything the declared `EnchantmentTarget` accepts is supported, on top of `requiredTag`.
+    /// See {@link #supportWholeTarget()}.
+    protected boolean supportsWholeTarget = false;
 
     public AmplifierEnchantment(Rarity weight, Supplier<? extends EnchantmentConfig> config, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, type, slotTypes);
@@ -46,13 +49,31 @@ public class AmplifierEnchantment extends Enchantment {
         return this;
     }
 
-    public boolean matchesRequiredTag(ItemStack stack) {
+    /// Widens support to every item the declared `EnchantmentTarget` accepts, *in addition* to `requiredTag`.
+    ///
+    /// This is the 1.20.1 stand-in for a modern `supported_items` tag whose base is a whole *class* of items.
+    /// Sunfire / Soulfrost / Energize base theirs on `#minecraft:enchantable/armor`, which on 1.21+ resolves
+    /// through `#minecraft:{head,chest,leg,foot}_armor` and therefore covers modded armor automatically.
+    /// 1.20.1 has no such tag: the closest, `#minecraft:trimmable_armor`, is a flat list of the 25 vanilla
+    /// armor items, so basing on it silently excluded every modded armor piece (RPG Series robes included).
+    /// `EnchantmentTarget.ARMOR` (`item instanceof ArmorItem`) is the faithful equivalent; `requiredTag`
+    /// remains the datapack-facing opt-in for items outside that class.
+    public AmplifierEnchantment supportWholeTarget() {
+        this.supportsWholeTarget = true;
+        return this;
+    }
+
+    /// Whether `stack` is within this enchantment's supported items — the modern `supported_items` check.
+    public boolean matchesSupportedItems(ItemStack stack) {
+        if (supportsWholeTarget && this.target.isAcceptableItem(stack.getItem())) {
+            return true;
+        }
         return requiredTag == null || stack.isIn(requiredTag);
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return config().enabled && matchesRequiredTag(stack);
+        return config().enabled && matchesSupportedItems(stack);
     }
 
     @Override

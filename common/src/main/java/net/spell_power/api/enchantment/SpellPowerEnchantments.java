@@ -1,6 +1,7 @@
 package net.spell_power.api.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
@@ -50,9 +51,10 @@ public class SpellPowerEnchantments {
             Enchantment.Rarity.RARE,
             () -> config().sunfire,
             Set.of(SpellSchools.ARCANE, SpellSchools.FIRE),
-            BREAKABLE,
+            EnchantmentTarget.ARMOR,
             ARMOR)
             .requireTag(SpellPowerTags.Items.Enchantable.SPELL_POWER_SUNFIRE)
+            .supportWholeTarget()
             .exclusiveGroup(MULTI_SCHOOL_GROUP);
 
     public static final Identifier SOULFROST_ID = new Identifier(SpellPowerMod.ID, "soulfrost");
@@ -60,9 +62,10 @@ public class SpellPowerEnchantments {
             Enchantment.Rarity.RARE,
             () -> config().soulfrost,
             Set.of(SpellSchools.SOUL, SpellSchools.FROST),
-            BREAKABLE,
+            EnchantmentTarget.ARMOR,
             ARMOR)
             .requireTag(SpellPowerTags.Items.Enchantable.SPELL_POWER_SOULFROST)
+            .supportWholeTarget()
             .exclusiveGroup(MULTI_SCHOOL_GROUP);
 
     public static final Identifier ENERGIZE_ID = new Identifier(SpellPowerMod.ID, "energize");
@@ -70,9 +73,10 @@ public class SpellPowerEnchantments {
             Enchantment.Rarity.RARE,
             () -> config().energize,
             Set.of(SpellSchools.HEALING, SpellSchools.LIGHTNING),
-            BREAKABLE,
+            EnchantmentTarget.ARMOR,
             ARMOR)
             .requireTag(SpellPowerTags.Items.Enchantable.SPELL_POWER_ENERGIZE)
+            .supportWholeTarget()
             .exclusiveGroup(MULTI_SCHOOL_GROUP);
 
     // Mechanics enchantments
