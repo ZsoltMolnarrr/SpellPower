@@ -10,6 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.spell_power.SpellPowerMod;
@@ -60,7 +61,6 @@ public class SpellSchool {
     public final RegistryKey<DamageType> damageType;
 
     @Nullable public RegistryEntry<EntityAttribute> attributeEntry;
-    @Nullable public RegistryEntry<Potion> potionEntry;
 
     public SpellSchool(Archetype archetype, Identifier id, int color, RegistryKey<DamageType> damageType, RegistryEntry<EntityAttribute> attributeEntry) {
         this(archetype, id, color, damageType, null, null);
@@ -93,11 +93,14 @@ public class SpellSchool {
         }
     }
 
-    public void registerPotion() {
-        if (ownedBoostEffect != null && potionEntry == null) {
-            var potion = new Potion(new StatusEffectInstance(ownedBoostEffect, 3600));
-            var potionId = SpellPowerMod.potionIdFrom(id);
-            potionEntry = Registry.registerReference(Registries.POTION, potionId, potion);
+    /// Reads {@link #attributeEntry} back out of the registry, for a loader that registered the attribute
+    /// itself. See `SpellPowerMod#linkAttributeEntries`.
+    public void linkAttributeEntry() {
+        if (ownedAttribute != null && attributeEntry == null) {
+            attributeEntry = Registries.ATTRIBUTE
+                    .getEntry(RegistryKey.of(RegistryKeys.ATTRIBUTE, id))
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Spell Power attribute " + id + " is not in the registry — register it first"));
         }
     }
 

@@ -15,7 +15,9 @@ import net.spell_power.config.EnchantmentsConfig;
 import net.tiny_config.ConfigManager;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpellPowerMod {
     public static final String ID = "spell_power";
@@ -72,6 +74,25 @@ public class SpellPowerMod {
         }
     }
 
+    /// Populates the `attributeEntry` fields from the registry, for a loader that registered the attributes
+    /// itself rather than through {@link #registerAttributes()}.
+    ///
+    /// Those entries are read all over gameplay (`SpellPower`, `SpellPowerEnchanting`, `SpellResistance`,
+    /// `LivingEntityMixin`), so they have to be set on both loaders. Fabric gets them as the return value of
+    /// `Registry.registerReference`; Forge's `RegisterEvent` helper returns void, so it calls this straight
+    /// after its registration loop instead. Idempotent, and safe to call when everything is already linked.
+    public static void linkAttributeEntries() {
+        for (var entry : SpellPowerMechanics.all.entrySet()) {
+            entry.getValue().linkAttributeEntry();
+        }
+        for(var resistance: SpellResistance.Attributes.all) {
+            resistance.linkAttributeEntry();
+        }
+        for(var school: SpellSchools.all()) {
+            school.linkAttributeEntry();
+        }
+    }
+
     /// Every attribute Spell Power adds to living entities' default attribute containers.
     /// Must be called after {@link #registerAttributes()}.
     public static List<EntityAttribute> attributesToAttach() {
@@ -96,28 +117,31 @@ public class SpellPowerMod {
     /**
      * For internal use only!
      */
-    public static void registerStatusEffects() {
-        if (statusEffectsRegistered) {
+    private static boolean statusEffectsConfigured = false;
+
+    /// Attaches each boosting effect's attribute modifier. Creation only — nothing is registered here, so a
+    /// loader that registers the effects itself calls this first. Split out of {@link #registerStatusEffects()}
+    /// so the Forge side only has to duplicate the registration loop, not this config work.
+    ///
+    /// Modifiers take the raw `EntityAttribute` object, so this does not depend on attribute registration order.
+    public static void configureStatusEffects() {
+        if (statusEffectsConfigured) {
             return;
         }
-        statusEffectsRegistered = true;
+        statusEffectsConfigured = true;
 
         // 1.20.1 keys status effect modifiers by UUID string; derived from the modern `spell_power:potion_effect` id.
         var modifierUUID = ModifierDefinitions.POTION_EFFECT_UUID.toString();
         var safeConfig = attributesConfig.safeValue();
         var bonus_per_stack = safeConfig.spell_power_effect != null ? safeConfig.spell_power_effect.bonus_per_stack : 0.1F;
         for(var school: SpellSchools.all()) {
-            var id = school.id;
             var attribute = school.ownedAttribute();
             if (school.ownedBoostEffect != null && attribute != null) {
-                // Modifiers take the raw attribute object, so this does not depend on attribute registration order.
                 school.ownedBoostEffect.addAttributeModifier(
                         attribute,
                         modifierUUID,
                         bonus_per_stack,
                         EntityAttributeModifier.Operation.MULTIPLY_BASE);
-
-                Registry.register(Registries.STATUS_EFFECT, id, school.ownedBoostEffect);
             }
         }
 
@@ -133,7 +157,24 @@ public class SpellPowerMod {
                     modifierUUID,
                     bonus_per_stack,
                     EntityAttributeModifier.Operation.MULTIPLY_BASE);
-            secondary.registerEffect();
+        }
+    }
+
+    public static void registerStatusEffects() {
+        if (statusEffectsRegistered) {
+            return;
+        }
+        statusEffectsRegistered = true;
+        configureStatusEffects();
+
+        for(var school: SpellSchools.all()) {
+            if (school.ownedBoostEffect != null && school.ownedAttribute() != null) {
+                Registry.register(Registries.STATUS_EFFECT, school.id, school.ownedBoostEffect);
+            }
+        }
+        for(var entry: SpellPowerMechanics.all.entrySet()) {
+            var secondary = entry.getValue();
+            Registry.register(Registries.STATUS_EFFECT, secondary.id, secondary.boostEffect);
         }
     }
 
@@ -144,22 +185,39 @@ public class SpellPowerMod {
     }
 
     private static boolean potionsRegistered = false;
+    private static Map<Identifier, Potion> potionsToRegister = null;
+
+    /// Builds every potion Spell Power adds, keyed by the id it registers under. Creation only — nothing is
+    /// registered here, so a loader that registers potions itself iterates this map instead of duplicating the
+    /// construction. Built once; repeated calls return the same map.
+    public static Map<Identifier, Potion> potionsToRegister() {
+        if (potionsToRegister != null) {
+            return potionsToRegister;
+        }
+        var potions = new LinkedHashMap<Identifier, Potion>();
+        for(var school: SpellSchools.all()) {
+            if (school.archetype == SpellSchool.Archetype.MAGIC
+                    && !school.id.getPath().contains("generic")
+                    && school.ownedBoostEffect != null) {
+                potions.put(potionIdFrom(school.id), new Potion(new StatusEffectInstance(school.ownedBoostEffect, 3600)));
+            }
+        }
+        for (var secondary: SpellPowerMechanics.all.entrySet()) {
+            var mechanic = secondary.getValue();
+            potions.put(potionIdFrom(mechanic.id), new Potion(new StatusEffectInstance(mechanic.boostEffect, 3600)));
+        }
+        potionsToRegister = potions;
+        return potionsToRegister;
+    }
+
     public static void registerPotions() {
         if (potionsRegistered) {
             return;
         }
         potionsRegistered = true;
 
-        for(var school: SpellSchools.all()) {
-            if (school.archetype == SpellSchool.Archetype.MAGIC
-                    && !school.id.getPath().contains("generic")) {
-                school.registerPotion();
-            }
-        }
-        for (var secondary: SpellPowerMechanics.all.entrySet()) {
-            var mechanic = secondary.getValue();
-            var potion = new Potion(new StatusEffectInstance(mechanic.boostEffect, 3600));
-            Registry.register(Registries.POTION, potionIdFrom(mechanic.id), potion);
+        for (var entry: potionsToRegister().entrySet()) {
+            Registry.register(Registries.POTION, entry.getKey(), entry.getValue());
         }
     }
 

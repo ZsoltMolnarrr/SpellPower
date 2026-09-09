@@ -8,6 +8,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -58,6 +59,17 @@ public class SpellResistance {
             public void registerAttribute() {
                 if (attributeEntry == null) {
                     attributeEntry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
+                }
+            }
+
+            /// Reads {@link #attributeEntry} back out of the registry, for a loader that registered the
+            /// attribute itself. See `SpellPowerMod#linkAttributeEntries`.
+            public void linkAttributeEntry() {
+                if (attributeEntry == null) {
+                    attributeEntry = Registries.ATTRIBUTE
+                            .getEntry(RegistryKey.of(RegistryKeys.ATTRIBUTE, id))
+                            .orElseThrow(() -> new IllegalStateException(
+                                    "Spell Power attribute " + id + " is not in the registry — register it first"));
                 }
             }
         }
