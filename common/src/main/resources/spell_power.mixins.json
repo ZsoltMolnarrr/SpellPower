@@ -4,6 +4,7 @@
   "package": "net.spell_power.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "EntityAttributeInstanceMixin",
     "EntityAttributesMixin",
     "LivingEntityMixin",
     "PotionsMixin",
