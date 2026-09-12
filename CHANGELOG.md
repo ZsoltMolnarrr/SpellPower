@@ -1,3 +1,8 @@
+# 1.6.2
+
+- Minecraft 1.21.11 support
+- Fix crash when returning from the End (duplicate innate attribute modifier), #56
+
 # 1.6.0
 
 - NeoForge version no longer needs Forgified Fabric API
