@@ -1,4 +1,4 @@
-# 1.6.0.001
+# 1.6.0+1.20.1
 
 - Minecraft 1.20.1 port (Fabric + Forge 47) of the 1.6.0 API
 - Enchantments are Java classes again (no data-driven enchantments on 1.20.1), applied at query time; tuning in `config/spell_power/enchantments.json`
