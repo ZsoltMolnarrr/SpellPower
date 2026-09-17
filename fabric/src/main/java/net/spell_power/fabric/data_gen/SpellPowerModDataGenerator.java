@@ -53,6 +53,7 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
 
             HolderGetter<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
             HolderGetter<Enchantment> enchantmentLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
+            HolderGetter<DamageType> damageTypeLookup = registries.lookupOrThrow(Registries.DAMAGE_TYPE);
 
 
             var eid = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(SpellPowerMod.ID, spell_power));
@@ -246,8 +247,8 @@ public class SpellPowerModDataGenerator implements DataGeneratorEntrypoint {
                             new AddValue(LevelBasedValue.perLevel(2.0F)),
                             DamageSourceCondition.hasDamageSource(
                                     DamageSourcePredicate.Builder.damageType()
-                                            .tag(TagPredicate.is(damageTypeTag("c:is_magic")))
-                                            .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))
+                                            .tag(TagPredicate.is(damageTypeLookup, damageTypeTag("c:is_magic")))
+                                            .tag(TagPredicate.isNot(damageTypeLookup, DamageTypeTags.BYPASSES_INVULNERABILITY))
                             )
                     );
             entries.add(protectionId, protection.build(protectionId.identifier()));
