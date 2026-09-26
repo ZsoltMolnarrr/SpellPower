@@ -1,3 +1,7 @@
+# 1.6.1+1.20.1
+
+- Attempt to fix Apotheosis Attributelib crash #57
+
 # 1.6.0+1.20.1
 
 - Minecraft 1.20.1 port (Fabric + Forge 47) of the 1.6.0 API

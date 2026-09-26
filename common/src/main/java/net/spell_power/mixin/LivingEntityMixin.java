@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /// Loader-neutral LivingEntity hooks. Default-attribute attachment is per loader
 /// (Fabric: `LivingEntityAttributesMixin`; Forge: `EntityAttributeModificationEvent`).
-@Mixin(LivingEntity.class)
+@Mixin(value = LivingEntity.class, priority = 1500)
 abstract class LivingEntityMixin extends Entity {
     LivingEntityMixin(final EntityType<?> type, final World world) {
         super(type, world);
